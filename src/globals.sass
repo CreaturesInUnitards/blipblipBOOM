@@ -1,5 +1,104 @@
-html, body
-	margin: 0
+@import "includes"
 
+*, button, input, textarea, menu, nav
+	box-sizing: border-box
+	margin: 0
+	padding: 0
+
+html, body
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+	margin: 0
+	background: $deep-grey
+	color: white
+
+h1, h2, h3, h4, h5, h6, p, ul, li
+	margin: 0
+	padding: 0
+	
+h1
+	font-size: 3vw
+	font-weight: 100
+	color: $light-green
+	
 main
-	display: flex
+	position: relative
+	margin: 0
+	padding: 0
+	width: 100vw
+	height: 100vh
+	overflow: hidden
+	
+header
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: $header-height
+	line-height: $header-height
+	text-align: center
+	z-index: 3
+
+.burger
+	position: fixed
+	top: 1.5vw
+	left: 1.5vw
+	@include burger(1vw)
+	
+.wrapper
+	position: relative
+	width: 100%
+	height: 100%
+	
+section
+	position: relative
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	overflow: hidden
+
+menu, .content
+	position: absolute
+	top: 0
+	height: 100%
+
+menu
+	left: -$menu-width
+	width: $menu-width
+	background: $medium-grey
+
+.content
+	left: 0
+	width: 100%
+	@include flexCenter
+	
+header, section, menu, .content, .burger, .overlay
+	transition: 0.3s
+	
+.overlay
+	position: fixed
+	top: 0
+	right: 0
+	width: 0
+	height: 100%
+	background: rgba(0, 0, 0, 0.5)
+	z-index: 4
+	
+.open
+	header, .content
+		left: $menu-width
+		width: calc(100% - #{$menu-width})
+		
+	menu
+		left: 0
+		
+	.burger
+		transform: scaleX(-1)
+		
+	.overlay
+		width: calc(100% - #{$menu-width})
+		
+.exercise
+	.flems
+		background: $medium-green
+		top: -100vh
