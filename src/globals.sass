@@ -48,7 +48,7 @@ header
 	position: relative
 	width: 100%
 	height: 100%
-	
+
 section
 	position: relative
 	top: 0
@@ -63,41 +63,45 @@ menu, .content
 	height: 100%
 
 menu
+	padding-top: $header-height
 	left: -$menu-width
 	width: $menu-width
 	background: $medium-grey
 
+.menu-item
+	margin: 0.25vw 1vw
+	padding: 1vw
+	border: 1px solid $light-grey
+	border-radius: 2px
+	cursor: pointer
+	transition: 0.3s
+
+	&:hover
+		background: $light-grey
+		color: $deep-grey
+
 .content
+	position: relative
 	left: 0
 	width: 100%
-	@include flexCenter
-	
-header, section, menu, .content, .burger, .overlay
+	padding-top: $header-height
+
+header, section, menu, .content, .burger
 	transition: 0.3s
-	
-.overlay
-	position: fixed
-	top: 0
-	right: 0
-	width: 0
-	height: 100%
-	background: rgba(0, 0, 0, 0.5)
-	z-index: 4
-	
+
 .open
 	header, .content
 		left: $menu-width
-		width: calc(100% - #{$menu-width})
-		
+		width: calc(100% - #{$menu-width}) !important
+		max-width: calc(100% - #{$menu-width}) !important
+
 	menu
 		left: 0
 		
 	.burger
 		transform: scaleX(-1)
-		
-	.overlay
-		width: calc(100% - #{$menu-width})
-		
+		left: 18vw
+
 .exercise
 	.screencast
 		top: -5vh
@@ -107,7 +111,14 @@ header, section, menu, .content, .burger, .overlay
 		top: -100vh
 
 video
-	position: relative
+	@include pureCenter
 	width: 100%
+	max-width: 100%
 	height: auto
 	max-height: 80%
+	transition: 0.3s
+
+iframe
+	width: 100%
+	height: 100%
+	background: white

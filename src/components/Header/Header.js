@@ -5,7 +5,7 @@ module.exports = {
 	view: function(){
 		return m('header'
 			, m('h1', 'Mithril 0-60')
-			, m('button.burger', { onclick: State.toggle.bind(null, 'mainMenuOpen') })
+			, m('button.burger', { onclick: State.toggle.bind(null, 'menuOpen') })
 		)
 	}
 }

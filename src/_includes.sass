@@ -12,6 +12,12 @@ $deep-grey: #222629
 	justify-content: center
 	align-items: center
 
+@mixin pureCenter
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+
 @mixin burger($side-length: 30px, $line-color: white, $hover-color: greenyellow)
 	width: $side-length
 	height: $side-length
