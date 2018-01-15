@@ -21,8 +21,7 @@ var App = {
 				, m('section.screencast'
 					, m(Menu, { text: 'screencast' })
 					, m('.content'
-						, m('button', { onclick: State.toggle.bind(null, 'exercise') }, 'toggle')
-						, 'here is my screencast thingy'
+						, m('video[src=video/hello_world.mp4][autoplay]')
 					)
 				)
 				, m('section.flems'
