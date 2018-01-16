@@ -1,63 +1,39 @@
 window.m = require('mithril')
-var State = require('./model/State')
-var Header = require('./components/Header/Header')
-var Menu = require('./components/Menu/Menu')
-var Video = require('./components/Video/Video')
+const State = require('./model/State')
+const Player = require('@vimeo/player')
 
 require('./globals.sass')
 
-function mainClass(){
-	var classes = []
-	if (State.menuOpen) classes.push('open')
-	if (State.exercise) classes.push('exercise')
-	return classes.join(' ')
+const ViewModel = {
+	mainClass: () => {
+		const classes = []
+		if (State.menuOpen) classes.push('menuOpen')
+		if (State.labOpen) classes.push('labOpen')
+		return classes.join(' ')
+	}
 }
 
-var App = {
-	view: function(){
-		var chapter = State.chapters[State.currentChapterIndex]
-		var flem = chapter.flems[State.currentFlemIndex]
+const App = {
+	oncreate: () => {
+		State.player = new Player('videoContainer', {id: 251386037})
+	},
+	view: () => {
+		const chapter = State.chapters[State.currentChapterIndex]
+		const flem = chapter.flems[State.currentFlemIndex]
+		const mainClass = ViewModel.mainClass()
+		
 		return m('main'
-			, { class: mainClass() }
-			, m(Header)
+			, { class: mainClass }
+			, m('menu'
+				, m('button.expander.show-menu', { onclick: State.toggleView.bind(null, 'menu')})
+			)
 			, m('.wrapper'
-				, m('section.screencast'
-					, m(Menu
-						, {
-							collection: State.chapters,
-							screenName: State.screenName,
-							onclick: State.setChapter
-						}
-					)
-					, m('.content'
-						, m(Video
-							, {
-								file: chapter.name,
-								ended: function () {
-									State.menuOpen = true
-									State.exercise = true
-								}
-							}
-						)
-					)
+				, m('section.lecture'
+					, m('h1.center', 'Mithril 0-60')
+					, m('#videoContainer')
+					, m('button.expander.show-lab', { onclick: State.toggleView.bind(null, 'lab')})
 				)
-				, m('section.flems'
-					, m(Menu
-						, {
-							intro: chapter,
-							collection: chapter.flems,
-							screenName: function (obj) {
-								return obj.name
-							},
-							onclick: State.setFlem
-						}
-					)
-					, m('.content'
-						, m('iframe'
-							, { src: 'http://tinyurl.com/' + flem.url }
-						)
-					)
-				)
+				, m('section.lab', 'bar')
 			)
 		)
 	}

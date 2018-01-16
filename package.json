@@ -26,6 +26,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "@vimeo/player": "^2.2.1",
     "mithril": "^1.0.1"
   }
 }

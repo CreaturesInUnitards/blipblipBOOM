@@ -1,16 +1,8 @@
-var State = {
+const State = {
 	chapters: [
 		{
-			name: 'hello_world',
-			intro: "",
-			flems: [
-				{ name: "Using m.render", url: 'y7zau2jh' },
-				{ name: "Using m.mount", url: 'ybq58myu' }
-			]
-		},
-		{
-			name: 'suck_it',
-			intro: "",
+			name: 'Hello, World!',
+			id: 251386037,
 			flems: [
 				{ name: "Using m.render", url: 'y7zau2jh' },
 				{ name: "Using m.mount", url: 'ybq58myu' }
@@ -20,23 +12,19 @@ var State = {
 	currentChapterIndex: 0,
 	currentFlemIndex: 0,
 	menuOpen: false,
-	exercise: false,
-	toggle: function (w) {
-		State[w] = !State[w]
+	labOpen: false,
+	player: null,
+	toggleView: (w) => {
+		const prop = w + 'Open'
+		State[prop] = !State[prop]
+		
+		if (w === 'lab') State.player.pause()
 	},
-	screenName: function (chapter) {
-		return chapter.name
-			.split('_')
-			.map(function (word) {
-				return word[0].toUpperCase() + word.substr(1)
-			})
-			.join(' ')
-	},
-	setChapter: function (n) {
+	setChapter: (n) => {
 		State.currentChapterIndex = n
 		State.setFlem(0)
 	},
-	setFlem: function (n) {
+	setFlem: (n) => {
 		State.currentFlemIndex = n
 	}
 }
