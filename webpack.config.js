@@ -32,7 +32,7 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.png$/,
+				test: /\.(png|jpg)$/,
 				use: [
 					'raw-loader',
 					'img-loader'
@@ -48,6 +48,8 @@ module.exports = {
 	watch: true,
 	plugins: [
 		new HtmlWebpackPlugin({template: './template.ejs'}),
-		new CopyWebpackPlugin([{from: 'src/images', to: 'images/'}])
+		new CopyWebpackPlugin([{from: 'src/images', to: 'images/'}]),
+		new CopyWebpackPlugin([{from: 'src/audio', to: 'audio/'}]),
+		new CopyWebpackPlugin([{from: 'src/video', to: 'video/'}])
 	]
 }

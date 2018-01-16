@@ -1,1 +1,56 @@
-$menu-width: 200px
+$header-height: 5vw
+$menu-width: $header-height * 4
+
+$light-green: #86c232
+$medium-green: #61892f
+$light-grey: #6b6e70
+$medium-grey: #474b4f
+$deep-grey: #222629
+
+@mixin flexCenter
+	display: flex
+	justify-content: center
+	align-items: center
+
+@mixin pureCenter
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+
+@mixin burger($side-length: 30px, $line-color: white, $hover-color: greenyellow)
+	width: $side-length
+	height: $side-length
+	background: none
+	border: 0
+	cursor: pointer
+	
+	&:before
+		top: 0
+		right: 0
+		height: 100%
+		border-top: 2px solid $line-color
+		border-right: 2px solid $line-color
+		transform: rotateZ(45deg)
+		
+	&:after
+		top: calc(50%)
+		left: 0
+		width: 100%
+		height: 2px
+		background: $line-color
+		
+	&:before, &:after
+		content: ''
+		position: absolute
+		width: 100%
+		transition: 0.3s
+
+	&:hover:before
+		border-color: $hover-color
+
+	&:hover:after
+		background: $hover-color
+	
+	
+		

@@ -1,0 +1,26 @@
+@import "../../includes"
+
+.play-icon
+	@include pureCenter
+	width: 10vw
+	height: 10vw
+	background: rgba(255, 255, 255, 0.5)
+	box-shadow: 0 0 0.5vw black
+	border-radius: 50%
+	cursor: pointer
+	opacity: 1
+	transition: 0.3s
+
+	&:after
+		content: ''
+		@include pureCenter
+		margin-left: 0.8vw
+		width: 0
+		height: 0
+		border-style: solid
+		border-width: 3vw 0 3vw 6vw
+		border-color: transparent transparent transparent rgba(0, 0, 0, 0.5)
+
+	&.playing
+		opacity: 0
+
