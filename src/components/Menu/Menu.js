@@ -14,8 +14,9 @@ module.exports = {
 						class: cidx === State.currentChapterIndex ? 'current' : '',
 						onclick: State.setChapter.bind(null, cidx)
 					}
-					, m('h4'
-						, `${cidx === 0 ? '' : cidx} ${chapter.name}`
+					, m(''
+						, cidx > 0 && m('h4.chapter-num', cidx + '.')
+						, m('h4.chapter-name',  chapter.name)
 					)
 				)
 

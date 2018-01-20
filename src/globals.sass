@@ -69,15 +69,26 @@ main
 menu 
 	position: absolute
 	top: 0
-	left: -20vw
+	left: -25vw
 	height: 100vh
-	width: calc(20vw + 20px)
+	width: calc(25vw + 20px)
 	transition: left 0.3s
 	background-color: $deep-grey
-	padding: 2.25vw calc(20px + 1.5vw) 2.25vw 2.25vw
+	padding: 2vw calc(20px + 1.5vw) 2vw 2vw
 
 .chapter
 	@include menu-item
+	
+	& > div
+		display: flex
+		
+	.chapter-num
+		width: 8%
+		text-align: right
+		
+	.chapter-name
+		margin-left: auto
+		width: 90%
 	
 .example
 	@include menu-item
@@ -167,8 +178,8 @@ section
 		transform: scaleX(-1)
 		
 	.wrapper
-		width: calc(80vw - 20px)
-		left: calc(20vw + 20px)
+		width: calc(75vw - 20px)
+		left: calc(25vw + 20px)
 
 .labOpen
 	.wrapper

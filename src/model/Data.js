@@ -32,8 +32,8 @@ module.exports = [
 		]
 	},
 	{
-		name: 'Hyperscript, Components, and Auto-Redraw',
-		id: 140939541,
+		name: 'Hyperscript and Auto-Redraw',
+		id: 251976348,
 		notes: "",
 		links: [],
 		flems: [

@@ -11,11 +11,12 @@ const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
 module.exports = {
 	view: function (vnode) {
 		const welcome = vnode.attrs.welcomeVisible
-		const canPlay = vnode.attrs.canPlay
+		const canPlay = State.canPlay
 		return m('section.lecture'
 			, !(welcome || canPlay) && m(LoadingAnimation)
-			, canPlay && m(VideoContainer)
-			, m(Welcome, { visible: welcome })
+			, welcome
+				? m(Welcome, { visible: true })
+				: canPlay && m(VideoContainer)
 			, m('button.expander.show-lab'
 				, {
 					class: State.firstRun_lab ? 'first-run' : '',
