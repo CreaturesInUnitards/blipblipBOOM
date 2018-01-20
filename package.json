@@ -4,14 +4,20 @@
   "description": "blank mithril/webpack project",
   "main": "index.js",
   "scripts": {
+    "old_build": "babel src -d lib",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --hot --inline"
   },
   "keywords": [],
   "author": "Scott Simpson <portrayme@mac.com>",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^6.7.7",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-minify": "^0.2.0",
+    "babel-preset-env": "^1.6.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "file-loader": "^1.1.6",
@@ -28,5 +34,11 @@
   "dependencies": {
     "@vimeo/player": "^2.2.1",
     "mithril": "^1.0.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "minify"
+    ]
   }
 }

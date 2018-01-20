@@ -1,10 +1,13 @@
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
 	entry: path.resolve(__dirname, './src/index.js'),
 	module: {
+		loaders: [
+			{ test: /\.js$/, loader: 'babel-loader' }
+		],
 		rules: [
 			{
 				test: /\.sass$/,
@@ -32,7 +35,7 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|jpg)$/,
+				test: /\.(png|jpg|gif)$/,
 				use: [
 					'raw-loader',
 					'img-loader'
