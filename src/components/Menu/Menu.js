@@ -3,18 +3,30 @@
 * Menu
 *
 ***********************************/
-var State = require('../../model/State')
+const State = require('../../model/State')
 require("./Menu.sass")
 
 module.exports = {
-	view: function (vnode) {
+	view: () => {
 		return m('menu'
-			, vnode.attrs.collection.map(function (obj, idx) {
-				return m('.menu-item'
-					, { onclick: vnode.attrs.onclick.bind(null, idx) }
-					, vnode.attrs.screenName(obj)
+			, State.chapters.map((chapter, cidx) => {
+				return m('.chapter'
+					, {
+						class: cidx === State.currentChapterIndex ? 'current' : '',
+						onclick: State.setChapter.bind(null, cidx)
+					}
+					, m('h4'
+						, `${cidx === 0 ? '' : cidx} ${chapter.name}`
+					)
 				)
+
 			})
+			, m('button.expander.show-menu'
+				, {
+					class: State.firstRun_menu ? 'first-run' : '',
+					onclick: State.toggleView.bind(null, 'menu')
+				}
+			)
 		)
 	}
 }
