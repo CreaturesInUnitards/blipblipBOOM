@@ -3,9 +3,6 @@
 * Welcome
 *
 ***********************************/
-require("./Welcome.sass")
-
-
 module.exports = {
 	view: (vnode) => {
 		return m('#welcome'

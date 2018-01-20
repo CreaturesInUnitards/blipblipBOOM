@@ -4,7 +4,6 @@
 *
 ***********************************/
 const State = require('../../model/State')
-require("./Menu.sass")
 
 module.exports = {
 	view: () => {

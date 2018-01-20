@@ -3,8 +3,6 @@
 * VideoContainer
 *
 ***********************************/
-require("./VideoContainer.sass")
-
 module.exports = {
 	onbeforeremove: (vnode) => {
 		vnode.dom.classList.add("exit")

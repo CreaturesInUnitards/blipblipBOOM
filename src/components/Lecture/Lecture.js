@@ -8,9 +8,6 @@ const Welcome = require('../Welcome/Welcome')
 const VideoContainer = require('../VideoContainer/VideoContainer')
 const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
 
-
-require("./Lecture.sass")
-
 module.exports = {
 	view: function (vnode) {
 		const welcome = vnode.attrs.welcomeVisible
