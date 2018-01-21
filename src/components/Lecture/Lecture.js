@@ -5,7 +5,6 @@
 ***********************************/
 const State = require('../../model/State')
 const Welcome = require('../Welcome/Welcome')
-const VideoContainer = require('../VideoContainer/VideoContainer')
 const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
 
 module.exports = {
@@ -15,11 +14,11 @@ module.exports = {
 		return m('section.lecture'
 			, !(welcome || canPlay) && m(LoadingAnimation)
 			, welcome
-				? m(Welcome, { visible: true })
-				: canPlay && m(VideoContainer)
+				? m(Welcome)
+				: canPlay && m('#videoContainer')
 			, m('button.expander.show-lab'
 				, {
-					class: State.firstRun_lab ? 'first-run' : '',
+					class: State.firstRun.lab ? 'first-run' : '',
 					onclick: vnode.attrs.expandFn.bind(null, 'lab')
 				}
 			)
