@@ -4,13 +4,9 @@
 *
 ***********************************/
 require("./LoadingAnimation.sass")
+const VH = require('../../view_helpers')
 
-module.exports = {
-	onbeforeremove: () => {
-		return new Promise((resolve) => {
-			setTimeout(resolve, 1000)
-		})
-	},
+module.exports = VH.fadeInOutComponent({
 	view: () => {
 		return m('.spinner'
 			, m('.bounce1')
@@ -18,4 +14,4 @@ module.exports = {
 			, m('.bounce3')
 		)
 	}
-}
+}, false)
