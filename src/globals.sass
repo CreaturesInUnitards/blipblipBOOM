@@ -96,19 +96,21 @@ menu
 .selector
 	position: absolute
 	left: 5%
-	bottom: 0
-	transform: translateY(100%)
+	bottom: 0.25vw
+	transform: translateY(110%)
 	width: 90%
 	display: flex
 	justify-content: space-between
-	transition: 0.3s
+	opacity: 0
+	transition: opacity 0.3s
 
 	button
 		width: 50%
 		padding: 0.5vw 0
 		background: $deep-grey
-		border: 0
+		border: 1px solid white
 		color: white
+		cursor: pointer
 
 		&.video
 			border-right: 1px solid white
@@ -118,11 +120,12 @@ menu
 		&.practicum
 			border-top-right-radius: 8px
 			border-bottom-right-radius: 8px
+			border-left: 0
 			
 
-.chapter:hover .selector
+.chapter:hover .selector, .chapter.current .selector 
 	transform: translateY(-10%)
-
+	opacity: 1
 
 .example
 	@include menu-item
@@ -272,9 +275,13 @@ li
 		border: 0
 		
 .sandboxes h4
-	@include menu-item	
+	@include menu-item
 
-	
+	&:hover, &.current
+		padding-bottom: 0.5vw
+
+
+
 #welcome
 	position: absolute
 	top: 0
@@ -292,10 +299,25 @@ li
 	font-family: "Times New Roman", serif
 	font-size: 8vw
 	white-space: nowrap
+	
+.menu-logo
+	font-family: "Times New Roman", serif
+	font-size: 1.5vw
+	white-space: nowrap
+	width: 100%
+	text-align: center
 
 .enter 
 	animation: fade-in 1s forwards
 
+.selector-enter
+	animation: fade-in 300ms forwards
+
+.selector-exit
+	animation: fade-out 300ms forwards
+	
+	
+	
 @keyframes fade-in
 	from 
 		opacity: 0

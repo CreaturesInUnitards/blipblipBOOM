@@ -4,23 +4,31 @@
 *
 ***********************************/
 const State = require('../../model/State')
+const VH = require('../../view_helpers')
+
 
 module.exports = {
-	view: () => {
+	view: (vnode) => {
 		return m('menu'
 			, State.chapters.map((chapter, cidx) => {
 				const isVideo = cidx > 0
+				const isCurrent = cidx === State.currentChapterIndex
+				
 				return m('.chapter'
-					, { class: cidx === State.currentChapterIndex ? 'current' : '' }
+					, { 
+						class: isCurrent ? 'current' : '',
+						onmouseenter: () => { vnode.state.hover = chapter },
+						onmouseleave: () => { vnode.state.hover = null }
+					}
 					, m('.label'
-						, m('h4.chapter-num', (isVideo ? cidx + '.' : ''))
-						, m('h4.chapter-name',  chapter.label)
+						, isVideo 
+							? [
+								, m('h4.chapter-num', cidx + '.')
+								, m('h4.chapter-name',  chapter.label)
+							] 
+							: m('.menu-logo', m('i', 'm') , '(', m('i', ' Mithril { 0-60 } '), ')')
 					)
-					, m('.selector'
-						, { onclick: State.setChapter.bind(null, cidx) }
-						, m('button.video', isVideo ? 'video' : 'home')
-						, m('button.practicum', 'practicum')
-					)
+					, (vnode.state.hover === chapter || isCurrent) && m(Selector, { isVideo: isVideo, cidx: cidx })
 				)
 
 			})
@@ -33,3 +41,15 @@ module.exports = {
 		)
 	}
 }
+
+const Selector = VH.fadeInOutComponent({
+	enterClass: 'selector-enter',
+	exitClass: 'selector-exit',
+	view: (vnode) => {
+		return m('.selector'
+			, { onclick: State.setChapter.bind(null, vnode.attrs.cidx) }
+			, m('button.video', vnode.attrs.isVideo ? 'Watch the video' : 'Home')
+			, m('button.practicum', 'Practice the code')
+		)
+	}
+})
