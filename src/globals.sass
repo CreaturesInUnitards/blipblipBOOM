@@ -78,9 +78,11 @@ menu
 
 .chapter
 	@include menu-item
+	overflow: hidden
 	
-	& > div
+	.label
 		display: flex
+		flex-wrap: wrap
 		
 	.chapter-num
 		width: 8%
@@ -89,7 +91,39 @@ menu
 	.chapter-name
 		margin-left: auto
 		width: 90%
-	
+		
+
+.selector
+	position: absolute
+	left: 5%
+	bottom: 0
+	transform: translateY(100%)
+	width: 90%
+	display: flex
+	justify-content: space-between
+	transition: 0.3s
+
+	button
+		width: 50%
+		padding: 0.5vw 0
+		background: $deep-grey
+		border: 0
+		color: white
+
+		&.video
+			border-right: 1px solid white
+			border-top-left-radius: 8px
+			border-bottom-left-radius: 8px
+
+		&.practicum
+			border-top-right-radius: 8px
+			border-bottom-right-radius: 8px
+			
+
+.chapter:hover .selector
+	transform: translateY(-10%)
+
+
 .example
 	@include menu-item
 	margin-left: 1.5vw
@@ -102,16 +136,14 @@ button.expander
 	z-index: 1
 	
 	&.first-run
-		animation: attention 2s infinite
+		animation: attention 6s infinite
 
 @keyframes attention
 	0%, 100%
 		background-color: $deep-grey
-		box-shadow: 0 0 0 0 transparent
-
+		
 	50%
-		background-color: $light-green
-		box-shadow: 0 0 20px 10px $light-green
+		background-color: #dddddd
 
 		
 .show-menu
@@ -221,6 +253,7 @@ ul
 li
 	margin: 1vw
 	font-size: 1vw
+	font-weight: 300
 	
 .links a
 	color: white
@@ -295,3 +328,4 @@ li
 		left: 0
 		width: 100%
 		height: 100%
+

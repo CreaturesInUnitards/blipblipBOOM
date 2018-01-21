@@ -15,41 +15,45 @@ $deep-grey: #34343a
 	margin: 0.5vw 0 0 0
 	cursor: pointer
 	border-radius: 2px
+	width: 100%
 	transition: 0.3s
 	color: white
 
 	&:hover
 		background: white
 		color: $deep-grey
-		
-	&:after
-		content: ''
-		position: absolute
-		top: -1px
-		right: -1px
-		width: 2vw
-		height: 100%
-		border: 1px solid white
-		border-top-right-radius: 2px
-		border-bottom-right-radius: 2px
-		opacity: 0
-		background: white
-		transition: 0.3s
+		padding-bottom: 3vw
+	//	
+	//&:after
+	//	content: ''
+	//	position: absolute
+	//	top: -1px
+	//	right: -1px
+	//	width: 2vw
+	//	height: 100%
+	//	border: 1px solid white
+	//	border-top-right-radius: 2px
+	//	border-bottom-right-radius: 2px
+	//	opacity: 0
+	//	background: white
+	//	transition: 0.3s
 		
 		
 	&.current
 		background: $light-green
 		border-color: $light-green
 		color: $deep-grey
+		width: calc(100% + 1vw)
+		cursor: default
 
 		&:hover
 			background: $light-green
 			border-color: $light-green
 			color: $deep-grey
-			
-		&:after
-			right: -1vw
-			background: $light-green
-			border-color: $light-green
-			opacity: 1
+		//	
+		//&:after
+		//	right: -1vw
+		//	background: $light-green
+		//	border-color: $light-green
+		//	opacity: 1
 
