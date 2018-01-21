@@ -3,11 +3,12 @@
 * Welcome
 *
 ***********************************/
-module.exports = {
-	view: (vnode) => {
+const VH = require('../../view_helpers')
+
+module.exports = VH.fadeInOutComponent({
+	view: () => {
 		return m('#welcome'
-			, { style: { display: vnode.attrs.visible ? 'flex' : 'none'} }
-			, m('.logo', m('i', 'm') , '(', m('i', ' Mithril, { 0-60 } '), ')')
+			, m('.logo', m('i', 'm') , '(', m('i', ' Mithril { 0-60 } '), ')')
 		)
 	}
-}
+})

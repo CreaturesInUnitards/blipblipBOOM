@@ -1,22 +1,15 @@
 window.m = require('mithril')
+const VH = require('./view_helpers')
 const State = require('./model/State')
 const Menu = require('./components/Menu/Menu')
 const Lecture = require('./components/Lecture/Lecture')
 const Lab = require('./components/Lab/Lab')
 
-
 require('./globals.sass')
-
-function classListForMain() {
-	const classes = []
-	if (State.menuOpen) classes.push('menuOpen')
-	if (State.labOpen) classes.push('labOpen')
-	return classes.join(' ')
-}
 
 const App = {
 	view: () => {
-		const mainClass = classListForMain()
+		const mainClass = VH.classListForMain(State)
 		
 		return m('main'
 			, { class: mainClass }
