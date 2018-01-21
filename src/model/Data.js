@@ -1,6 +1,37 @@
+/*
+  ********************************************************************************** 
+  ********************************************************************************** 
+  ********************************************************************************** 
+  ********************************************************************************** 
+  * 
+  * SCHEMA:
+  * ________________________________________________________________________________
+  * 
+  * label:   Button text label
+  * 
+  * notes:  "Practicum text"; should be thoughts on intended general focus
+  * 
+  * links:  Links to relevant resources, for each:
+  *             text: html text
+  *             url: link url
+  *             
+  * flems:  Array of flems, for each:
+  *             label:  button text label
+  *             url:    flems url
+  *             cue:    optional timecode in seconds where the video should stop
+  *                     and display this flems
+  * 
+  ********************************************************************************** 
+  ********************************************************************************** 
+  ********************************************************************************** 
+  ********************************************************************************** 
+*/
+
+
+
 module.exports = [
 	{
-		name: 'Welcome',
+		label: 'Welcome',
 		notes: "Here you will see suggestions for activities related to your current chapter in the series.|" +
 		"Click the sandboxes for various starting points, then experiment with coding ideas and see your results in real time on the right.|" +
 		"(<i>Sandboxes are implemented using Rasmus Porsager's excellent Flems.io</i>)",
@@ -19,7 +50,7 @@ module.exports = [
 		]
 	},
 	{
-		name: 'Hello, World!',
+		label: 'Hello, World!',
 		id: 251555927,
 		notes: "We used two different methods to put text on the page: <code>m.render</code> and <code>m.mount</code>.|See what kind of damage you can do with each of them in the sandboxes.",
 		links: [
@@ -27,18 +58,25 @@ module.exports = [
 			{ text: 'm.mount API reference', url: 'https://mithril.js.org/mount.html' },
 		],
 		flems: [
-			{ label: "Using m.render", url: 'y7zau2jh' },
+			{ label: "Using m.render", url: 'y7zau2jh', cuepoint: 45 },
 			{ label: "Using m.mount", url: 'ybq58myu' }
 		]
 	},
 	{
-		name: 'Hyperscript and Auto-Redraw',
+		label: 'Hyperscript and Auto-Redraw',
 		id: 251976348,
-		notes: "",
+		notes: "Here are a few hyperscript examples. Make sure you check out the CSS and try a few different ways of dynamically affecting the page contents in response to user events.",
 		links: [],
 		flems: [
 			{ label: "Using m.render", url: 'y7zau2jh' },
 			{ label: "Using m.mount", url: 'ybq58myu' }
 		]
+	},
+	{
+		label: 'Components, "attrs", and "state"',
+		id: 251976348,
+		notes: "",
+		links: [],
+		flems: []
 	}
 ]
