@@ -24,7 +24,10 @@ const State = {
 		State.currentChapterIndex = n
 		State.setFlem(0)
 		State.loadChapter(State.chapters[n].id)
-		State.labOpen = e.target.classList.contains('practicum') 
+		
+		const practicum = e.target.classList.contains('practicum')
+		State.labOpen =  practicum
+		if (practicum) State.firstRun.lab = false
 	},
 	setFlem: (n) => {
 		State.currentFlemIndex = n
