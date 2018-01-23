@@ -13,14 +13,14 @@ module.exports = {
 		
 		return m('section.lab'
 			, m('.resources'
-				, m('h5', 'Practicum')
+				, m('h5.fw400.uppercase.cl-white.mb1', 'Practicum')
 				, chapter.notes.split('|').map(function (note) {
-					return m('h4.notes', m.trust(note))
+					return m('h4.fw200.notes', m.trust(note))
 				})
 				, m('ul.sandboxes'
-					, m('h5', 'Sandboxes')
+					, m('h5.fw400.uppercase.cl-white.mb1', 'Sandboxes')
 					, chapter.flems.map((fl, idx) => {
-						return m('h4'
+						return m('h4.fw200'
 							, {
 								class: idx === State.currentFlemIndex ? 'current' : '',
 								onclick: State.setFlem.bind(null, idx)
@@ -30,7 +30,7 @@ module.exports = {
 					})
 				)
 				, m('ul.links'
-					, m('h5', 'Resources')
+					, m('h5.fw400.uppercase.cl-white.mb1', 'Resources')
 					, chapter.links.map((link) => {
 						return m('li', m('a[target=_blank]', { href: link.url }, link.text))
 					})

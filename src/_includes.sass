@@ -3,28 +3,28 @@ $menu-width: $header-height * 4
 
 $light-green: #00ff00
 $medium-green: #61892f
-$light-grey: #6b6e70
-$medium-grey: #4d4d53
+$light-grey: #7b7e80
+$medium-grey: #5d5d5f
 $deep-grey: #34343a
 
 
 @mixin menu-item($padding-left: 0.5vw)
 	position: relative
 	padding: 0.5vw 0.5vw 0.5vw $padding-left
-	border: 1px solid white
+	border: 1px solid $deep-grey
 	margin: 0.5vw 0 0 0
 	cursor: default
 	border-radius: 2px
 	width: 100%
 	transition: 0.3s
-	color: white
+	color: $deep-grey
 
 	&:hover, &.current
 		padding-bottom: 3vw
 		
 	&.current
-		background: white
-		color: $deep-grey
+		background: $deep-grey
+		color: white
 
 	//&.current
 	//	background: $light-green
