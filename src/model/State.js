@@ -55,17 +55,17 @@ const State = {
 		State.currentChapterIndex = ch
 		const id = State.chapters[ch].id
 		State.canPlay = false
-
-		// if (!id) return
 		
 		State.setFlem(fl || 0)
 		if (fl !== undefined) State.labOpen = true
 
-		setTimeout(() => {
-			State.canPlay = true
-			m.redraw()
-			setTimeout(State.setupPlayer.bind(null, id), 100)
-		}, 100)
+		if (id) {
+			setTimeout(() => {
+				State.canPlay = true
+				m.redraw()
+				setTimeout(State.setupPlayer.bind(null, id), 100)
+			}, 100)
+		}
 	}
 }
 
