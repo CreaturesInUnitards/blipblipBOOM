@@ -14,6 +14,7 @@ const handleMatch = (labOpen, args) => {
 	return App
 }
 
+m.route.prefix('/mithril0-60')
 m.route(document.body, '/' , {
 	'/': App,
 	'/:chapter/content': {
