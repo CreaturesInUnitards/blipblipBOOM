@@ -7,7 +7,7 @@ const State = {
 		lab: true
 	},
 	chapters: require('./Data'),
-	canPlay: true,
+	canPlay: false,
 	currentChapterIndex: 0,
 	currentFlemIndex: 0,
 	menuOpen: false,
@@ -19,15 +19,6 @@ const State = {
 		State[prop] = !State[prop]
 		
 		if (w === 'lab' && State.player) State.player.pause()
-	},
-	setChapter: (n, e) => {
-		State.currentChapterIndex = n
-		State.setFlem(0)
-		State.loadChapter(State.chapters[n].id)
-		
-		const practicum = e.target.classList.contains('practicum')
-		State.labOpen =  practicum
-		if (practicum) State.firstRun.lab = false
 	},
 	setFlem: (n) => {
 		State.currentFlemIndex = n
@@ -60,10 +51,15 @@ const State = {
 			m.redraw()
 		})
 	},
-	loadChapter: (id) => {
+	loadChapter: (ch, fl) => {
+		State.currentChapterIndex = ch
+		const id = State.chapters[ch].id
 		State.canPlay = false
 
-		if (!id) return
+		// if (!id) return
+		
+		State.setFlem(fl || 0)
+		if (fl !== undefined) State.labOpen = true
 
 		setTimeout(() => {
 			State.canPlay = true
