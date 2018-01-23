@@ -1,10 +1,4 @@
 module.exports = {
-	classListForMain: (state) => {
-		const classes = []
-		if (state.menuOpen) classes.push('menuOpen')
-		if (state.labOpen) classes.push('labOpen')
-		return classes.join(' ')
-	},
 	fadeInOutComponent: (obj, fadein) => {
 		const component = {
 			oncreate: (vnode) => {
