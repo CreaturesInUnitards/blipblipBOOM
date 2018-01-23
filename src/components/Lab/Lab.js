@@ -3,29 +3,32 @@
 * Lab
 *
 ***********************************/
-const State = require('../../model/State')
-
-
 module.exports = {
 	view: () =>  {
 		const chapter = State.chapters[State.currentChapterIndex]
 		const flem = chapter.flems[State.currentFlemIndex]
 		
 		return m('section.lab'
-			, m('.resources'
+			, m('.practicum'
 				, m('h5.fw400.uppercase.cl-white.mb1', 'Practicum')
 				, chapter.notes.split('|').map(function (note) {
 					return m('h4.fw200.notes', m.trust(note))
 				})
-				, m('ul.sandboxes'
+				, m('.sandboxes'
 					, m('h5.fw400.uppercase.cl-white.mb1', 'Sandboxes')
 					, chapter.flems.map((fl, idx) => {
 						return m('h4.fw200'
 							, {
 								class: idx === State.currentFlemIndex ? 'current' : '',
-								onclick: State.setFlem.bind(null, idx)
 							}
-							, fl.label
+							, m('a'
+								, {
+									href: `/${State.currentChapterIndex}/lab/${idx}`,
+									oncreate: m.route.link,
+									onupdate: m.route.link
+								}
+								, fl.label
+							) 
 						)
 					})
 				)
