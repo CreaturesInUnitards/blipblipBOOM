@@ -26,7 +26,6 @@ module.exports = {
 				: canPlay && m('#videoContainer')
 			, m('a.expander.show-lab'
 				, {
-					class: State.firstRun.lab ? 'first-run' : '',
 					href: toggleUrl(),
 					oncreate: m.route.link,
 					onupdate: m.route.link

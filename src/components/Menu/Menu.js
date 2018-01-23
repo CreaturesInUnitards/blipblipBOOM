@@ -46,10 +46,7 @@ module.exports = {
 				})
 			)
 			, m('button.expander.show-menu'
-				, {
-					class: State.firstRun.menu ? 'first-run' : '',
-					onclick: State.toggleView.bind(null, 'menu')
-				}
+				, { onclick: State.toggleMenu }
 			)
 		)
 	}

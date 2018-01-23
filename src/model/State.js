@@ -2,10 +2,6 @@ const Player = require('@vimeo/player')
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
 const State = {
-	firstRun: {
-		menu: true,
-		lab: true
-	},
 	chapters: require('./Data'),
 	canPlay: false,
 	currentChapterIndex: 0,
@@ -13,16 +9,7 @@ const State = {
 	menuOpen: false,
 	labOpen: false,
 	player: null,
-	toggleView: function(w) {
-		State.firstRun[w] = false
-		const prop = w + 'Open'
-		State[prop] = !State[prop]
-		
-		if (w === 'lab' && State.player) State.player.pause()
-	},
-	setFlem: (n) => {
-		State.currentFlemIndex = n
-	},
+	setFlem: (n) => { State.currentFlemIndex = n },
 	setupPlayer: (id) => {
 		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[1].id})
 
@@ -47,19 +34,22 @@ const State = {
 		
 		player.on('cuepoint', function(notification){
 			State.setFlem(notification.data.idx)
-			State.toggleView('lab')
+			State.toggleMenu()
 			m.redraw()
 		})
 	},
+	toggleMenu: () => { State.menuOpen = !State.menuOpen },
 	loadChapter: (ch, fl) => {
+		const chapterIsChanging = State.currentChapterIndex !== ch
 		State.currentChapterIndex = ch
 		const id = State.chapters[ch].id
-		State.canPlay = false
-		
+
 		State.setFlem(fl || 0)
 		if (fl !== undefined) State.labOpen = true
 
-		if (id) {
+		if (id && chapterIsChanging) {
+			State.canPlay = false
+
 			setTimeout(() => {
 				State.canPlay = true
 				m.redraw()
