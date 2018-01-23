@@ -9,7 +9,7 @@ const SiteLogo = require('../SiteLogo/SiteLogo')
 module.exports = VH.fadeInOutComponent({
 	view: () => {
 		return m('#welcome'
-			, m(SiteLogo, { size: '8vw' })
+			, m(SiteLogo, { size: '7vw' })
 		)
 	}
 })

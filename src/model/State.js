@@ -6,7 +6,7 @@ const State = {
 	canPlay: false,
 	currentChapterIndex: 0,
 	currentFlemIndex: 0,
-	menuOpen: false,
+	menuOpen: localStorage.getItem('menuOpen') === 'true',
 	labOpen: false,
 	player: null,
 	setFlem: (n) => { State.currentFlemIndex = n },
@@ -38,7 +38,10 @@ const State = {
 			m.redraw()
 		})
 	},
-	toggleMenu: () => { State.menuOpen = !State.menuOpen },
+	toggleMenu: () => { 
+		State.menuOpen = !State.menuOpen
+		localStorage.setItem('menuOpen', State.menuOpen)
+	},
 	loadChapter: (ch, fl) => {
 		const chapterIsChanging = State.currentChapterIndex !== ch
 		State.currentChapterIndex = ch

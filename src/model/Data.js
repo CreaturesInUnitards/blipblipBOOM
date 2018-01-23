@@ -50,7 +50,7 @@ module.exports = [
 		]
 	},
 	{
-		label: 'Hello, World!',
+		label: 'Hello, World! / Hyperscript',
 		id: 251555927,
 		notes: "We used two different methods to put text on the page: <code>m.render</code> and <code>m.mount</code>.|See what kind of damage you can do with each of them in the sandboxes.",
 		links: [

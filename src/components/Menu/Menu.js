@@ -18,8 +18,8 @@ module.exports = {
 							, idx === 0
 								? m(SiteLogo, { size: '1.5vw', width: '17vw' })
 								: m('.text-container'
-									, m('h4.fw200.chapter-num', !isWelcome && (idx + '.'))
-									, m('h4.fw200.chapter-name', chapter.label)
+									, m('h5.fw200.chapter-num', !isWelcome && (idx + '.'))
+									, m('h5.fw200.chapter-name', chapter.label)
 								) 
 								
 						)
