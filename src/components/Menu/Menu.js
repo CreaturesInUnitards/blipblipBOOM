@@ -3,34 +3,44 @@
 * Menu
 *
 ***********************************/
-const State = require('../../model/State')
-const VH = require('../../view_helpers')
 const SiteLogo = require('../SiteLogo/SiteLogo')
 
 module.exports = {
-	view: (vnode) => {
+	view: () => {
 		return m('menu'
-			// TODO: fix scrolling gutter
-			, m('.ovf-auto'
-				, State.chapters.map((chapter, cidx) => {
-					const isVideo = cidx > 0
-					const isCurrent = cidx === State.currentChapterIndex
-
+			, m('.menu-sled.ovf-auto.height100pct'
+				, State.chapters.map((chapter, idx) => {
+					const isCurrent = idx === State.currentChapterIndex
+					const isWelcome = idx === 0
 					return m('.chapter'
-						, {
-							class: isCurrent ? 'current' : '',
-							onmouseenter: () => { vnode.state.hover = chapter },
-							onmouseleave: () => { vnode.state.hover = null }
-						}
+						, { class: isCurrent ? 'current' : '' }
 						, m('.label'
-							, isVideo
-								? [
-									, m('h4.fw200.chapter-num', cidx + '.')
-									, m('h4.fw200.chapter-name',  chapter.label)
-								]
-								: m(SiteLogo, { size: '1.5vw' })
+							, idx === 0
+								? m(SiteLogo, { size: '1.5vw', width: '17vw' })
+								: m('.text-container'
+									, m('h4.fw200.chapter-num', !isWelcome && (idx + '.'))
+									, m('h4.fw200.chapter-name', chapter.label)
+								) 
+								
 						)
-						, (vnode.state.hover === chapter || isCurrent) && m(Selector, { isVideo: isVideo, cidx: cidx, isCurrent: isCurrent })
+						, m('.elevator'
+							, m('a.content'
+								, {
+									href: `/${idx}/content`,
+									oncreate: m.route.link,
+									onupdate: m.route.link,
+									class: isCurrent && !State.labOpen ? 'selected' : ''
+								}
+							)
+							, m('a.lab'
+								, {
+									href: `/${idx}/lab `,
+									oncreate: m.route.link,
+									onupdate: m.route.link,
+									class: isCurrent && State.labOpen ? 'selected' : ''
+								}
+							)
+						)
 					)
 
 				})
@@ -44,33 +54,3 @@ module.exports = {
 		)
 	}
 }
-
-const Selector = VH.fadeInOutComponent({
-	enterClass: 'selector-enter',
-	exitClass: 'selector-exit',
-	view: (vnode) => {
-		const idx = vnode.attrs.cidx
-		const current = State.currentChapterIndex === idx
-		
-		return m('.selector'
-			, m('a.center.video'
-				, {
-					oncreate: m.route.link,
-					onupdate: m.route.link,
-					href: `/${idx}/content`,
-					class: current && !State.labOpen ? 'selected' : '' 
-				}
-				, vnode.attrs.isVideo ? 'Watch the video' : 'Home'
-			)
-			, m('a.center.practicum'
-				, {
-					oncreate: m.route.link,
-					onupdate: m.route.link,
-					href: `/${idx}/lab`,
-					class: current && State.labOpen ? 'selected' : ''
-				}
-				, vnode.attrs.isVideo ? 'Practice the code' : 'Sandbox'
-			)
-		)
-	}
-})
