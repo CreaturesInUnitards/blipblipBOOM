@@ -3,36 +3,15 @@ $menu-width: $header-height * 4
 
 $light-green: #00ff00
 $medium-green: #61892f
-$light-grey: #7b7e80
+$light-grey: #abaeb0
 $medium-grey: #5d5d5f
 $deep-grey: #34343a
 
 
 @mixin menu-item($padding-left: 0.5vw)
-	position: relative
-	padding: 0.5vw 0.5vw 0.5vw $padding-left
+	margin-bottom: 0.5vw
 	border: 1px solid $deep-grey
-	margin: 0.5vw 0 0 0
-	cursor: default
-	border-radius: 2px
-	width: 100%
-	transition: 0.3s
+	border-radius: 4px
+	background: white
 	color: $deep-grey
-
-	&:hover, &.current
-		padding-bottom: 3vw
 		
-	&.current
-		background: $deep-grey
-		color: white
-
-	//&.current
-	//	background: $light-green
-	//	border-color: $light-green
-	//	color: $deep-grey
-	//	cursor: default
-	//
-	//	&:hover
-	//		background: $light-green
-	//		border-color: $light-green
-	//		color: $deep-grey

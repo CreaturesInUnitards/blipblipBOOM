@@ -26,7 +26,7 @@ h3
 	font-size: 1.5vw
 	
 h4 
-	font-size: 1.25vw
+	font-size: 1.15vw
 	
 h5 
 	font-size: 1vw
@@ -43,16 +43,17 @@ h5
 .fw700
 	font-weight: 700
 	
-
-	
 .uppercase
 	text-transform: uppercase
 	
 .cl-white
 	color: white
-	
+
 .mb1
 	margin-bottom: 1vw
+
+.mt1
+	margin-top: 1vw
 	
 .left
 	text-align: left
@@ -71,6 +72,12 @@ h5
 	
 .height100vh
 	height: 100vh
+
+.width100pct
+	width: 100%
+
+.height100pct
+	height: 100%
 	
 .ovf-hidden
 	overflow: hidden
@@ -86,76 +93,117 @@ menu
 	width: calc(25vw + 20px)
 	transition: left 0.3s
 	background-color: white
-	padding: 2vw calc(20px + 1.5vw) 2vw 2vw
+	padding: 2vw 20px 2vw 2vw
 	
-	& > div
-		position: relative
-		height: 100%
+.menu-sled
+	padding-right: 1.5vw
 
 .chapter
+	display: flex
 	@include menu-item
-	overflow: hidden
-	
+	transition: background 0.3s
+
+	&.current
+		background: $deep-grey
+		color: white
+
+
 	.label
 		display: flex
-		flex-wrap: wrap
+		width: 17vw
+		justify-content: flex-start
+		align-items: center
+		
+	.text-container
+		display: flex
+		width: 17vw
+		padding: 0.5vw
 		
 	.chapter-num
-		width: 8%
+		display: inline-block
+		margin-right: 0.5vw
+		width: 2vw
 		text-align: right
 		
 	.chapter-name
-		margin-left: auto
-		width: 90%
+		width: 15vw
 		
-
-.selector
-	position: absolute
-	left: 5%
-	bottom: 0.25vw
-	transform: translateY(110%)
-	width: 90%
-	display: flex
-	justify-content: space-between
-	opacity: 0
-	transition: opacity 0.3s
-
+		
+	.elevator
+		flex: 1
+		display: flex
+		flex-direction: column
+		border-left: 1px solid black
+	
 	a
-		display: inline-block
-		width: 50%
-		padding: 0.25vw 0
-		background: $light-grey
-		border: 0
-		color: white
-		cursor: pointer
-		transition: 0.3s
-		font-size: 1vw
+		width: 100%
+		display: flex
+		justify-content: center
+		align-items: center
+		min-height: 3vw
 		text-decoration: none
+		background: transparent
+		transition: background 0.3s
+		
+		&:before, &:after
+			transition: background 0.3s, border-right-color 0.3s, color 0.3s
+		
+		&:before
+			content: ''
+			display: block
+
+		&:hover
+			//background: $deep-grey
+
+			&:before
+				background: $deep-grey
+
+			&:after
+				border-right-color: $deep-grey
+				color: $deep-grey
+	
+	.content
+		border-bottom: 1px solid $deep-grey
+		
+		&:before
+			width: 1.25vw
+			height: 1vw
+			background: $light-grey
+			padding: 0
+			border-radius: 4px
+			margin-right: -0.08vw
+			
+		&:after
+			content: ''
+			width: 0
+			height: 0
+			border-style: solid
+			border-width: 0.5vw 0.5vw 0.5vw 0
+			border-color: transparent $light-grey transparent transparent
+			margin-left: -0.08vw
+
+	.lab:after
+		content: '{ }'
+		color: $light-grey
+			
+	&.current a
+		background: $light-grey
+		
+		&:after
+			color: white
 		
 		&.selected
-			background: $medium-grey
-
-		&.video
-			border-right: 1px solid white
-			border-top-left-radius: 8px
-			border-bottom-left-radius: 8px
-
-		&.practicum
-			border-top-right-radius: 8px
-			border-bottom-right-radius: 8px
-			border-left: 0
+			box-shadow: inset 0 0 5px black
+				
+		&.content:before
+			background: white
+		
+		&.content:after
+			border-right-color: white
 			
-			
-
-.chapter:hover .selector, .chapter.current .selector 
-	transform: translateY(-10%)
-	opacity: 1
-
-.example
-	@include menu-item
-	margin-left: 1.5vw
+		
 	
-button.expander
+.expander
 	position: absolute
 	cursor: pointer
 	background: #222
@@ -198,7 +246,7 @@ button.expander
 	left: 20px
 	width: calc(100vw - 20px)
 	height: 200vh
-	transition: 0.3s
+	transition: 0.3s ease-out
 	overflow: hidden
 	
 section
@@ -252,7 +300,7 @@ section
 	top: 0
 	height: 100%
 	
-.resources
+.practicum
 	left: 0
 	width: 30%
 	padding: 3vw
@@ -268,10 +316,9 @@ section
 	
 code
 	display: inline-block
-	margin: 0 0.5vw
 	padding: 0 0.5vw
 	background: $deep-grey
-	color: $light-green
+	color: white
 	font-size: 1vw
 	
 ul
@@ -298,11 +345,24 @@ li
 		height: calc(100% - 20px)
 		border: 0
 		
-.sandboxes h4
-	@include menu-item
-
-	&:hover, &.current
-		padding-bottom: 0.5vw
+.sandboxes
+	h5
+		margin: 2vw 0 1vw
+		
+	h4
+		@include menu-item
+		
+		&.current
+			background: $light-grey
+			color: white
+		
+		a
+			display: inline-block
+			color: inherit
+			text-decoration: none
+			padding: 0.5vw
+			width: 100%
+			height: 100%
 
 
 
@@ -373,4 +433,28 @@ li
 		width: calc(100% - 6vw)
 		height: calc(100% - 6vw)
 
-// TODO: figure out the what you're doing with the video container
+#mobile
+	position: fixed
+	top: 0
+	left: 0
+	width: 100vw
+	height: 100vh
+	background: $deep-grey
+	color: white
+	z-index: 10
+	display: none
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	
+	& > *
+		max-width: 80%
+		text-align: center
+
+	
+@media screen and (max-width: 799px)
+	#mobile
+		display: flex
+		
+		a
+			color: white
