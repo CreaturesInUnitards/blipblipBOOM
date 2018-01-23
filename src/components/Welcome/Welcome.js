@@ -4,11 +4,12 @@
 *
 ***********************************/
 const VH = require('../../view_helpers')
+const SiteLogo = require('../SiteLogo/SiteLogo')
 
 module.exports = VH.fadeInOutComponent({
 	view: () => {
 		return m('#welcome'
-			, m('.logo', m('i', 'm') , '(', m('i', ' Mithril { 0-60 } '), ')')
+			, m(SiteLogo, { size: '8vw' })
 		)
 	}
 })
