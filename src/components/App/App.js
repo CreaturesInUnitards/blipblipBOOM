@@ -16,6 +16,11 @@ const classListForMain = () => {
 }
 
 module.exports = {
+	oninit: () => {
+		const deeplink = window.location.search.split('/')
+		let url = deeplink.slice(1).reduce((a, c) => a + c + '/', '/')
+		m.route.set(url)
+	},
 	view: () => {
 		const mainClass = classListForMain()
 
