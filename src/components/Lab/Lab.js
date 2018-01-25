@@ -3,11 +3,12 @@
 * Lab
 *
 ***********************************/
-module.exports = {
+const VH = require('../../view_helpers')
+module.exports = VH.fadeInOutComponent({
 	view: () =>  {
 		const chapter = State.chapters[State.currentChapterIndex]
 		const flem = chapter.flems[State.currentFlemIndex]
-		
+
 		return m('section.lab'
 			, m('.practicum'
 				, m('h5.fw400.uppercase.cl-white.mb1', 'Practicum')
@@ -28,7 +29,7 @@ module.exports = {
 									onupdate: m.route.link
 								}
 								, fl.label
-							) 
+							)
 						)
 					})
 				)
@@ -44,4 +45,4 @@ module.exports = {
 			)
 		)
 	}
-}
+})

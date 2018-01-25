@@ -4,8 +4,9 @@
 *
 ***********************************/
 const SiteLogo = require('../SiteLogo/SiteLogo')
+const VH = require('../../view_helpers')
 
-module.exports = {
+module.exports = VH.fadeInOutComponent({
 	view: () => {
 		return m('menu'
 			, m('.menu-sled.ovf-auto.height100pct'
@@ -20,8 +21,8 @@ module.exports = {
 								: m('.text-container'
 									, m('h5.fw200.chapter-num', !isWelcome && (idx + '.'))
 									, m('h5.fw200.chapter-name', chapter.label)
-								) 
-								
+								)
+
 						)
 						, m('.elevator'
 							, m('a.content'
@@ -50,4 +51,4 @@ module.exports = {
 			)
 		)
 	}
-}
+})
