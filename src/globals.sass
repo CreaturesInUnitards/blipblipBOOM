@@ -88,9 +88,9 @@ h5
 menu 
 	position: absolute
 	top: 0
-	left: -30vw
+	left: -$full-menu-width
 	height: 100vh
-	width: calc(30vw + 20px)
+	width: $outer-menu-width
 	transition: left 0.3s
 	background-color: white
 	padding: 2vw 20px 2vw 2vw
@@ -98,6 +98,7 @@ menu
 .menu-sled
 	padding-right: 1.5vw
 
+	
 .chapter
 	display: flex
 	@include menu-item
@@ -109,14 +110,15 @@ menu
 
 
 	.label
+		position: relative
 		display: flex
-		width: 22vw
+		width: $inner-menu-width
 		justify-content: flex-start
 		align-items: center
 		
 	.text-container
 		display: flex
-		width: 22vw
+		width: 100%
 		padding: 0.5vw
 		
 	.chapter-num
@@ -126,7 +128,7 @@ menu
 		text-align: right
 		
 	.chapter-name
-		width: 20vw
+		width: calc(100% - 2vw)
 		
 		
 	.elevator
@@ -201,7 +203,6 @@ menu
 		&.content:after
 			border-right-color: white
 			
-		
 	
 .expander
 	position: absolute
@@ -274,8 +275,8 @@ section
 		transform: scaleX(-1)
 		
 	.wrapper
-		width: calc(70vw - 20px)
-		left: calc(30vw + 20px)
+		width: calc(100vw - #{$full-menu-width} - 20px)
+		left: $outer-menu-width
 
 .labOpen
 	.wrapper
