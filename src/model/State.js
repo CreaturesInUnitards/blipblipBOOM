@@ -9,19 +9,30 @@ const State = {
 	menuOpen: localStorage.getItem('menuOpen') === 'true',
 	labOpen: false,
 	player: null,
-	setFlem: (n) => { State.currentFlemIndex = n },
+	setFlem: (n) =>  State.currentFlemIndex = n ,
 	setupPlayer: (id) => {
 		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[1].id})
 
-		player.on('ended', function () {
-			State.labOpen = true
-			State.menuOpen = true
-			m.redraw()
-
-			setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)			
+		player.on('play', (data) => {
+			if (data.seconds === 0) {
+				State.menuOpen = false
+				m.redraw()
+			}
 		})
 		
-		player.on('loaded', function() {
+		player.on('ended', () => {
+			State.menuOpen = true
+			m.redraw()
+			
+			setTimeout( () => {
+				State.labOpen = true
+				m.redraw()
+
+				setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
+			}, 500)
+		})
+		
+		player.on('loaded', () => {
 			const chapter = State.chapters[State.currentChapterIndex]
 			let cuepointCount = 0
 			chapter.flems.forEach(function(flem){
@@ -32,7 +43,7 @@ const State = {
 
 		})
 		
-		player.on('cuepoint', function(notification){
+		player.on('cuepoint', (notification) => {
 			State.setFlem(notification.data.idx)
 			State.toggleMenu()
 			m.redraw()
