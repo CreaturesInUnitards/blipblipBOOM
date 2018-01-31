@@ -5,7 +5,6 @@
 ***********************************/
 const Welcome = require('../Welcome/Welcome')
 const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
-let foo = 'bar'
 
 const toggleUrl = () => {
 	const cidx = State.currentChapterIndex
