@@ -1,4 +1,4 @@
-# mithril-sass-webpack-starter  
+# Mithril 0-60   
 
 ### Installation
 ```
