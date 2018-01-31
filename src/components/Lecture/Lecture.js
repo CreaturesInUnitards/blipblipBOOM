@@ -11,7 +11,7 @@ const toggleUrl = () => {
 	const view = State.labOpen ? 'content' : 'lab'
 	const fidx = State.currentFlemIndex
 	
-	return `/${cidx}/${view}/${fidx > 0 ? fidx : ''}`
+	return `/${cidx}/${view}/${view === 'lab' && fidx > 0 ? fidx : ''}`
 }
 
 module.exports = {
