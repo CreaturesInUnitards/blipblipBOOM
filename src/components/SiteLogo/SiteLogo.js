@@ -1,13 +1,13 @@
 require('./SiteLogo.sass')
 
 module.exports = {
-	view: (vnode) => {
+	view: ({attrs}) => {
 		return m('.site-logo'
 			, { 
-				style: { 
-					fontSize: vnode.attrs.size || '1em',
-					textAlign: vnode.attrs.align || 'center',
-					width: vnode.attrs.width || '100%'
+				style: {
+					fontSize: attrs.size || '1em',
+					textAlign: attrs.align || 'center',
+					width: attrs.width || '100%'
 				} 
 			}
 			, m('i', 'm') 

@@ -1,450 +1,450 @@
-@import "includes"
-
-*, html, body, main, section, header, button, input, textarea, menu, nav
-	position: relative
-	box-sizing: border-box
-	margin: 0
-	padding: 0
-	outline: none
-
-html, body
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-	background: white
-	color: $deep-grey
-	
-h1, h2, h3, h4, h5, h6, p, ul, li
-	margin: 0
-	padding: 0
-
-h1 
-	font-size: 3vw
-
-h2 
-	font-size: 2vw
-	
-h3 
-	font-size: 1.5vw
-	
-h4 
-	font-size: 1.15vw
-	
-h5 
-	font-size: 1vw
-	
-.fw100
-	font-weight: 100
-	
-.fw200
-	font-weight: 200
-	
-.fw400
-	font-weight: 400
-	
-.fw700
-	font-weight: 700
-	
-.uppercase
-	text-transform: uppercase
-	
-.cl-white
-	color: white
-
-.mb1
-	margin-bottom: 1vw
-
-.mt1
-	margin-top: 1vw
-	
-.left
-	text-align: left
-	
-.center
-	text-align: center
-	
-.right
-	text-align: right
-	
-.bold
-	font-weight: 700
-	
-.width100vw
-	width: 100vw
-	
-.height100vh
-	height: 100vh
-
-.width100pct
-	width: 100%
-
-.height100pct
-	height: 100%
-	
-.ovf-hidden
-	overflow: hidden
-	
-.ovf-auto
-	overflow: auto
-
-menu 
-	position: absolute
-	top: 0
-	left: -$full-menu-width
-	height: 100vh
-	width: $outer-menu-width
-	transition: left 0.3s
-	background-color: white
-	padding: 2vw 20px 2vw 2vw
-	
-.menu-sled
-	padding-right: 1.5vw
-
-	
-.chapter
-	display: flex
-	@include menu-item
-	transition: background 0.3s
-
-	&.current
-		background: $deep-grey
-		color: white
-
-
-	.label
-		position: relative
-		display: flex
-		width: $inner-menu-width
-		justify-content: flex-start
-		align-items: center
-		
-	.text-container
-		display: flex
-		width: 100%
-		padding: 0.5vw
-		
-	.chapter-num
-		display: inline-block
-		margin-right: 0.5vw
-		width: 2vw
-		text-align: right
-		
-	.chapter-name
-		width: calc(100% - 2vw)
-		
-		
-	.elevator
-		flex: 1
-		display: flex
-		flex-direction: column
-		border-left: 1px solid black
-	
-	a
-		width: 100%
-		display: flex
-		justify-content: center
-		align-items: center
-		min-height: 3vw
-		text-decoration: none
-		background: transparent
-		transition: background 0.3s
-		
-		&:before, &:after
-			transition: background 0.3s, border-right-color 0.3s, color 0.3s
-		
-		&:before
-			content: ''
-			display: block
-
-		&:hover
-			//background: $deep-grey
-
-			&:before
-				background: $deep-grey
-
-			&:after
-				border-right-color: $deep-grey
-				color: $deep-grey
-	
-	.content
-		border-bottom: 1px solid $deep-grey
-		
-		&:before
-			width: 1.25vw
-			height: 1vw
-			background: $light-grey
-			padding: 0
-			border-radius: 4px
-			margin-right: -0.08vw
-			
-		&:after
-			content: ''
-			width: 0
-			height: 0
-			border-style: solid
-			border-width: 0.5vw 0.5vw 0.5vw 0
-			border-color: transparent $light-grey transparent transparent
-			margin-left: -0.08vw
-
-	.lab:after
-		content: '{ }'
-		color: $light-grey
-			
-	&.current a
-		background: $light-grey
-		
-		&:after
-			color: white
-		
-		&.selected
-			box-shadow: inset 0 0 5px black
-				
-		&.content:before
-			background: white
-		
-		&.content:after
-			border-right-color: white
-			
-	
-.expander
-	position: absolute
-	cursor: pointer
-	background: #222
-	transition: 0.6s
-	z-index: 1
-		
-.show-menu
-	top: 0
-	right: 0
-	width: 20px
-	height: 100%
-	border: 0
-
-
-	&:after
-		content: ''
-		position: absolute
-		top: 50%
-		left: 25%
-		width: 12px
-		height: 12px
-		border-top: 2px solid white
-		border-right: 2px solid white
-		transform: translate(-50%, -50%) rotateZ(45deg)
-		
-.wrapper
-	position: absolute
-	top: 0
-	left: 20px
-	width: calc(100vw - 20px)
-	height: 200vh
-	transition: 0.3s ease-out
-	overflow: hidden
-	
-section
-	position: relative
-	width: 100%
-	height: 50%
-	overflow: hidden
-	transition: height 0.3s
-	
-.lecture
-	background: black
-	
-.show-lab
-	bottom: 0
-	left: 0
-	width: 100%
-	height: 20px
-	border: 0
-
-	&:after
-		content: ''
-		position: absolute
-		top: 75%
-		left: 50%
-		width: 12px
-		height: 12px
-		border-top: 2px solid white
-		border-left: 2px solid white
-		transform: translate(-50%, -50%) rotateZ(45deg)
-
-.menuOpen
-	menu
-		left: 0
-
-	.show-menu
-		transform: scaleX(-1)
-		
-	.wrapper
-		width: calc(100vw - #{$full-menu-width} - 20px)
-		left: $outer-menu-width
-
-.labOpen
-	.wrapper
-		top: calc(-100% + 20px)
-		
-	.show-lab
-		transform: scaleY(-1)
-	
-.lab > div
-	position: absolute
-	top: 0
-	height: 100%
-	
-.practicum
-	left: 0
-	width: 30%
-	padding: 3vw
-	background: $medium-grey
-	overflow: auto
-	color: white
-	
-	h4 + h4
-		margin-top: 1vw
-		
-	i
-		font-size: 0.8em
-	
-code
-	display: inline-block
-	padding: 0 0.5vw
-	background: $deep-grey
-	color: white
-	font-size: 1vw
-	
-ul
-	margin-top: 2vw
-	
-li
-	margin: 1vw
-	font-size: 1vw
-	font-weight: 300
-	
-.links a
-	color: white
-	
-.flems
-	left: 30%
-	width: 70%
-	background: white
-
-	iframe
-		position: absolute
-		top: 0
-		left: 0
-		width: 100%
-		height: calc(100% - 20px)
-		border: 0
-		
-.sandboxes
-	h5
-		margin: 2vw 0 1vw
-		
-	h4
-		@include menu-item
-		
-		&.current
-			background: $light-grey
-			color: white
-		
-		a
-			display: inline-block
-			color: inherit
-			text-decoration: none
-			padding: 0.5vw
-			width: 100%
-			height: 100%
-
-
-
-#welcome
-	position: absolute
-	top: 0
-	left: 0
-	width: 100%
-	height: 100%
-	display: flex
-	justify-content: center
-	align-items: center
-	background: white
-		
-.logo
-	font-family: "Times New Roman", serif
-	font-size: 8vw
-	white-space: nowrap
-	
-.menu-logo
-	font-family: "Times New Roman", serif
-	font-size: 1.5vw
-	white-space: nowrap
-	width: 100%
-	text-align: center
-
-.enter 
-	animation: fade-in 1s forwards
-
-.selector-enter
-	animation: fade-in 300ms forwards
-
-.selector-exit
-	animation: fade-out 300ms forwards
-	
-	
-	
-@keyframes fade-in
-	from 
-		opacity: 0
-		
-	to
-		opacity: 1
-
-.exit 
-	animation: fade-out 1s forwards
-
-@keyframes fade-out 
-	from
-		opacity: 1
-
-	to
-		opacity: 0
-
-
-
-#videoContainer
-	position: relative
-	width: 100%
-	max-width: 100%
-	height: calc(100% - 20px)
-	opacity: 0
-
-	iframe, object, embed
-		position: absolute
-		top: 3vw
-		left: 3vw
-		width: calc(100% - 6vw)
-		height: calc(100% - 6vw)
-
-#mobile
-	position: fixed
-	top: 0
-	left: 0
-	width: 100vw
-	height: 100vh
-	background: $deep-grey
-	color: white
-	z-index: 10
-	display: none
-	flex-direction: column
-	justify-content: center
-	align-items: center
-	
-	& > *
-		max-width: 80%
-		text-align: center
-
-	
-@media screen and (max-width: 799px)
-	#mobile
-		display: flex
-		
-		a
-			color: white
+//@import "includes"
+//
+//*, html, body, main, section, header, button, input, textarea, menu, nav
+//	position: relative
+//	box-sizing: border-box
+//	margin: 0
+//	padding: 0
+//	outline: none
+//
+//html, body
+//	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+//	background: white
+//	color: $deep-grey
+//	
+//h1, h2, h3, h4, h5, h6, p, ul, li
+//	margin: 0
+//	padding: 0
+//
+//h1 
+//	font-size: 3vw
+//
+//h2 
+//	font-size: 2vw
+//	
+//h3 
+//	font-size: 1.5vw
+//	
+//h4 
+//	font-size: 1.15vw
+//	
+//h5 
+//	font-size: 1vw
+//	
+//.fw100
+//	font-weight: 100
+//	
+//.fw200
+//	font-weight: 200
+//	
+//.fw400
+//	font-weight: 400
+//	
+//.fw700
+//	font-weight: 700
+//	
+//.uppercase
+//	text-transform: uppercase
+//	
+//.cl-white
+//	color: white
+//
+//.mb1
+//	margin-bottom: 1vw
+//
+//.mt1
+//	margin-top: 1vw
+//	
+//.left
+//	text-align: left
+//	
+//.center
+//	text-align: center
+//	
+//.right
+//	text-align: right
+//	
+//.bold
+//	font-weight: 700
+//	
+//.width100vw
+//	width: 100vw
+//	
+//.height100vh
+//	height: 100vh
+//
+//.width100pct
+//	width: 100%
+//
+//.height100pct
+//	height: 100%
+//	
+//.ovf-hidden
+//	overflow: hidden
+//	
+//.ovf-auto
+//	overflow: auto
+//
+////menu 
+////	position: absolute
+////	top: 0
+////	left: -$full-menu-width
+////	height: 100vh
+////	width: $outer-menu-width
+////	transition: left 0.3s
+////	background-color: white
+////	padding: 2vw 20px 2vw 2vw
+//	
+//.menu-sled
+//	padding-right: 1.5vw
+//
+//	
+//.chapter
+//	display: flex
+//	@include menu-item
+//	transition: background 0.3s
+//
+//	&.current
+//		background: $deep-grey
+//		color: white
+//
+//
+//	.label
+//		position: relative
+//		display: flex
+//		width: $inner-menu-width
+//		justify-content: flex-start
+//		align-items: center
+//		
+//	.text-container
+//		display: flex
+//		width: 100%
+//		padding: 0.5vw
+//		
+//	.chapter-num
+//		display: inline-block
+//		margin-right: 0.5vw
+//		width: 2vw
+//		text-align: right
+//		
+//	.chapter-name
+//		width: calc(100% - 2vw)
+//		
+//		
+//	.elevator
+//		flex: 1
+//		display: flex
+//		flex-direction: column
+//		border-left: 1px solid black
+//	
+//	a
+//		width: 100%
+//		display: flex
+//		justify-content: center
+//		align-items: center
+//		min-height: 3vw
+//		text-decoration: none
+//		background: transparent
+//		transition: background 0.3s
+//		
+//		&:before, &:after
+//			transition: background 0.3s, border-right-color 0.3s, color 0.3s
+//		
+//		&:before
+//			content: ''
+//			display: block
+//
+//		&:hover
+//			//background: $deep-grey
+//
+//			&:before
+//				background: $deep-grey
+//
+//			&:after
+//				border-right-color: $deep-grey
+//				color: $deep-grey
+//	
+//	.content
+//		border-bottom: 1px solid $deep-grey
+//		
+//		&:before
+//			width: 1.25vw
+//			height: 1vw
+//			background: $light-grey
+//			padding: 0
+//			border-radius: 4px
+//			margin-right: -0.08vw
+//			
+//		&:after
+//			content: ''
+//			width: 0
+//			height: 0
+//			border-style: solid
+//			border-width: 0.5vw 0.5vw 0.5vw 0
+//			border-color: transparent $light-grey transparent transparent
+//			margin-left: -0.08vw
+//
+//	.lab:after
+//		content: '{ }'
+//		color: $light-grey
+//			
+//	&.current a
+//		background: $light-grey
+//		
+//		&:after
+//			color: white
+//		
+//		&.selected
+//			box-shadow: inset 0 0 5px black
+//				
+//		&.content:before
+//			background: white
+//		
+//		&.content:after
+//			border-right-color: white
+//			
+//	
+//.expander
+//	position: absolute
+//	cursor: pointer
+//	background: #222
+//	transition: 0.6s
+//	z-index: 1
+//		
+//.show-menu
+//	top: 0
+//	right: 0
+//	width: 20px
+//	height: 100%
+//	border: 0
+//
+//
+//	&:after
+//		content: ''
+//		position: absolute
+//		top: 50%
+//		left: 25%
+//		width: 12px
+//		height: 12px
+//		border-top: 2px solid white
+//		border-right: 2px solid white
+//		transform: translate(-50%, -50%) rotateZ(45deg)
+//		
+//.wrapper
+//	position: absolute
+//	top: 0
+//	left: 20px
+//	width: calc(100vw - 20px)
+//	height: 200vh
+//	transition: 0.3s ease-out
+//	overflow: hidden
+//	
+//section
+//	position: relative
+//	width: 100%
+//	height: 50%
+//	overflow: hidden
+//	transition: height 0.3s
+//	
+//.lecture
+//	background: black
+//	
+//.show-lab
+//	bottom: 0
+//	left: 0
+//	width: 100%
+//	height: 20px
+//	border: 0
+//
+//	&:after
+//		content: ''
+//		position: absolute
+//		top: 75%
+//		left: 50%
+//		width: 12px
+//		height: 12px
+//		border-top: 2px solid white
+//		border-left: 2px solid white
+//		transform: translate(-50%, -50%) rotateZ(45deg)
+//
+//.menuOpen
+//	menu
+//		left: 0
+//
+//	.show-menu
+//		transform: scaleX(-1)
+//		
+//	.wrapper
+//		width: calc(100vw - #{$full-menu-width} - 20px)
+//		left: $outer-menu-width
+//
+//.labOpen
+//	.wrapper
+//		top: calc(-100% + 20px)
+//		
+//	.show-lab
+//		transform: scaleY(-1)
+//	
+//.lab > div
+//	position: absolute
+//	top: 0
+//	height: 100%
+//	
+//.practicum
+//	left: 0
+//	width: 30%
+//	padding: 3vw
+//	background: $medium-grey
+//	overflow: auto
+//	color: white
+//	
+//	h4 + h4
+//		margin-top: 1vw
+//		
+//	i
+//		font-size: 0.8em
+//	
+//code
+//	display: inline-block
+//	padding: 0 0.5vw
+//	background: $deep-grey
+//	color: white
+//	font-size: 1vw
+//	
+//ul
+//	margin-top: 2vw
+//	
+//li
+//	margin: 1vw
+//	font-size: 1vw
+//	font-weight: 300
+//	
+//.links a
+//	color: white
+//	
+//.flems
+//	left: 30%
+//	width: 70%
+//	background: white
+//
+//	iframe
+//		position: absolute
+//		top: 0
+//		left: 0
+//		width: 100%
+//		height: calc(100% - 20px)
+//		border: 0
+//		
+//.sandboxes
+//	h5
+//		margin: 2vw 0 1vw
+//		
+//	h4
+//		@include menu-item
+//		
+//		&.current
+//			background: $light-green
+//			color: $deep-grey
+//		
+//		a
+//			display: inline-block
+//			color: inherit
+//			text-decoration: none
+//			padding: 0.5vw
+//			width: 100%
+//			height: 100%
+//
+//
+//
+//#welcome
+//	position: absolute
+//	top: 0
+//	left: 0
+//	width: 100%
+//	height: 100%
+//	display: flex
+//	justify-content: center
+//	align-items: center
+//	background: white
+//		
+//.logo
+//	font-family: "Times New Roman", serif
+//	font-size: 8vw
+//	white-space: nowrap
+//	
+//.menu-logo
+//	font-family: "Times New Roman", serif
+//	font-size: 1.5vw
+//	white-space: nowrap
+//	width: 100%
+//	text-align: center
+//
+//.enter 
+//	animation: fade-in 1s forwards
+//
+//.selector-enter
+//	animation: fade-in 300ms forwards
+//
+//.selector-exit
+//	animation: fade-out 300ms forwards
+//	
+//	
+//	
+//@keyframes fade-in
+//	from 
+//		opacity: 0
+//		
+//	to
+//		opacity: 1
+//
+//.exit 
+//	animation: fade-out 1s forwards
+//
+//@keyframes fade-out 
+//	from
+//		opacity: 1
+//
+//	to
+//		opacity: 0
+//
+//
+//
+//#videoContainer
+//	position: relative
+//	width: 100%
+//	max-width: 100%
+//	height: calc(100% - 20px)
+//	opacity: 0
+//
+//	iframe, object, embed
+//		position: absolute
+//		top: 3vw
+//		left: 3vw
+//		width: calc(100% - 6vw)
+//		height: calc(100% - 6vw)
+//
+//#mobile
+//	position: fixed
+//	top: 0
+//	left: 0
+//	width: 100vw
+//	height: 100vh
+//	background: $deep-grey
+//	color: white
+//	z-index: 10
+//	display: none
+//	flex-direction: column
+//	justify-content: center
+//	align-items: center
+//	
+//	& > *
+//		max-width: 80%
+//		text-align: center
+//
+//	
+//@media screen and (max-width: 799px)
+//	#mobile
+//		display: flex
+//		
+//		a
+//			color: white

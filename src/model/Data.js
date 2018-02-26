@@ -50,8 +50,8 @@ module.exports = [
 		]
 	},
 	{
-		label: 'Hello, World! / Hyperscript',
-		id: 251555927,
+		label: 'Hello, World!',
+		id: 256868112,
 		notes: "We used two different methods to put text on the page: <code>m.render</code> and <code>m.mount</code>.|See what kind of damage you can do with each of them in the sandboxes.",
 		links: [
 			{ text: 'm.render API reference', url: 'https://mithril.js.org/render.html' },
@@ -63,312 +63,27 @@ module.exports = [
 		]
 	},
 	{
-		label: 'Hyperscript and Auto-Redraw',
-		id: 251976348,
-		notes: "Here are a few hyperscript examples. Make sure you check out the CSS and try a few different ways of dynamically affecting the page contents in response to user events.",
-		links: [],
+		label: 'Hyperscript',
+		id: 256259017,
+		notes: "Mithril embraces Javascript fully, and doesn't rely on angle-bracketed pseudo tags to produce amazing results.",
+		links: [
+			{ text: 'hyperscript API reference', url: 'https://mithril.js.org/hyperscript.html' }
+		],
 		flems: [
-			{ label: "Using m.render", url: 'y7zau2jh' },
-			{ label: "Using m.mount", url: 'ybq58myu' }
+			{ label: "Start here...", url: 'ya62rcux'},
+			{ label: "...and end up here", url: 'yd8ft5ls' }
 		]
-	}
-
-
-
-
-	,
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
 	},
 	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
-	},
-	{
-		label: 'Components, "attrs", and "state"',
-		id: 251976348,
-		notes: "",
-		links: [],
-		flems: []
+		label: 'Auto-redraw',
+		id: 256266955,
+		notes: "Mithril will automatically re-draw the appropriate parts of your application when view-based user events change your data.",
+		links: [
+			{ text: 'auto-redraw guide', url: 'https://mithril.js.org/hyperscript.html' }
+		],
+		flems: [
+			{ label: "Start here...", url: 'ya62rcux'},
+			{ label: "...and end up here", url: 'yd8ft5ls' }
+		]
 	}
 ]

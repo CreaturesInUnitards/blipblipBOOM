@@ -8,7 +8,7 @@ $> npm install
 ```
 $> npm run start
 ```
-...then open a browser and visit [http://localhost:8080]()  
+...then open a browser and visit http://localhost:8080
 
 Modifications made to html, sass and js files will automatically trigger a re-build and browser refresh.
 

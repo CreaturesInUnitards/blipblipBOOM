@@ -14,7 +14,10 @@ const handleMatch = (labOpen, args) => {
 	return App
 }
 
-m.route.prefix('/mithril0-60')
+
+/*
+// m.route.prefix('/mithril0-60')
+m.route.prefix('')
 m.route(document.body, '/' , {
 	'/': App,
 	'/:chapter/content': {
@@ -30,3 +33,7 @@ m.route(document.body, '/' , {
 		onmatch: handleMatch.bind(null, true)
 	}
 })
+
+*/
+
+m.mount(document.body, require('./components/NEW_STRUCTURE/NEW_STRUCTURE'))
