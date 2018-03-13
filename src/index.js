@@ -5,19 +5,18 @@ require('./globals.sass')
 const App = require('./components/App/App')
 
 
-const handleMatch = (labOpen, args) => {
+const handleMatch = (sandboxOpen, args) => {
 	const chapter = parseInt(args.chapter)
 	const sandbox = parseInt(args.sandbox) || undefined
 	
-	State.labOpen = labOpen
+	State.sandboxOpen = sandboxOpen
 	State.loadChapter(chapter, sandbox)
 	return App
 }
 
 
-/*
 // m.route.prefix('/mithril0-60')
-m.route.prefix('')
+// m.route.prefix('')
 m.route(document.body, '/' , {
 	'/': App,
 	'/:chapter/content': {
@@ -34,6 +33,5 @@ m.route(document.body, '/' , {
 	}
 })
 
-*/
 
-m.mount(document.body, require('./components/NEW_STRUCTURE/NEW_STRUCTURE'))
+// m.mount(document.body, App)

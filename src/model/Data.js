@@ -27,14 +27,11 @@
   ********************************************************************************** 
 */
 
-
+const TEXT = "Progressively engineer end-to-end manufactured products through market-driven products. Professionally orchestrate business infomediaries for pandemic e-markets. Professionally drive 24/365 benefits for diverse content. Uniquely revolutionize customized e-services via superior quality vectors. Authoritatively incentivize future-proof internal or \"organic\" sources whereas economically sound ideas.\n"
 
 module.exports = [
 	{
 		label: 'Welcome',
-		notes: "Here you will see suggestions for activities related to your current chapter in the series.|" +
-		"Click the sandboxes for various starting points, then experiment with coding ideas and see your results in real time on the right.|" +
-		"(<i>Sandboxes are implemented using Rasmus Porsager's excellent Flems.io</i>)",
 		links: [
 			{ text: 'Official Mithril.js site', url: 'https://mithril.js.org' },
 			{ text: 'Mithril on GitHub', url: 'https://github.com/MithrilJS/mithril.js' },
@@ -45,45 +42,42 @@ module.exports = [
 			{ text: '@porsager on GitHub', url: 'https://github.com/porsager' },
 		],
 		flems: [
-			{ label: '"Hello world" in HTML :)', url: 'y9da38m6' },
-			{ label: '"Hello world" in vanilla JS', url: 'y8vhu2vg' }
+			{ notes: TEXT, label: '"Hello world" in HTML :)', url: 'y9da38m6' },
+			{ notes: TEXT, label: '"Hello world" in vanilla JS', url: 'y8vhu2vg' }
 		]
 	},
 	{
 		label: 'Hello, World!',
 		id: 256868112,
-		notes: "We used two different methods to put text on the page: <code>m.render</code> and <code>m.mount</code>.|See what kind of damage you can do with each of them in the sandboxes.",
 		links: [
 			{ text: 'm.render API reference', url: 'https://mithril.js.org/render.html' },
 			{ text: 'm.mount API reference', url: 'https://mithril.js.org/mount.html' },
 		],
 		flems: [
-			{ label: "Using m.render", url: 'y7zau2jh', cuepoint: 45 },
-			{ label: "Using m.mount", url: 'ybq58myu' }
+			{ notes: TEXT, label: "Using m.render", url: 'y7zau2jh', cuepoint: 45 },
+			{ notes: TEXT, label: "Using m.mount", url: 'ybq58myu' }
 		]
 	},
 	{
 		label: 'Hyperscript',
 		id: 256259017,
-		notes: "Mithril embraces Javascript fully, and doesn't rely on angle-bracketed pseudo tags to produce amazing results.",
 		links: [
 			{ text: 'hyperscript API reference', url: 'https://mithril.js.org/hyperscript.html' }
 		],
 		flems: [
-			{ label: "Start here...", url: 'ya62rcux'},
-			{ label: "...and end up here", url: 'yd8ft5ls' }
+			{ notes: TEXT, label: "Start here...", url: 'ya62rcux'},
+			{ notes: TEXT, label: "...and end up here", url: 'yd8ft5ls' }
 		]
 	},
 	{
 		label: 'Auto-redraw',
 		id: 256266955,
-		notes: "Mithril will automatically re-draw the appropriate parts of your application when view-based user events change your data.",
 		links: [
 			{ text: 'auto-redraw guide', url: 'https://mithril.js.org/hyperscript.html' }
 		],
 		flems: [
-			{ label: "Start here...", url: 'ya62rcux'},
-			{ label: "...and end up here", url: 'yd8ft5ls' }
+			{ notes: TEXT, label: "Start here...", url: 'ya62rcux'},
+			{ notes: TEXT, label: "...and end up here", url: 'yd8ft5ls' }
 		]
 	}
 ]

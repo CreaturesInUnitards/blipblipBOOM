@@ -7,7 +7,7 @@ const State = {
 	currentChapterIndex: 0,
 	currentFlemIndex: 0,
 	menuOpen: localStorage.getItem('menuOpen') === 'true',
-	labOpen: false,
+	sandboxOpen: false,
 	player: null,
 	setFlem: (n) =>  State.currentFlemIndex = n ,
 	setupPlayer: (id) => {
@@ -25,7 +25,7 @@ const State = {
 			m.redraw()
 			
 			setTimeout( () => {
-				State.labOpen = true
+				State.sandboxOpen = true
 				m.redraw()
 
 				setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
@@ -59,8 +59,8 @@ const State = {
 		const id = State.chapters[ch].id
 
 		State.setFlem(fl || 0)
-		if (fl !== undefined) State.labOpen = true
-
+		if (fl !== undefined) State.sandboxOpen = true
+		
 		if (id && chapterIsChanging) {
 			State.canPlay = false
 

@@ -3,7 +3,7 @@
 * Mobile
 *
 ***********************************/
-const SiteLogo = require('../SiteLogo/SiteLogo')
+const SiteLogo = require('../../src/components/SiteLogo/SiteLogo')
 
 module.exports = {
 	view: () => {

@@ -7,7 +7,7 @@ const VH = require('../../view_helpers')
 const SiteLogo = require('../SiteLogo/SiteLogo')
 
 module.exports = VH.fadeInOutComponent({
-	oncreate: () => {
+	oninit: () => {
 		if (localStorage.getItem('menuOpen') === null) {
 			setTimeout(() => {
 				State.toggleMenu()
@@ -20,4 +20,4 @@ module.exports = VH.fadeInOutComponent({
 			, m(SiteLogo, { size: '7vw' })
 		)
 	}
-})
+}, true)

@@ -1,4 +1,4 @@
-@import '../../includes'
+@import '../../src/includes'
 
 $slider-height: 40px
 
@@ -133,17 +133,16 @@ nav
 		background: inherit
 
 main
-	position: relative
-
-.sled
-	position: absolute
-	width: 100%
+	position: fixed
+	top: 0
+	height: 100vh
 	
 .menu-closed
 	menu
 		width: 60px
 	
-	main  
+	main
+		left: 60px
 		width: calc(100% - 60px)
 
 	.menu-item
@@ -160,6 +159,7 @@ main
 		width: 300px
 	
 	main
+		left: 300px
 		width: calc(100% - 300px)
 	
 	.menu-button
@@ -191,24 +191,31 @@ main
 	.menu-item-buttons-wrapper
 		border-left: 1px solid black
 	
-
 .sandbox-closed
-	.sled
+	.theater
 		top: 0
+	
+	.slider
+		top: calc(100vh - #{$slider-height})
 		
 .sandbox-open
-	.sled
+	.theater
 		top: calc(-100vh + #{$slider-height})
 		
 	.slider
+		top: 0
+		
 		&:before
 			transform: translateY(-6px) rotate(45deg) scale(-1)
 		
 .screen
+	position: absolute
+	width: 100%
 	height: calc(100vh - #{$slider-height})
 	background: $deep-grey
 
-.slider 
+.slider
+	position: absolute
 	display: block
 	height: $slider-height
 	width: 100%
