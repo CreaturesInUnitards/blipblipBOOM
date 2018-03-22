@@ -22,7 +22,7 @@ module.exports = ({attrs}) => {
 			}
 			case 13: {
 				console.log(o)
-				attrs.save(o, e.target.value)
+				attrs.save(attrs.collectionName, o, 'title', e.target.value)
 				editing = false
 				break
 			}

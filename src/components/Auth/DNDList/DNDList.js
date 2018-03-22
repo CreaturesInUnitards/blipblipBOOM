@@ -53,6 +53,7 @@ module.exports = _v => {
 							dragAttrs(o, array),
 							m(ListItem,
 								{
+									collectionName: header.toLowerCase(),
 									obj: object,
 									key: o,
 									idx: idx,

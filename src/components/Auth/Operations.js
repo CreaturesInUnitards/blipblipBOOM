@@ -1,12 +1,21 @@
-window.UpdateObject = (collectionName, objectId, updateObj) => {
+const EditObjectProperty = (collectionName, object, prop, newValue) => {
+	object[prop] = newValue
+	const saveObject = {}
+	saveObject[prop] = newValue
+	UpdateObject(collectionName, object.id, saveObject)
+}
+
+const UpdateObject = (collectionName, objectId, updateObj) => {
 	firebase.firestore().collection(collectionName).doc(objectId).update(updateObj)
 }
 
-window.RemoveObject = (collectionName, objectId) => {
+const RemoveObject = (collectionName, objectId) => {
 	firebase.firestore().collection(collectionName).doc(objectId).delete()
 }
 
 
-window.AddObject = (collectionName, addObj) => {
+const AddObject = (collectionName, addObj) => {
 	firebase.firestore().collection(collectionName).add(addObj)
 }
+
+module.exports = { AddObject, UpdateObject, RemoveObject, EditObjectProperty }

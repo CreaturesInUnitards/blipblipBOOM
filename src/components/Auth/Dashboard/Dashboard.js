@@ -5,12 +5,11 @@
 ***********************************/
 window.alf = require('../alf')
 const FBObserve = require('../FBObserve')
+const { AddObject, UpdateObject, RemoveObject, EditObjectProperty } = require('../Operations')
 const LoadingAnimation = require('../../LoadingAnimation/LoadingAnimation')
 const ChapterEditor = require('../ChapterEditor/ChapterEditor')
 const DNDList = require('../DNDList/DNDList')
-const ListItem = require('../ListItem/ListItem')
 require("./Dashboard.sass")
-require('../Operations')
 
 const resetAdminData = () => ({
 	courses: {},
@@ -84,16 +83,6 @@ const chooseChapter = v => _e => {
 	AdminData.chapterCopy = alf.deepClone(v)
 }
 
-const editCourseName = (course, v) => {
-	course.data.title = v
-	UpdateObject('courses', course.id, { 'title': v })
-}
-
-const editChapterName = (chapter, v) => {
-	chapter.data.title = v
-	UpdateObject('chapters', chapter.id, { 'title': v })
-}
-
 const removeCourse = (course, idx) => _e => {
 	if (confirm(`Are you sure? "${course.data.title}" will be gone forever, along with all of its chapters and their data. Pretty scary.`)) {
 		if (confirm('Last chance...?')) {
@@ -148,7 +137,7 @@ module.exports = {
 							saveFn: () => { UpdateObject('users', user.id, { courses: courses }) },
 							object: AdminData.courses,
 							clickFn: chooseCourse,
-							titleSaveFn: editCourseName,
+							titleSaveFn: EditObjectProperty,
 							removeFn: removeCourse
 						}),
 						AdminData.courseCopy && m(DNDList, {
@@ -158,7 +147,7 @@ module.exports = {
 							saveFn: () => { UpdateObject('courses', AdminData.courseCopy.id, { chapters: AdminData.courseCopy.data.chapters }) },
 							object: AdminData.chapters,
 							clickFn: chooseChapter,
-							titleSaveFn: editChapterName,
+							titleSaveFn: EditObjectProperty,
 							removeFn: removeChapter
 						}), 
 						AdminData.chapterCopy && m(ChapterEditor, { key: Date.now() })
@@ -171,5 +160,3 @@ module.exports = {
 
 // TODO: make a form for all this shit
 // TODO: fix going from 0-something
-
-let foo = {author: "BB9CoFlGD2gzKYnsRi3bRLiDF6y2", title: "Mithril 0-60", chapters: ['XmIvXjqLG1jqh6wjyzqJ', 'ccWfgpEmz46bE68uriAn']}
