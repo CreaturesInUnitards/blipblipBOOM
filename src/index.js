@@ -2,7 +2,18 @@ window.m = require('mithril')
 window.State = require('./model/State')
 require('./globals.sass')
 
+window.firebase = require('firebase')
+require('firebase/firestore')
+
+firebase.initializeApp({
+	apiKey: "AIzaSyDlu_TEe5aN8OaQhuBCkqDbjH9-UqBjmRs",
+	authDomain: "mithril-0-60.firebaseapp.com",
+	projectId: "mithril-0-60"
+})
+
 const App = require('./components/App/App')
+const Auth = require('./components/Auth/Auth')
+const Dashboard = require('./components/Auth/Dashboard/Dashboard')
 
 
 const handleMatch = (sandboxOpen, args) => {
@@ -19,6 +30,10 @@ const handleMatch = (sandboxOpen, args) => {
 // m.route.prefix('')
 m.route(document.body, '/' , {
 	'/': App,
+	'/admin': Auth,
+	'/dashboard': {
+		onmatch: () => firebase.auth().currentUser ? Dashboard : Auth
+	},
 	'/:chapter/content': {
 		onmatch: handleMatch.bind(null, false)
 	},

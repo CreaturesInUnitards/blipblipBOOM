@@ -1,23 +1,18 @@
 module.exports = {
-	fadeInOutComponent: (obj, fadein) => {
-		const component = {
-			oncreate: (vnode) => {
-				if (fadein !== false) vnode.dom.classList.add(obj.enterClass || 'enter')
-			},
-			onbeforeremove: (vnode) => {
-				vnode.dom.classList.add(obj.exitClass || 'exit')
-				return new Promise((resolve) => {
-					setTimeout(resolve, 800)
-				})
+	fadeInOutComponent: _vnode => ({
+		oncreate: ({ dom, attrs }) => {
+			console.log(attrs.fadein)
+			if (attrs.fadein) dom.classList.add(attrs.enterClass || 'enter')
+			if (attrs.onupdate) {
+				this.onupdate = this.oncreate
 			}
-		}
-	
-		Object.keys(obj).forEach(function(key){
-			if (obj.hasOwnProperty(key)) {
-				component[key] = obj[key]
-			}
-		})
-	
-		return component
-	}
+		},
+		onbeforeremove: ({ dom, attrs }) => {
+			dom.classList.add(attrs.exitClass || 'exit')
+			return new Promise((resolve) => {
+				setTimeout(resolve, 800)
+			})
+		},
+		view: ({ children }) => children
+	})
 }

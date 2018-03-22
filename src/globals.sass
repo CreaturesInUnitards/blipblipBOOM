@@ -6,7 +6,6 @@ $slider-height: 40px
 	box-sizing: border-box
 	font-family: "Helvetica Neue", Helvetica, sans-serif
 	font-weight: 300
-	font-size: 0.8em
 
 *
 	margin: 0
@@ -35,11 +34,12 @@ menu
 	background: white
 	padding: 70px 5px 0
 	color: white
+	box-shadow: 1px 0 2px rgba(0, 0, 0, 0.4)
 
 	.site-logo
 		position: absolute !important
 		color: $deep-grey
-		top: 10px
+		top: 16px
 		left: 10px
 		opacity: 1
 		transition: 0.2s
@@ -50,6 +50,9 @@ menu
 	right: 10px
 	width: 40px
 	height: 40px
+	box-shadow: inset 0 0 5px 0 #999999
+	border-radius: 50%
+	transition: 0.3s
 
 	.inner, &:before, &:after
 		position: absolute
@@ -58,36 +61,36 @@ menu
 		height: 2px
 		border-radius: 3px
 		background: $deep-grey
+		transition: 0.3s
 
 	.inner
-		top: 50%
-		transform: translateY(-50%)
+		opacity: 0
 
 	&:before, &:after
 		content: ''
-		transition: 0.2s
 
 	&:before
-		top: 15px
-
+		top: calc(50% - 1px)
+		transform: rotate(45deg)
+		
 	&:after
-		bottom: 15px
+		bottom: calc(50% - 1px)
+		transform: rotate(-45deg)
 
 nav
 	height: 100%
 	overflow-y: auto
-	overflow-x: visible
 	padding-bottom: 10px
 
 .menu-item
+	box-sizing: border-box
 	position: relative
 	display: inline-block
-	padding: 0
+	padding: 10px
 	width: 100%
 	height: 80px
 	background: white
 	color: #222
-	font-size: 3em
 	border: 1px solid $deep-grey
 	border-radius: 4px
 	overflow: hidden
@@ -114,7 +117,7 @@ nav
 		text-decoration: none
 		position: relative
 		width: 100%
-		height: 40px
+		height: 39px
 		margin: 0
 		background: white
 		
@@ -131,6 +134,7 @@ nav
 	right: 0
 	width: 50px
 	height: auto
+	border-left: 1px solid transparent
 
 	a:hover
 		background: #dddddd
@@ -151,9 +155,23 @@ main
 		left: 60px
 		width: calc(100% - 60px)
 
-	.menu-item
-		padding: 10px
+	.menu-button
+		box-shadow: inset 0 0 5px 0 transparent
 
+		.inner
+			opacity: 1
+			top: 50%
+			transform: translateY(-50%)
+
+		&:before, &:after
+			transform: rotate(0deg)
+	
+		&:before
+			top: 15px
+	
+		&:after
+			bottom: 15px
+		
 	.menu-item-title
 		opacity: 0
 
@@ -168,34 +186,17 @@ main
 		left: 300px
 		width: calc(100% - 300px)
 
-	.menu-button
-		background: $deep-grey
-		border-radius: 4px
-
-		.inner
-			height: 4px
-			background: $light-green
-
-		&:before, &:after
-			height: 3px
-			background: $light-green
-
-		&:before
-			top: calc(50% - 1px)
-			transform: rotate(-45deg) scale(0.65, 1) translateY(-8px)
-
-		&:after
-			bottom: calc(50% - 1px)
-			transform: rotate(45deg) scale(0.65, 1) translateY(8px)
-
-	.menu-item
-		padding: 10px 50px 10px 10px
-
 	.menu-item-title
 		opacity: 1
 
 	.menu-item-buttons-wrapper
 		border-left: 1px solid black
+
+	.current .video-button
+		border-top-left-radius: 0
+
+	.current .code-button
+		border-bottom-left-radius: 0
 
 .sandbox-closed
 	.theater
@@ -226,25 +227,25 @@ main
 	
 .practicum
 	width: 400px
-	padding: 20px
+	//padding: 20px
 	color: white
 	overflow-y: auto
 	
 	.notes
 		font-size: 16px
 		line-height: 16px
-	
-	section + section
-		margin-top: 16px
-
-	h5
-		font-size: 22px
-		line-height: 26px
-		border-bottom: 1px solid white
-		margin-bottom: 10px
+	//	
+	//.resources
+	//	padding: 20px
+	//
+	//h5
+	//	font-size: 22px
+	//	line-height: 26px
+	//	border-bottom: 1px solid white
+	//	margin-bottom: 10px
 		
 	ul
-		padding: 0 14px
+		padding: 40px
 	
 .flems
 	position: relative
@@ -281,6 +282,8 @@ main
 
 .video-button
 	position: relative
+	border-top-left-radius: 4px
+	border-top-right-radius: 4px
 
 	&:before, &:after
 		position: relative
@@ -308,21 +311,19 @@ main
 .code-button
 	border-top: 1px solid black
 	color: $medium-grey
+	border-bottom-left-radius: 4px
+	border-bottom-right-radius: 4px
 
 .tooltip
 	position: fixed
 	padding: 8px
 	background: white
 	color: $deep-grey
-	//border: 1px solid $light-green
 	border-radius: 4px
-	//border-top-right-radius: 4px
-	//border-bottom-right-radius: 4px
 	transform: translateY(-50%)
 	display: flex
 	align-items: center
-	flex-wrap: wrap
-	font-size: 1.5em
+	white-space: nowrap
 	box-shadow: 0 2px 5px 0 black
 
 	&:before
@@ -337,10 +338,6 @@ main
 		border-style: solid
 		border-width: 5px 10px 5px 0
 		border-color: transparent white transparent transparent
-
-
-
-
 
 #welcome
 	position: absolute
@@ -359,8 +356,9 @@ main
 		line-height: 22px
 	a
 		color: white
-		font-size: 14px
-
+		font-size: 18px
+		line-height: 24px
+		
 //@import "includes"
 //
 //*, html, body, main, section, header, button, input, textarea, menu, nav
@@ -811,3 +809,5 @@ main
 //		
 //		a
 //			color: white
+
+// TODO: circle the menu button

@@ -31,7 +31,6 @@ module.exports = () => {
 		onupdate: bodyClass,
 		view(){
 			return [
-				m(Menu),
 				m('main.animator',
 					m(Lab),
 					m(Lecture),
@@ -40,7 +39,8 @@ module.exports = () => {
 						oncreate: m.route.link,
 						onupdate: m.route.link
 					})
-				)
+				),
+				m(Menu),
 			]
 		}
 	}

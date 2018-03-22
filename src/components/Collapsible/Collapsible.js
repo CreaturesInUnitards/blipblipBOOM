@@ -1,5 +1,7 @@
 require('./Collapsible.sass')
 
+let firstRun = true
+
 const inout = (dom) => {
 	const notes = dom.querySelector('.notes')
 	const h = notes.offsetHeight
@@ -14,7 +16,8 @@ const grow = ({dom}) => {
 			o.notes.style.position = 'relative'
 			dom.style.height = 'auto'
 		}, 300)
-	}, 10)
+	}, firstRun ? 1000 : 10)
+	firstRun = false
 }
 
 const shrink = ({dom}) => {
@@ -28,34 +31,36 @@ const shrink = ({dom}) => {
 		})
 	})
 }
-const Collapsible = (vnode) => {
-	return {
-		view: ({attrs}) => {
-			let { items, label, content } = attrs
-			return m('.collapsible',
-				items.map((item, idx) =>
-					m('.item',
-						{ class: idx === State.currentFlemIndex ? 'current' : '' },
-						m('label',
-							m('a', {
+const Collapsible = _vnode => ({
+	view: ({attrs}) => {
+		let {items, label, content} = attrs
+		return m('.collapsible',
+			items.map((item, idx) =>
+				m('.item',
+					{class: idx === State.currentFlemIndex ? 'current' : ''},
+					m('label',
+						m('a', idx === State.currentFlemIndex
+							? {}
+							: {
 								href: `/${State.currentChapterIndex}/lab/${idx}`,
 								oncreate: m.route.link,
 								onupdate: m.route.link
-							}, item[label])
-						),
-						// m('label', { onclick: () => { State.currentFlemIndex = idx } }, item[label]),
-						State.currentFlemIndex === idx && m('.notes-wrapper',
-						{
-							oncreate: grow,
-							onbeforeremove: shrink
-						},
-						m('.notes', item[content])
+							},
+							`${idx + 1}: ${item[label]}`
 						)
+					),
+					State.currentFlemIndex === idx && m('.notes-wrapper',
+					{
+						oncreate: grow,
+						onbeforeremove: shrink
+					},
+					m('.notes', item[content])
 					)
 				)
 			)
-		}
+		)
 	}
-}
+})
+
 
 module.exports = Collapsible

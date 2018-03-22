@@ -33,7 +33,9 @@
   },
   "dependencies": {
     "@vimeo/player": "^2.2.1",
-    "mithril": "^1.0.1"
+    "firebase": "^4.11.0",
+    "mithril": "^1.0.1",
+    "velocity-animate": "^1.5.1"
   },
   "babel": {
     "presets": [

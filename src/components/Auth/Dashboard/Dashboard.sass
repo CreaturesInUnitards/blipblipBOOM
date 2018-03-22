@@ -1,0 +1,107 @@
+@import '../../../includes'
+
+.dashboard
+	@include full-screen
+
+	header
+		padding: 20px
+		background: $deep-grey
+		color: white
+		font-size: 36px
+		display: flex
+		justify-content: space-between
+		align-items: center
+			
+		button
+			color: white
+			font-size: 0.5em
+			cursor: pointer
+			
+	.main
+		display: flex
+		padding: 0
+		justify-content: flex-start
+		height: calc(100% - 84px)
+		
+	.menu
+		width: 20%
+		border-right: 1px solid black
+		cursor: pointer
+		background: #eeeeee
+		
+	.menu-header
+		padding: 10px
+		background: #222222
+		color: white
+		font-weight: 600
+		display: flex
+		justify-content: space-between
+		align-items: center
+		
+		button
+			color: white
+			font-size: 1.5em
+		
+	.item
+		position: relative
+		padding: 10px
+		border-bottom: 1px solid black
+		display: flex
+		justify-content: space-between
+		align-items: center
+		
+		input
+			width: 100%
+			font-size: 18px
+			
+		i.hint
+			font-size: 12px
+			color: #666666
+		
+		&.editing
+			display: block
+		
+		.text
+			margin-right: auto
+			
+		.button-wrapper
+			white-space: nowrap
+
+		.delete
+			margin-left: 10px
+			font-size: 2em
+			color: red
+		
+		.edit
+			margin-left: 10px
+			font-size: 1.5em
+			transform: scaleX(-1)
+			color: blue
+
+	.editor
+		padding: 50px
+		
+
+
+.drag-item 
+	position: relative
+	background: white
+	user-select: none
+	cursor: -webkit-grab
+	cursor: grab
+
+
+//.drag-item + .drag-item 
+//	margin-top: 1px
+
+
+.dragging 
+	background: red
+	cursor: -webkit-grabbing
+	cursor: grabbing
+
+
+.dropping 
+	background: greenyellow
+
+	

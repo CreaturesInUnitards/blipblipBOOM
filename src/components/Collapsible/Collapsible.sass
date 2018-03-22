@@ -1,18 +1,23 @@
 @import "../../includes"
 
 .collapsible
-	border: 1px solid white
-	border-radius: 6px
 	overflow: hidden
+	border-top: 1px solid white
 	
 	.item
-		background: white
+		background: black
+		//border-radius: 6px
+		transition: 0.3s
+		box-shadow: inset 0 0 0 0 transparent
+		border-bottom: 1px solid white
 
 		&.current
-			background: black
+			background: white
+			color: black
+			box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.7)
 			
 			a
-				color: $light-green
+				color: black
 			
 		label 
 			position: relative
@@ -23,8 +28,9 @@
 			display: block
 			padding: 20px
 			font-size: 18px
-			color: $light-grey
+			color: white
 			text-decoration: none
+			transition: 0.3s
 		
 		.notes-wrapper 
 			position: relative
@@ -37,9 +43,9 @@
 			width: 100%
 			height: auto
 			padding: 0 20px 20px
-			color: white
+			//color: white
 			font-size: 14px
 			line-height: 24px
-	
-	.item + .item
-		border-top: 1px solid white
+	//
+	//.item + .item
+	//	margin-top: 6px
