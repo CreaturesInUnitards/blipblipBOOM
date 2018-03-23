@@ -14,7 +14,9 @@ require("./Dashboard.sass")
 const resetAdminData = () => ({
 	courses: {},
 	chapters: {}
-}) 
+})
+
+// TODO: go with AdminData.users = {} and AdminData.currentUser
 
 window.AdminData = resetAdminData() 
 
@@ -54,6 +56,7 @@ const getUser = () => {
 }
 
 const chooseCourse = v => _e => {
+	// TODO: cache courses and chapters and check to see if they're still here
 	AdminData.courseCopy = alf.deepClone(v)
 	AdminData.chapters = {}
 	AdminData.chapterCopy = null
@@ -118,8 +121,6 @@ module.exports = {
 		return user
 			?   m('.dashboard',
 				[
-					// m('script[src=https://cdn.quilljs.com/1.0.0/quill.js]'),
-					// m('link[href=https://cdn.quilljs.com/1.0.0/quill.snow.css][rel=stylesheet]'),
 					m('header',
 						`Courses: ${username(user)}`,
 						m('button', { onclick: signOut }, 'sign out')
