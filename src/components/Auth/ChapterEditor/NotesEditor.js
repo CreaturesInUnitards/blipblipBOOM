@@ -21,10 +21,14 @@ module.exports = ({attrs}) => {
 		view({attrs}) {
 			return m('.notes-editor',
 				{ onclick: getHtml },
-				m('.quill-wrapper',
-					{ onclick: e => { e.stopPropagation() } },
-					m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i')),
-					m('#quill', m.trust(attrs.flem.notes)),
+				m('.wrapper-wrapper',
+					m('.notes-headline', `Notes: "${attrs.flem.label}"`),
+					m('.quill-wrapper',
+						{ onclick: e => { e.stopPropagation() } },
+						m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i')),
+						m('#quill', m.trust(attrs.flem.notes)),
+					),
+					m('i.help', 'click anywhere out here to go back')
 				)
 			)
 		}
