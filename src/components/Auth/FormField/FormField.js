@@ -22,7 +22,7 @@ const fieldTypes = {
 
 module.exports = {
 	view: ({attrs}) => {
-		const labelFirst = ('passwordtextareaemail').indexOf(attrs.type > -1)
+		const labelFirst = ('passwordtextareaemail').indexOf(attrs.type)  > -1
 		const labelDOM = m('', attrs.label)
 		return m('label.form-field',
 			labelFirst && labelDOM,

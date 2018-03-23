@@ -5,7 +5,7 @@
 ***********************************/
 window.alf = require('../alf')
 const FBObserve = require('../FBObserve')
-const { AddObject, UpdateObject, RemoveObject, EditObjectProperty } = require('../Operations')
+const { AddObject, UpdateObject, RemoveObject } = require('../Operations')
 const LoadingAnimation = require('../../LoadingAnimation/LoadingAnimation')
 const ChapterEditor = require('../ChapterEditor/ChapterEditor')
 const DNDList = require('../DNDList/DNDList')
@@ -46,6 +46,9 @@ const getUser = () => {
 					UpdateObject('users', user.id, { courses: courses })
 					m.redraw()
 				}
+				if (AdminData.courseCopy && docId == AdminData.courseCopy.id) {
+					AdminData.courseCopy.data = change.doc.data()
+				}
 			} 
 		})
 }
@@ -53,6 +56,8 @@ const getUser = () => {
 const chooseCourse = v => _e => {
 	AdminData.courseCopy = alf.deepClone(v)
 	AdminData.chapters = {}
+	AdminData.chapterCopy = null
+	
 	FBObserve('chapters', AdminData.chapters, 
 		{ 
 			condition: ['course', '==', AdminData.courseCopy.id],
@@ -86,6 +91,7 @@ const chooseChapter = v => _e => {
 const removeCourse = (course, idx) => _e => {
 	if (confirm(`Are you sure? "${course.data.title}" will be gone forever, along with all of its chapters and their data. Pretty scary.`)) {
 		if (confirm('Last chance...?')) {
+			AdminData.courseCopy = null
 			RemoveObject('courses', course.id)
 		}
 	}
@@ -94,23 +100,10 @@ const removeCourse = (course, idx) => _e => {
 const removeChapter = (chapter, idx) => _e => {
 	if (confirm(`Are you sure? "${chapter.data.title}" will be gone forever, along with all of its data.`)) {
 		if (confirm('Last chance...?')) {
+			AdminData.chapterCopy = null
 			RemoveObject('chapters', chapter.id)
 		}
 	}
-}
-
-const addCourse = _e => {
-	AddObject('courses', {
-		author: AdminData.user.id,
-		title: 'New Course'
-	})
-}
-
-const addChapter = course => _e => {
-	AddObject('chapters', {
-		course: course.id,
-		title: 'New Chapter'
-	})
 }
 
 const username = user => `${user.data.first} ${user.data.last}`
@@ -125,6 +118,8 @@ module.exports = {
 		return user
 			?   m('.dashboard',
 				[
+					// m('script[src=https://cdn.quilljs.com/1.0.0/quill.js]'),
+					// m('link[href=https://cdn.quilljs.com/1.0.0/quill.snow.css][rel=stylesheet]'),
 					m('header',
 						`Courses: ${username(user)}`,
 						m('button', { onclick: signOut }, 'sign out')
@@ -132,31 +127,30 @@ module.exports = {
 					m('.main',
 						m(DNDList, {
 							header: 'Courses',
-							addFn: addCourse,
+							addFn: AddObject('courses', { author: AdminData.user.id, title: 'New Courset' }),
 							array: courses,
 							saveFn: () => { UpdateObject('users', user.id, { courses: courses }) },
 							object: AdminData.courses,
 							clickFn: chooseCourse,
-							titleSaveFn: EditObjectProperty,
+							titleSaveFn: UpdateObject,
 							removeFn: removeCourse
 						}),
-						AdminData.courseCopy && m(DNDList, {
-							header: 'Chapters',
-							addFn: addChapter(AdminData.courseCopy),
-							array: AdminData.courseCopy.data.chapters,
-							saveFn: () => { UpdateObject('courses', AdminData.courseCopy.id, { chapters: AdminData.courseCopy.data.chapters }) },
-							object: AdminData.chapters,
-							clickFn: chooseChapter,
-							titleSaveFn: EditObjectProperty,
-							removeFn: removeChapter
-						}), 
-						AdminData.chapterCopy && m(ChapterEditor, { key: Date.now() })
+						AdminData.courseCopy
+							? m(DNDList, {
+								header: 'Chapters',
+								addFn: AddObject('chapters', { course: AdminData.courseCopy.id, title: 'New Chaptert' }),
+								array: AdminData.courseCopy.data.chapters,
+								saveFn: () => { UpdateObject('courses', AdminData.courseCopy.id, { chapters: AdminData.courseCopy.data.chapters }) },
+								object: AdminData.chapters,
+								clickFn: chooseChapter,
+								titleSaveFn: UpdateObject,
+								removeFn: removeChapter
+							})
+							: m('.no-course', 'Select a course'),
+						AdminData.chapterCopy && m(ChapterEditor)
 					)
 				]
 			)
 			: m(LoadingAnimation)
 	}
 }
-
-// TODO: make a form for all this shit
-// TODO: fix going from 0-something

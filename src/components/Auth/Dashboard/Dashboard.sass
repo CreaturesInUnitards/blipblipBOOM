@@ -30,6 +30,7 @@
 		background: #eeeeee
 		
 	.menu-header
+		width: 100%
 		padding: 10px
 		background: #222222
 		color: white
@@ -66,16 +67,20 @@
 		.button-wrapper
 			white-space: nowrap
 
+			button
+				margin-left: 10px
+				color: #cccccc
+				transition: 0.3s
+				
+				&:hover
+					color: #999999
+				
 		.delete
-			margin-left: 10px
 			font-size: 2em
-			color: red
 		
 		.edit
-			margin-left: 10px
 			font-size: 1.5em
 			transform: scaleX(-1)
-			color: blue
 
 	.editor
 		padding: 50px

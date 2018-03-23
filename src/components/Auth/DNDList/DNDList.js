@@ -7,10 +7,17 @@ require("./DNDList.sass")
 const ListItem = require('../ListItem/ListItem')
 
 module.exports = _v => {
+	let current = null
 	let dnd = { drag: null, drop: null }
 
-	const dndClass = (dnd, item) => 
-		item === dnd.drag ? 'dragging' : item === dnd.drop ? 'dropping' : ''
+	const dndClass = (dnd, item) => {
+		const classes = []
+		if (item === dnd.drag) classes.push('dragging')
+		if (item === dnd.drop) classes.push('dropping')
+		if (item === current) classes.push('current')
+		return classes.join(' ')
+	}
+		
 
 	const dragAttrs = (key, array) => ({
 		key: key,
