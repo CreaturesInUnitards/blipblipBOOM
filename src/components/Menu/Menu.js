@@ -5,7 +5,6 @@
 ***********************************/
 const SiteLogo = require('../SiteLogo/SiteLogo')
 const VH = require('../../view_helpers')
-const Velocity = require('velocity-animate/velocity')
 
 let tooltip = null
 
