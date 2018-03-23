@@ -49,6 +49,7 @@ module.exports = _v => {
 						}
 					),
 					m('', m('button.login-button', { onclick: _e => { Object.assign(creds, { email: 'portrayme@mac.com', password: 'passw0rd' }); signIn() } }, 'log in as portrayme')),
+					m('', m('button.login-button', { onclick: _e => { Object.assign(creds, { email: 'foo@foo.net', password: 'passw0rd' }); signIn() } }, 'log in as foo')),
 					trying && m('i', 'logging in...')
 				)
 			)
