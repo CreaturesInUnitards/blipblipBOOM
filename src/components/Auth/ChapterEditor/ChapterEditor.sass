@@ -1,1 +1,131 @@
 @import '../../../includes'
+
+.editor
+	position: relative
+	box-sizing: border-box
+	width: 60%
+	overflow-y: auto
+	transition: 0.3s
+	
+	&.dirty
+		background: #fffeba
+	
+	.done-buttons
+		position: absolute
+		top: 10px
+		right: 10px
+		padding: 6px
+		background: white
+
+	.editor-button
+		margin: 0 6px
+		padding: 4px 12px
+		font-size: 12px
+		color: white
+		background: $deep-grey
+		border-radius: 6px
+
+		&:disabled
+			opacity: 0.15
+			cursor: default
+	
+	.top-fields
+		display: flex
+		
+		& > div
+			flex: 1
+			
+		& > div + div
+			margin-left: 16px
+		
+	.header
+		padding: 10px
+		display: flex
+		justify-content: space-between
+		align-items: center
+		border-bottom: 1px solid #999999
+		background: $deep-grey
+		color: white
+		
+		button
+			font-size: 1.5em
+			color: inherit
+	input
+		width: 100%
+		padding: 6px
+		font-size: 14px
+
+	.box
+		margin-top: 20px
+		padding: 12px
+		background: #eeeeee
+		border: 1px solid #999999
+		
+	.flem
+		margin: 20px 0
+		padding: 6px
+		border: 1px solid #999999
+		background: white
+		
+		&.current
+			border-color: $light-green 
+			
+	.closed-flem
+		position: relative
+		cursor: pointer
+			
+		&:after
+			content: 'view'
+			display: inline-block
+			position: absolute
+			top: 50%
+			right: 0
+			transform: translateY(-50%)
+			padding: 4px 12px
+			background: $deep-grey
+			color: white
+			border-radius: 6px
+			font-size: 12px
+		
+		
+	.form-field
+		margin-top: 20px
+	
+	.flem-notes
+		margin: 20px 0 0
+		padding: 10px
+		background: #eeeeee
+		text-align: right
+		
+		& > div
+			margin: 20px 0
+			text-align: left
+			
+		& > h3
+			text-align: left
+			background: #666666
+			color: white
+			padding: 6px
+			
+	.notes-editor
+		@include full-screen
+		background: rgba(0, 0, 0, 0.8)
+		display: flex
+		justify-content: center
+		align-items: center
+
+
+	.quill-wrapper
+		width: 90%
+		height: 90%
+		max-width: 400px
+		max-height: 400px
+		background: white
+		border-radius: 6px
+		overflow: hidden
+	
+	strong, strong em, em strong
+		font-weight: 700 !important
+	
+	em, strong em, em strong
+		font-style: italic
