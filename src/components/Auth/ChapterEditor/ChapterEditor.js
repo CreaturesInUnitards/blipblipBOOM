@@ -9,42 +9,40 @@ const FormField = require('../FormField/FormField')
 const NotesEditor = require('./NotesEditor')
 const UpdateObject = require('../Operations').UpdateObject
 
-const addFlem = _e => {
-	const newFlems = ( AdminData.chapterCopy.data.flems || [] ).concat({ label: 'New Flem' })
-	UpdateObject('chapters', AdminData.chapterCopy.id, { flems: newFlems })
+/*********************** GLOBAL AdminData ***********************/
+
+let editing, currentFlem, chapter = null
+
+const addChild = prop => _e => { 
+	chapter.data[prop] = (chapter.data[prop] || [])
+		.concat({ label: `New ${prop.slice(0, prop.length - 1)}` }) 
 }
 
-const addLink = _e => {
-	const newLinks = ( AdminData.chapterCopy.data.links || [] ).concat({ label: 'new link', url: '' })
-	UpdateObject('chapters', AdminData.chapterCopy.id, { links: newLinks })
+const cancel = _e => { chapter = null }
+
+const revert = _e => {
+	if (confirm('Revert to saved? Changes will be lost.')) {
+		chapter = alf.deepClone(AdminData.chapters[chapter.id])
+	}
 }
+
+const save = _e => { UpdateObject('chapters', chapter.id, chapter.data) }
+
+const deleteChild = (array, idx) => _e => { chapter.data[array].splice(idx, 1) }
 
 module.exports = v => {
-	let editing = null
-	let currentFlem = null
-	
-	const cancel = _e => {
-		AdminData.chapterCopy = null
-	}
-	
-	const save = _e => {
-		UpdateObject('chapters', AdminData.chapterCopy.id, AdminData.chapterCopy.data)
-	}
-	
-	const revert = _e => {
-		if (confirm('Discard changes?')) {
-			AdminData.chapterCopy = alf.deepClone(AdminData.chapters[AdminData.chapterCopy.id])
-		}
-	}
+	editing = null
+	currentFlem = null
+	chapter = AdminData.chapterCopy
 	
 	return {
-		view: () => {
-			const obj = AdminData.chapterCopy.data
-			
+		view: _v => {
+			const obj = chapter.data
 			let dirty = false
+			
 			try {
-				dirty = AdminData.chapterCopy && !alf.objectsAreEquivalent(obj, AdminData.chapters[AdminData.chapterCopy.id].data)
-			} catch (e) {}
+				dirty = chapter && !alf.objectsAreEquivalent(obj, AdminData.chapters[chapter.id].data)
+			} catch (e) {} // swallow phantom firstrun redraw
 			
 			return m('.editor.f1.flex.col',
 				m('.editor-header.flex.ac.h50.ph20',
@@ -79,7 +77,7 @@ module.exports = v => {
 					m('.flem-box.bg-light.p10.b1-black.mb20',
 						m('.flem-header.bg-dark.c-white.flex.ac.h50.ph10',
 							m('h3.mra', 'Exercises'),
-							m('button.add-button.font-24', { onclick: addFlem }, '⊕')
+							m('button.add-button.font-24', { onclick: addChild('flems') }, '⊕')
 						),
 						obj.flems && obj.flems.map((flem, idx) => {
 							const isCurrent = flem === currentFlem
@@ -130,15 +128,15 @@ module.exports = v => {
 											m('.pt10.flex.ac', 
 												m('button.bg-dark.c-white.brad4.mla', 
 													{ onclick: _e => { editing = flem } }, 
-													'edit'
+													'Edit Notes'
 												)
 											)											
 										)
 									)
 									: m('.box.mt20.p10.b1-black.bg-white.flex.ac.pointer',
-										{ onclick: _e => { currentFlem = flem } },
 										m('.font-18.mra', `${n}: ${flem.label}`),
-										m('button.b0.brad4.f-12.bg-dark.c-white', 'view')
+										m('button.edit-button.c-light.font-24', { onclick: _e => ( currentFlem = flem ) }, '✎'),
+										m('button.delete-button.c-light.font-24', { onclick: deleteChild('flems', idx) }, '⊗')
 									) 
 
 							)}
@@ -151,10 +149,13 @@ module.exports = v => {
 					m('.link-box.bg-light.p10.b1-black.mb20',
 						m('.link-header.bg-dark.c-white.flex.ac.h50.ph10',
 							m('h3.mra', 'Links'),
-							m('button.add-button.font-24', { onclick: addLink }, '⊕')
+							m('button.add-button.font-24', { onclick: addChild('links') }, '⊕')
 						),
-						obj.links && obj.links.map((link) => {
+						obj.links && obj.links.map((link, idx) => {
 							return m('.link.p6.mt20.bg-white',
+								m('.flex', 
+									m('button.delete-button.c-light.font-24.mla', { onclick: deleteChild('links', idx) }, '⊗')
+								),
 								m('.top-fields.flex.ac',
 									m(FormField, {
 										labelClass: 'mb6',
@@ -187,5 +188,3 @@ module.exports = v => {
 
 
 // TODO: dragsort flems & links (abstract the array of children from DNDList.js)
-// TODO: flem and link deleters
-// TODO: make sure chapter's course is currentCourse before setting currentChapter = null
