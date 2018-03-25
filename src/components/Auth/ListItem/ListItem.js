@@ -4,6 +4,7 @@
 *
 ***********************************/
 require("./ListItem.sass")
+const UpdateObject = require('../Operations').UpdateObject
 
 module.exports = ({attrs}) => {
 	let editing = false
@@ -16,15 +17,17 @@ module.exports = ({attrs}) => {
 		editing = true
 	}
 	
+	const doneEditing = _e => ( editing = false ) 
+	
 	const handleStuff = o => e => {
 		switch (e.which) {
 			case 27: {
-				editing = false
+				doneEditing()
 				break
 			}
 			case 13: {
-				attrs.save(attrs.collectionName, o.id, { title: e.target.value })
-				editing = false
+				UpdateObject(attrs.collectionName, o.id, { title: e.target.value })
+				doneEditing()
 				break
 			}
 			default: {
@@ -45,28 +48,28 @@ module.exports = ({attrs}) => {
 	
 	return {
 		view: ({attrs}) => {
-			obj = attrs.obj[attrs.key]
-			return m('.item',
+			obj = attrs.obj
+			return m('.list-item.flex.ac.p10',
 				{
 					class: itemClass(),
 					onclick: attrs.onclick(obj) 
 				},
 				editing
-					? [
-						m('input[autofocus]', {
-							oncreate: _v => { tempTitle = obj.data.title; m.redraw() },
+					? m('.w100pct',
+						m('input[autofocus].w100pct.mb6.font-16', {
+							oncreate: _v => { tempTitle = obj.title; m.redraw() },
 							onremove: _v => { tempTitle = '' },
-							value: tempTitle, 
-							onkeydown: handleStuff(obj) 
+							onblur: doneEditing,
+							value: tempTitle,
+							onkeydown: handleStuff(obj)
 						}),
-						m('', m('i.hint', '[ret] = save, [esc] = cancel'))
-					]
+						m('', m('i.flex.jc.font-12', '[ret] = save, [esc] = cancel'))
+					)
 					: [
-						m('span.text', obj ? obj.data.title : m('i', 'loading...')),
-						m('.button-wrapper', { onclick: e => { e.stopPropagation() } },
-							isCourses && m('button.edit', { onclick: edit(obj) }, '✎'),
-							m('button.delete', { onclick: attrs.remove(obj, attrs.idx) }, '⊗')
-
+						m('.title-label.mra.font-18', obj ? obj.title : m('i', 'loading...')),
+						m('.flex.ac', { onclick: e => { e.stopPropagation() } },
+							isCourses && m('button.edit-button.c-light.font-24', { onclick: edit(obj) }, '✎'),
+							m('button.delete-button.c-light.font-24', { onclick: attrs.remove(obj, attrs.idx) }, '⊗')
 						)
 					]
 			)

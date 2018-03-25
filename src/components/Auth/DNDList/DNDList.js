@@ -47,25 +47,29 @@ module.exports = _v => {
 	}
 	
 	return {
-		view: ({attrs : { header, addFn, array, saveFn, object, clickFn, titleSaveFn, removeFn }}) =>
-			m('.menu',
-				m('h3.menu-header', header, m('button.add', { onclick: addFn }, '⊕')),
-				m('.list',
+		view: ({attrs : { header, addFn, array, saveFn, clickFn, titleSaveFn, removeFn }}) =>
+			m('menu.flex.col.m0.p0.br1-black',
+				m('.menu-header.flex.ac.bg-dark.c-white.h50.ph10',
+					m('h3.mra', header),
+					m('button.add-button.font-24', { onclick: addFn }, '⊕')
+				),
+				//
+				// m('h3.menu-header', header, m('button.add', { onclick: addFn }, '⊕')),
+				m('.list.f1.bg-light.oya',
 					{
 						ondragover: dragover,
 						ondrop: drop(array, saveFn)
 					},
 					array && array.map((o, idx) =>
 						m('.drag-item[draggable]',
-							dragAttrs(o, array),
+							dragAttrs(o.id, array),
 							m(ListItem,
 								{
 									collectionName: header.toLowerCase(),
-									obj: object,
-									key: o,
+									obj: o,
+									key: o.id,
 									idx: idx,
 									onclick: clickFn,
-									save: titleSaveFn,
 									remove: removeFn,
 								}
 							)

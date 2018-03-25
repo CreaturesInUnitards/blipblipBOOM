@@ -1,152 +1,171 @@
-@import '../../../includes'
+//@import '../../../includes'
+//
+//.editor
+//	position: relative
+//	box-sizing: border-box
+//	width: 60%
+//	overflow-y: auto
+//	transition: 0.3s
+//	
+//	&.dirty
+//		background: #fffeba
+//	
+//	.done-buttons
+//		position: absolute
+//		top: 10px
+//		right: 10px
+//		padding: 6px
+//		background: white
+//	
+//	.top-fields
+//		display: flex
+//		
+//		& > div
+//			flex: 1
+//			
+//		& > div + div
+//			margin-left: 16px
+//		
+//	.header
+//		padding: 10px
+//		display: flex
+//		justify-content: space-between
+//		align-items: center
+//		border-bottom: 1px solid #999999
+//		background: $deep-grey
+//		color: white
+//		
+//		button
+//			font-size: 1.5em
+//			color: inherit
+//	input
+//		width: 100%
+//		padding: 6px
+//		font-size: 14px
+//
+//	.box
+//		margin-top: 20px
+//		padding: 12px
+//		background: #eeeeee
+//		border: 1px solid #999999
+//		
+//	.flem
+//		margin: 20px 0
+//		padding: 6px
+//		background: white
+//		border: 1px solid #999999
+//		
+//		&.current
+//			background: $deep-grey
+//			color: white
+//			
+//	.closed-flem
+//		position: relative
+//		cursor: pointer
+//			
+//		&:after
+//			content: 'view'
+//			display: inline-block
+//			position: absolute
+//			top: 50%
+//			right: 0
+//			transform: translateY(-50%)
+//			padding: 4px 12px
+//			background: $deep-grey
+//			color: white
+//			border-radius: 6px
+//			font-size: 12px
+//		
+//		
+//	.form-field
+//		margin-top: 20px
+//	
+//	.flem-notes
+//		margin: 20px 0 0
+//		padding: 10px
+//		background: white
+//		color: $deep-grey
+//		text-align: right
+//		
+//		& > div
+//			margin: 20px 0
+//			text-align: left
+//			
+//		& > h3
+//			text-align: left
+//			background: $deep-grey
+//			color: white
+//			padding: 6px
+//			
+.notes-editor
+	position: fixed
+	top: 0
+	left: 0
+	width: 100vw
+	height: 100vh
+	background: rgba(0, 0, 0, 0.8)
+	display: flex
+	justify-content: center
+	align-items: center
+	cursor: pointer
 
-.editor
+
+.wrapper-wrapper
 	position: relative
-	box-sizing: border-box
-	width: 60%
-	overflow-y: auto
-	transition: 0.3s
-	
-	&.dirty
-		background: #fffeba
-	
-	.done-buttons
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	width: 90%
+	height: 90%
+	max-width: 400px
+	max-height: 300px
+
+.notes-headline
+	color: white
+	font-size: 24px
+	font-weight: 700
+	pointer-events: none
+
+.quill-wrapper
+	width: 100%
+	height: 100%
+	margin: 20px 0
+	background: white
+	border-radius: 6px
+	overflow: hidden
+
+$dim: 40
+
+.fake-closer
+	position: fixed
+	top: 20px
+	right: 20px
+	width: #{$dim}px
+	height: #{$dim}px
+	cursor: pointer
+
+	&:before, &:after
+		content: ''
 		position: absolute
-		top: 10px
-		right: 10px
-		padding: 6px
+		top: 0
+		width: #{$dim / .7071}px
+		height: 1px
 		background: white
 
-	.editor-button
-		margin: 0 6px
-		padding: 4px 12px
-		font-size: 12px
-		color: white
-		background: $deep-grey
-		border-radius: 6px
+	&:before
+		left: 0
+		transform-origin: left
+		transform: rotate(45deg)
 
-		&:disabled
-			opacity: 0.15
-			cursor: default
-	
-	.top-fields
-		display: flex
-		
-		& > div
-			flex: 1
-			
-		& > div + div
-			margin-left: 16px
-		
-	.header
-		padding: 10px
-		display: flex
-		justify-content: space-between
-		align-items: center
-		border-bottom: 1px solid #999999
-		background: $deep-grey
-		color: white
-		
-		button
-			font-size: 1.5em
-			color: inherit
-	input
-		width: 100%
-		padding: 6px
-		font-size: 14px
-
-	.box
-		margin-top: 20px
-		padding: 12px
-		background: #eeeeee
-		border: 1px solid #999999
-		
-	.flem
-		margin: 20px 0
-		padding: 6px
-		background: white
-		border: 1px solid #999999
-		
-		&.current
-			background: $deep-grey
-			color: white
-			
-	.closed-flem
-		position: relative
-		cursor: pointer
-			
-		&:after
-			content: 'view'
-			display: inline-block
-			position: absolute
-			top: 50%
-			right: 0
-			transform: translateY(-50%)
-			padding: 4px 12px
-			background: $deep-grey
-			color: white
-			border-radius: 6px
-			font-size: 12px
-		
-		
-	.form-field
-		margin-top: 20px
-	
-	.flem-notes
-		margin: 20px 0 0
-		padding: 10px
-		background: white
-		color: $deep-grey
-		text-align: right
-		
-		& > div
-			margin: 20px 0
-			text-align: left
-			
-		& > h3
-			text-align: left
-			background: $deep-grey
-			color: white
-			padding: 6px
-			
-	.notes-editor
-		@include full-screen
-		background: rgba(0, 0, 0, 0.8)
-		display: flex
-		justify-content: center
-		align-items: center
+	&:after
+		right: 0
+		transform-origin: right
+		transform: rotate(-45deg)
 
 
-	.wrapper-wrapper
-		display: flex
-		flex-direction: column
-		justify-content: center
-		align-items: center
-		
-	.notes-headline
-		color: white
-		font-size: 24px
-		font-weight: 700
-		pointer-events: none
-	
-	.quill-wrapper
-		margin: 20px 0
-		width: 90%
-		height: 90%
-		max-width: 400px
-		max-height: 300px
-		background: white
-		border-radius: 6px
-		overflow: hidden
-		
-	i.help
-		color: white
-		font-size: 12px
-		pointer-events: none
-		
-	
-	strong, strong em, em strong
-		font-weight: 700 !important
-	
-	em, strong em, em strong
-		font-style: italic
+strong, strong em, em strong
+	font-weight: 700 !important
+
+em, strong em, em strong
+	font-style: italic

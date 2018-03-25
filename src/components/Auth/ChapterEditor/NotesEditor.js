@@ -28,7 +28,7 @@ module.exports = ({attrs}) => {
 						m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i')),
 						m('#quill', m.trust(attrs.flem.notes)),
 					),
-					m('i.help', 'click anywhere out here to go back')
+					m('.fake-closer', '✖')
 				)
 			)
 		}
