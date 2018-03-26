@@ -17,7 +17,7 @@ module.exports = _v => {
 		if (item === current) classes.push('current')
 		return classes.join(' ')
 	}
-		
+
 
 	const dragAttrs = (o, array) => ({
 		key: o.id,
@@ -27,7 +27,7 @@ module.exports = _v => {
 		ondragleave: _e => { dnd.drop = null },
 		ondragend: _e => { dnd = { drag: null, drop: null } }
 	})
-	
+
 	const dragover = e => { e.preventDefault() }
 	const drop = (array, saveChanges) => e => {
 		e.stopPropagation()
@@ -45,7 +45,6 @@ module.exports = _v => {
 
 			saveChanges()
 		}
-		dnd = { drag: null, drop: null }
 	}
 	
 	return {
@@ -56,7 +55,6 @@ module.exports = _v => {
 					m('button.add-button.font-24', { onclick: addFn }, '⊕')
 				),
 				//
-				// m('h3.menu-header', header, m('button.add', { onclick: addFn }, '⊕')),
 				m('.list.f1.bg-light.oya',
 					{
 						ondragover: dragover,
