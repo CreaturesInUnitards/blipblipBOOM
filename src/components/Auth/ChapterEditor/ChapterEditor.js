@@ -38,11 +38,9 @@ const windowClick = e => {
 			el = el.parentNode
 			all.push(el.tagName)
 		}
-		console.log(all)
 		if (all.indexOf('MENU') > -1) {
-			if (!confirm('This chapter has unsaved changes. Discard them?')) {
-				e.stopPropagation()
-			}
+			if (confirm('This chapter has unsaved changes. Discard them?')) AdminData.chapterCopy = null
+			else e.stopPropagation()
 		}
 	}
 }
