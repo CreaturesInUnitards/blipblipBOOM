@@ -5,17 +5,18 @@
 ***********************************/
 
 module.exports = {
-	view: ({attrs}) => {
+	view: ({attrs : { class: className, labelClass, label, autofocus, inputClass, placeholder, value, oninput }}) => {
 		return m('.form-field.f1',
-			{ class: attrs.class || '' },
+			{ class: className || '' },
 			m('label',
-				m('', { class: attrs.labelClass || '' }, attrs.label),
+				m('', { class: labelClass || '' }, label),
 				m('input[type=text]',
 					{
-						class: attrs.inputClass || '',
-						placeholder: attrs.placeholder,
-						value: attrs.value,
-						oninput: m.withAttr('value', attrs.oninput)
+						autofocus: autofocus,
+						class: inputClass || '',
+						placeholder: placeholder,
+						value: value,
+						oninput: m.withAttr('value', oninput)
 					}
 				)
 			)
