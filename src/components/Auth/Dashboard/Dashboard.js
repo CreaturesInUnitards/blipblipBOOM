@@ -31,7 +31,8 @@ const setObserver = (collectionName, uid, targetObject, parent, parentCollection
 		callback: change => {
 			const docId = change.doc.id
 			const docData = change.doc.data()
-			const children = parent.data.children || []
+			if (!parent.data.children) parent.data.children = []
+			const children = parent.data.children
 			const findFn = c => c.id == docId
 			if (change.type != 'modified') {
 				if (change.type == 'added') {
@@ -62,7 +63,6 @@ const getUser = () => {
 }
 
 const chooseCourse = courseObj => _e => {
-	// TODO: cache courses and chapters
 	const courseID = courseObj.id
 	if (AdminData.courseCopy && AdminData.courseCopy.id === courseID) return
 	AdminData.courseCopy = alf.deepClone(AdminData.courses[courseID])
@@ -75,20 +75,16 @@ const chooseChapter = obj => _e => {
 	AdminData.chapterCopy = alf.deepClone(AdminData.chapters[obj.id])
 }
 
-const removeCourse = (course, idx) => _e => {
-	if (confirm(`Are you sure? "${course.data.title}" will be gone forever, along with all of its chapters and their data. Pretty scary.`)) {
+const removeItem = (item, type, idx) => _e => {
+	const message = type == 'courses' 
+		? `Are you sure? "${item.title}" will be gone forever, along with all of its chapters and their data. Pretty scary.`
+		: `Are you sure? "${item.title}" will be gone forever, along with all of its data.`
+	if (confirm(message)) {
 		if (confirm('Last chance...?')) {
-			RemoveObject('courses', course.id)
+			RemoveObject(type, item.id)
 		}
 	}
-}
 
-const removeChapter = (chapter, idx) => _e => {
-	if (confirm(`Are you sure? "${chapter.data.title}" will be gone forever, along with all of its data.`)) {
-		if (confirm('Last chance...?')) {
-			RemoveObject('chapters', chapter.id)
-		}
-	}
 }
 
 const username = user => `${user.data.first} ${user.data.last}`
@@ -98,6 +94,7 @@ module.exports = {
 	view: () => {
 		const user = AdminData.user
 		const courses = (user && user.data && user.data.children) ? user.data.children : []
+		const chapters = AdminData.courseCopy && AdminData.courseCopy.data.children ? AdminData.courseCopy.data.children : []
 		return user
 			?   m('.dashboard.flex.col.fullscreen',
 				[
@@ -113,16 +110,16 @@ module.exports = {
 							array: courses,
 							saveFn: () => { UpdateObject('users', user.id, { children: courses }) },
 							clickFn: chooseCourse,
-							removeFn: removeCourse
+							removeFn: removeItem
 						}),
 						AdminData.courseCopy
 							? m(DNDList, {
 								header: 'Chapters',
 								addFn: AddObject('chapters', { parent: AdminData.courseCopy.id, title: 'New Chapter' }),
-								array: AdminData.courseCopy.data.children,
-								saveFn: () => { UpdateObject('courses', AdminData.courseCopy.id, { children: AdminData.courseCopy.data.children }) },
+								array: chapters,
+								saveFn: () => { UpdateObject('courses', AdminData.courseCopy.id, { children: chapters }) },
 								clickFn: chooseChapter,
-								removeFn: removeChapter
+								removeFn: removeItem
 							})
 							: m('.no-content.flex.jc.ac.f1', 'Select a course'),
 						(AdminData.courseCopy && !AdminData.chapterCopy)

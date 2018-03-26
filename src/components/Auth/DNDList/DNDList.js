@@ -19,17 +19,19 @@ module.exports = _v => {
 	}
 		
 
-	const dragAttrs = (key, array) => ({
-		key: key,
-		class: dndClass(dnd, key),
-		ondragstart: () => { dnd.drag = key },
-		ondragover: () => { if (dnd.drag && array.indexOf(key) > -1) dnd.drop = key },
-		ondragend: () => { dnd = { drag: null, drop: null } }
+	const dragAttrs = (o, array) => ({
+		key: o.id,
+		class: dndClass(dnd, o),
+		ondragstart: _e => { dnd.drag = o },
+		ondragover: _e => { if (dnd.drag && array.indexOf(o) > -1) dnd.drop = o },
+		ondragleave: _e => { dnd.drop = null },
+		ondragend: _e => { dnd = { drag: null, drop: null } }
 	})
-
+	
 	const dragover = e => { e.preventDefault() }
 	const drop = (array, saveChanges) => e => {
 		e.stopPropagation()
+		if (!(dnd.drag && dnd.drop)) return
 		const draggedIdx = array.indexOf(dnd.drag)
 		const droppedIdx = array.indexOf(dnd.drop)
 
@@ -62,7 +64,7 @@ module.exports = _v => {
 					},
 					array && array.map((o, idx) =>
 						m('.drag-item[draggable]',
-							dragAttrs(o.id, array),
+							dragAttrs(o, array),
 							m(ListItem,
 								{
 									collectionName: header.toLowerCase(),

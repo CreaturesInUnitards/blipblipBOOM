@@ -13,9 +13,9 @@ const cleanup = (collectionName, objectID) => {
 			AdminData.chapterCopy = null
 		}
 		
-		const chapters = AdminData.courses[objectID].data.chapters || []
-		chapters.forEach(id => {
-			RemoveObject('chapters', id)
+		const chapters = AdminData.courses[objectID].data.children || []
+		chapters.forEach(obj => {
+			RemoveObject('chapters', obj.id)
 		})
 	} else if (collectionName == 'chapters') {
 		if (AdminData.chapterCopy && AdminData.chapterCopy.id === objectID) AdminData.chapterCopy = null
@@ -37,4 +37,4 @@ const AddObject = (collectionName, addObj) => _e => {
 	firebase.firestore().collection(collectionName).add(addObj)
 }
 
-module.exports = { AddObject, UpdateObject, RemoveObject, saveNewTitle }
+module.exports = { AddObject, UpdateObject, RemoveObject }

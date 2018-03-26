@@ -10,7 +10,6 @@ module.exports = ({attrs}) => {
 	let editing = false
 	let tempTitle = ''
 	const isCourses = attrs.collectionName === 'courses'
-	let obj
 	
 	const edit = o => e => {
 		tempTitle = o.title
@@ -36,7 +35,7 @@ module.exports = ({attrs}) => {
 		}
 	}
 	
-	const itemClass = () => {
+	const itemClass = obj => {
 		const classes = []
 		if (editing) classes.push('editing')
 		if (obj && (
@@ -47,12 +46,11 @@ module.exports = ({attrs}) => {
 	}
 	
 	return {
-		view: ({attrs}) => {
-			obj = attrs.obj
+		view: ({attrs: { obj, onclick, remove, collectionName, idx }}) => {
 			return m('.list-item.flex.ac.p10',
 				{
-					class: itemClass(),
-					onclick: attrs.onclick(obj) 
+					class: itemClass(obj),
+					onclick: onclick(obj) 
 				},
 				editing
 					? m('.w100pct',
@@ -69,7 +67,7 @@ module.exports = ({attrs}) => {
 						m('.title-label.mra.font-18', obj ? obj.title : m('i', 'loading...')),
 						m('.flex.ac', { onclick: e => { e.stopPropagation() } },
 							isCourses && m('button.edit-button.c-light.font-24', { onclick: edit(obj) }, '✎'),
-							m('button.delete-button.c-light.font-24', { onclick: attrs.remove(obj, attrs.idx) }, '⊗')
+							m('button.delete-button.c-light.font-24', { onclick: remove(obj, collectionName, idx) }, '⊗')
 						)
 					]
 			)

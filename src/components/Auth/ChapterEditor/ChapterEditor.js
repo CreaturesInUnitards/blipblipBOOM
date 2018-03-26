@@ -22,7 +22,7 @@ const cancel = _e => { chapter = null }
 
 const revert = _e => {
 	if (confirm('Revert to saved? Changes will be lost.')) {
-		chapter = alf.deepClone(AdminData.chapters[chapter.id])
+		AdminData.chapterCopy = alf.deepClone(AdminData.chapters[chapter.id])
 	}
 }
 
@@ -30,13 +30,21 @@ const save = _e => { UpdateObject('chapters', chapter.id, chapter.data) }
 
 const deleteChild = (array, idx) => _e => { chapter.data[array].splice(idx, 1) }
 
+const windowClick = e => {
+	// e.stopPropagation()
+}
+
 module.exports = v => {
-	editing = null
-	currentFlem = null
-	chapter = AdminData.chapterCopy
-	
 	return {
+		oncreate: _v => {
+			window.addEventListener('click', windowClick, true)
+		},
+		onremove: _v => {
+			window.removeEventListener('click', windowClick, true)
+		},
 		view: _v => {
+			chapter = AdminData.chapterCopy
+
 			const obj = chapter.data
 			let dirty = false
 			
