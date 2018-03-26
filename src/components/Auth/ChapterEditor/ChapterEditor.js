@@ -187,7 +187,7 @@ module.exports = v => {
 													)
 												)
 											)
-											: m('.box.mt20.p10.b1-black.flex.ac.pointer',
+											: m('.box.mt20.p10.b1-black.flex.ac',
 												m('.font-18.mra', flem.label),
 												m('button.edit-button.c-light.font-24', { onclick: _e => ( currentFlem = flem ) }, '✎'),
 												m('button.delete-button.c-light.font-24', { onclick: deleteChild('flems', idx) }, '⊗')
