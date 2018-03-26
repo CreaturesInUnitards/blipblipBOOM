@@ -11,7 +11,7 @@ const UpdateObject = require('../Operations').UpdateObject
 
 /*********************** GLOBAL AdminData ***********************/
 
-let editing, currentFlem, chapter = null
+let editing, currentFlem, chapter = null, dirty = false
 let dnd = { drag: null, drop: null }
 
 const addChild = prop => _e => { 
@@ -32,7 +32,19 @@ const save = _e => { UpdateObject('chapters', chapter.id, chapter.data) }
 const deleteChild = (array, idx) => _e => { chapter.data[array].splice(idx, 1) }
 
 const windowClick = e => {
-	// e.stopPropagation()
+	if (dirty) {
+		let el = e.target, all = [el.tagName]
+		while (el.tagName != 'MENU' && el.tagName != 'BODY' ) {
+			el = el.parentNode
+			all.push(el.tagName)
+		}
+		console.log(all)
+		if (all.indexOf('MENU') > -1) {
+			if (!confirm('This chapter has unsaved changes. Discard them?')) {
+				e.stopPropagation()
+			}
+		}
+	}
 }
 
 const dndClass = (item, current) => {
@@ -85,7 +97,6 @@ module.exports = v => {
 			chapter = AdminData.chapterCopy
 
 			const obj = chapter.data
-			let dirty = false
 			
 			try {
 				dirty = chapter && !alf.objectsAreEquivalent(obj, AdminData.chapters[chapter.id].data)
