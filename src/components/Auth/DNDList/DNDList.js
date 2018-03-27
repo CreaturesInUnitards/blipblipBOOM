@@ -49,7 +49,7 @@ module.exports = _v => {
 	
 	return {
 		view: ({attrs : { header, addFn, array, saveFn, clickFn, titleSaveFn, removeFn }}) =>
-			m('menu.admin-menu.flex.col.m0.p0.br1-black',
+			m('menu.admin-menu.flex.col.m0.p0.br1-dark',
 				m('.menu-header.flex.ac.bg-dark.c-white.h50.ph10',
 					m('h3.mra', header),
 					m('button.add-button.font-24', { onclick: addFn }, '⊕')

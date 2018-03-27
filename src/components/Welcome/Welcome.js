@@ -19,7 +19,7 @@ module.exports = {
 			},
 			fadein: true
 		}, 
-		m('#welcome.c-white'
+		m('#welcome'
 			, m(SiteLogo, { size: '7vw' })
 		)
 	)

@@ -3,7 +3,6 @@
 * Menu
 *
 ***********************************/
-const SiteLogo = require('../SiteLogo/SiteLogo')
 const VH = require('../../view_helpers')
 
 let tooltip = null
@@ -37,13 +36,13 @@ module.exports = {
 	view: () => m(VH.fadeInOutComponent, { fadein: true }, [
 		m('menu.animator.fixed.m0.p0.flex.col.oya',
 			m('.flex',
-				m(SiteLogo, {size: '1.5em', width: 'calc(100% - 60px)'}),
-				m('button.menu-button.bg-dark',
+				// m('img[src=../../images/blipLogo.svg]'),
+				m('button.menu-button',
 					{onclick: State.toggleMenu},
 					m('.inner')
 				)
 			),
-			m('nav.mt40',
+			m('nav.mt60',
 				State.chapters.map((chapter, idx) => {
 					const isCurrent = idx === State.currentChapterIndex
 					return m('.menu-item.p6.flex',
@@ -53,11 +52,11 @@ module.exports = {
 							},
 							// class: isCurrent ? 'current' : '',
 						},
-						m('.menu-item-title.animator.mra.p10.b1-black.brad6-l.br0.f1.fw.flex.ac',
+						m('.menu-item-title.animator.mra.p10.b1-grey.brad6-l.br0.f1.fw.flex.ac',
 							{ class: isCurrent ? 'bg-dark c-green' : 'bg-white c-dark' },
 							chapter.label
 						),
-						m('.menu-item-buttons-wrapper.flex.col.b1-black.oh',
+						m('.menu-item-buttons-wrapper.flex.col.b1-grey.oh',
 							!State.menuOpen
 								? {
 									class: 'brad6 w50',
@@ -65,14 +64,14 @@ module.exports = {
 									onmouseleave: hideToolTip
 								}
 								: { class: 'brad6-r w60' },
-							m('a.video-button.animator.h40.flex.jc.ac.bb1-black', {
-								class: isCurrent && !State.sandboxOpen ? 'bg-dark' : 'bg-white',
+							m('a.video-button.animator.h40.flex.jc.ac.bb1-grey', {
+								class: isCurrent && !State.sandboxOpen ? 'bg-dark on' : '',
 								href: `/${idx}/content`,
 								oncreate: m.route.link,
 								onupdate: m.route.link,
 							}),
-							m('a.code-button.animator.h40.flex.jc.ac', {
-								class: isCurrent && State.sandboxOpen ? 'bg-dark c-green' : 'bg-white c-dark',
+							m('a.code-button.animator.h40.flex.jc.ac.tx-deco-none', {
+								class: isCurrent && State.sandboxOpen ? 'bg-dark c-green' : 'c-dark',
 								href: `/${idx}/lab`,
 								oncreate: m.route.link,
 								onupdate: m.route.link,

@@ -20,12 +20,12 @@ module.exports = {
 		const isWelcomeScreen = State.currentChapterIndex === 0
 		const canPlay = State.canPlay
 		
-		return m('#lecture.full-main.flex.jc.ac.bg-dark'
+		return m('#lecture.full-main.flex.jc.ac.bg-white'
 			, isWelcomeScreen
 				? m(Welcome)
 				: canPlay && m('#videoContainer')
 			, !(isWelcomeScreen || canPlay) && m(VH.fadeInOutComponent, { fadein: true }, m(LoadingAnimation))
-			, m('a.absolute.flex.jc.ac.w100pct.h40.bg-green.slider', {
+			, m('a.absolute.flex.jc.ac.w100pct.h40.bg-dark.slider', {
 				class: State.sandboxOpen ? 'top-full' : '' ,
 				href: toggleUrl(),
 				oncreate: m.route.link,

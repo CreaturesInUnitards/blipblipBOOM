@@ -130,7 +130,7 @@ module.exports = v => {
 							oninput: v => obj.url = v
 						})
 					),
-					m('.flem-box.bg-light.p10.b1-black.mb20',
+					m('.flem-box.bg-light.p10.b1-dark.mb20',
 						m('.flem-header.bg-dark.c-white.flex.ac.h50.ph10',
 							m('h3.mra', 'Exercises'),
 							m('button.add-button.font-24', { onclick: addChild('flems') }, '⊕')
@@ -196,7 +196,7 @@ module.exports = v => {
 													)
 												)
 											)
-											: m('.box.mt20.p10.b1-black.flex.ac',
+											: m('.box.mt20.p10.b1-dark.flex.ac',
 												m('.font-18.mra', flem.label),
 												m('button.edit-button.c-light.font-24', { onclick: _e => ( currentFlem = flem ) }, '✎'),
 												m('button.delete-button.c-light.font-24', { onclick: deleteChild('flems', idx) }, '⊗')
@@ -210,7 +210,7 @@ module.exports = v => {
 							editing = null
 						} })
 					),
-					m('.link-box.bg-light.p10.b1-black.mb20',
+					m('.link-box.bg-light.p10.b1-dark.mb20',
 						m('.link-header.bg-dark.c-white.flex.ac.h50.ph10',
 							m('h3.mra', 'Links'),
 							m('button.add-button.font-24', { onclick: addChild('links') }, '⊕')
