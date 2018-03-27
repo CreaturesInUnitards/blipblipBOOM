@@ -30,7 +30,7 @@ module.exports = {
 				href: toggleUrl(),
 				oncreate: m.route.link,
 				onupdate: m.route.link
-			})
+			}, m('img[src=../../images/blipLogo.svg][title=blipblipBOOM.com]'))
 		)
 	}
 }

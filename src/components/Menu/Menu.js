@@ -35,10 +35,10 @@ const getMenuItem = (child) => {
 module.exports = {
 	view: () => m(VH.fadeInOutComponent, { fadein: true }, [
 		m('menu.animator.fixed.m0.p0.flex.col.oya',
+			{ class: State.menuOpen ? 'bg-grey' : '' },
 			m('.flex',
-				// m('img[src=../../images/blipLogo.svg]'),
 				m('button.menu-button',
-					{onclick: State.toggleMenu},
+					{ onclick: State.toggleMenu },
 					m('.inner')
 				)
 			),
@@ -56,7 +56,7 @@ module.exports = {
 							{ class: isCurrent ? 'bg-dark c-green' : 'bg-white c-dark' },
 							chapter.label
 						),
-						m('.menu-item-buttons-wrapper.flex.col.b1-grey.oh',
+						m('.menu-item-buttons-wrapper.flex.col.b1-grey.oh.bg-white',
 							!State.menuOpen
 								? {
 									class: 'brad6 w50',

@@ -29,13 +29,13 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.html$/,
+				test: /\.(html|svg)$/,
 				use: [
 					'raw-loader'
 				]
 			},
 			{
-				test: /\.(png|jpg|gif|svg)$/,
+				test: /\.(png|jpg|gif)$/,
 				use: [
 					'raw-loader',
 					'img-loader'
