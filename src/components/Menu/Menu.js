@@ -35,44 +35,51 @@ const getMenuItem = (child) => {
 
 module.exports = {
 	view: () => m(VH.fadeInOutComponent, { fadein: true }, [
-		m('menu.animator',
-			m(SiteLogo, {size: '1.5em', width: 'calc(100% - 60px)'}),
-			m('button.menu-button',
-				// { onclick: e => { Velocity(document.querySelector('menu') ,{ width: State.menuOpen ? '60px' : '300px' })} },
-				{onclick: State.toggleMenu},
-				m('.inner')
+		m('menu.animator.fixed.m0.p0.flex.col.oya',
+			m('.flex',
+				m(SiteLogo, {size: '1.5em', width: 'calc(100% - 60px)'}),
+				m('button.menu-button.bg-dark',
+					{onclick: State.toggleMenu},
+					m('.inner')
+				)
 			),
-			m('nav',
-				State.chapters.map((chapter, idx) => m('.menu-item',
-					{
-						onclick: e => {
-							if (e.target.tagName !== 'A') m.route.set(`/${idx}/content`)
+			m('nav.mt40',
+				State.chapters.map((chapter, idx) => {
+					const isCurrent = idx === State.currentChapterIndex
+					return m('.menu-item.p6.flex',
+						{
+							onclick: e => {
+								if (e.target.tagName !== 'A') m.route.set(`/${idx}/content`)
+							},
+							// class: isCurrent ? 'current' : '',
 						},
-						// href: `/${idx}/content`,
-						class: idx === State.currentChapterIndex ? 'current' : '',
-					},
-					m('.menu-item-title.animator', chapter.label),
-					m('.menu-item-buttons-wrapper',
-						!State.menuOpen
-							? {
-								onmouseenter: showToolTip(chapter),
-								onmouseleave: hideToolTip
-							}
-							: null,
-						m('a.video-button.animator', {
-							href: `/${idx}/content`,
-							oncreate: m.route.link,
-							onupdate: m.route.link,
-							class: idx === State.currentChapterIndex && !State.sandboxOpen ? 'current' : ''
-						}),
-						m('a.code-button.animator', {
-							href: `/${idx}/lab`,
-							oncreate: m.route.link,
-							onupdate: m.route.link,
-							class: idx === State.currentChapterIndex && State.sandboxOpen ? 'current' : ''
-						}, '{ }')
+						m('.menu-item-title.animator.mra.p10.b1-black.brad6-l.br0.f1.fw.flex.ac',
+							{ class: isCurrent ? 'bg-dark c-green' : 'bg-white c-dark' },
+							chapter.label
+						),
+						m('.menu-item-buttons-wrapper.flex.col.b1-black.oh',
+							!State.menuOpen
+								? {
+									class: 'brad6 w50',
+									onmouseenter: showToolTip(chapter),
+									onmouseleave: hideToolTip
+								}
+								: { class: 'brad6-r w60' },
+							m('a.video-button.animator.h40.flex.jc.ac.bb1-black', {
+								class: isCurrent && !State.sandboxOpen ? 'bg-dark' : 'bg-white',
+								href: `/${idx}/content`,
+								oncreate: m.route.link,
+								onupdate: m.route.link,
+							}),
+							m('a.code-button.animator.h40.flex.jc.ac', {
+								class: isCurrent && State.sandboxOpen ? 'bg-dark c-green' : 'bg-white c-dark',
+								href: `/${idx}/lab`,
+								oncreate: m.route.link,
+								onupdate: m.route.link,
+							}, '{ }')
+						)
 					)
-				))
+				})
 			)
 		)
 	])

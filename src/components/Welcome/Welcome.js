@@ -7,7 +7,6 @@ const VH = require('../../view_helpers')
 const SiteLogo = require('../SiteLogo/SiteLogo')
 
 module.exports = {
-	oninit: () => { console.log(State) },
 	view: () => m(VH.fadeInOutComponent,
 		{
 			oninit: () => {
@@ -20,7 +19,7 @@ module.exports = {
 			},
 			fadein: true
 		}, 
-		m('#welcome'
+		m('#welcome.c-white'
 			, m(SiteLogo, { size: '7vw' })
 		)
 	)

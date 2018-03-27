@@ -24,7 +24,7 @@ module.exports = () => {
 		view(){
 			return [
 				m('main',
-					State.sandboxOpen && m(Lab),
+					m(Lab),
 					m(Lecture)
 				),
 				m(Menu),

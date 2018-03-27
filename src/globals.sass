@@ -1,9 +1,9 @@
 html, body
+	font-family: Optima, Helvetica, sans-serif
 	margin: 0
 	padding: 0
 
 .dashboard
-	font-family: Optima, Helvetica, sans-serif
 	font-weight: 100
 	font-size: 16px
 
@@ -51,6 +51,9 @@ button
 .bg-brick
 	background: #cf2f20
 
+.bg-green
+	background: #00c979
+
 .bg-grey
 	background: #6b6e70
 
@@ -65,11 +68,57 @@ button
 .c-dark
 	color: #222
 
+.c-brick
+	color: #cf2f20
+
+.c-green
+	color: #00c979
+
 .c-light
 	color: #999999
 
 .c-white
 	color: white
+
+
+
+/* borders */
+.b0
+	border: 0
+
+.b1-black
+	border: 1px solid black
+
+.br1-black
+	border-right: 1px solid black
+
+.bb1-black
+	border-bottom: 1px solid black
+
+.br0
+	border-right: 0
+
+.brad4
+	border-radius: 0.25em
+
+.brad4-l
+	border-top-left-radius: 0.25em
+	border-bottom-left-radius: 0.25em
+
+.brad4-r
+	border-top-right-radius: 0.25em
+	border-bottom-right-radius: 0.25em
+
+.brad6
+	border-radius: 0.375em
+
+.brad6-l
+	border-top-left-radius: 0.375em
+	border-bottom-left-radius: 0.375em
+
+.brad6-r
+	border-top-right-radius: 0.375em
+	border-bottom-right-radius: 0.375em
 
 
 /* margins */
@@ -88,8 +137,14 @@ button
 .mr10
 	margin-right: 0.625em
 
+.mt10
+	margin-top: 0.625em
+
 .mt20
 	margin-top: 1.25em
+
+.mt40
+	margin-top: 2.5em
 
 .mb20
 	margin-bottom: 1.25em
@@ -177,6 +232,9 @@ button
 .flex
 	display: flex
 
+.fw
+	flex-wrap: wrap
+
 .col
 	flex-direction: column
 
@@ -243,25 +301,19 @@ h3
 .w100pct
 	width: 100%
 
+.w50
+	width: 3.125em
+
+.w60
+	width: 3.75em
+
 
 /* overflow */
 .oya
 	overflow-y: auto
 
-
-/* borders */
-.b0
-	border: 0
-
-.b1-black
-	border: 1px solid black
-
-.br1-black
-	border-right: 1px solid black
-
-.brad4
-	border-radius: 0.25em
-
+.oh
+	overflow: hidden
 
 
 
@@ -290,8 +342,8 @@ h3
 		margin-top: 1em
 		border-left: 2px solid white
 		border-top: 2px solid white
-		border-right: 2px solid #222629
-		border-bottom: 2px solid #222629
+		border-right: 2px solid #00c979
+		border-bottom: 2px solid #00c979
 		border-radius: 2px
 		background: transparent
 		transform: rotate(45deg) scale(1)
@@ -312,11 +364,27 @@ main
 	height: 100vh
 	transition: width 0.3s
 
+menu
+	height: 100vh
+	width: $open-menu-width
+	transition: transform 0.3s
+
+.menu-item-title
+	transition: opacity 0.3s
+
+
+
 .menu-open
 	main
 		width: calc(100vw - #{$open-menu-width}) 
 
 .menu-closed
+	menu
+		transform: translateX(-15em)
+
+	.menu-item-title
+		opacity: 0
+
 	main
 		width: calc(100vw - #{$closed-menu-width})
 
@@ -327,6 +395,32 @@ main
 	.slider:after
 		transform: rotate(45deg) scale(-1)
 		margin-top: -0.5em
+
+
+.video-button
+	//&:before, &:after
+		//position: relative
+		//display: inline-block
+		//margin-top: 3px
+
+	&:before
+		content: ''
+		width: 16px
+		height: 16px
+		background: #abaeb0
+		padding: 0
+		border-radius: 4px
+		margin-right: -1px
+
+	&:after
+		content: ''
+		width: 0
+		height: 0
+		border-style: solid
+		border-width: 8px 8px 8px 0
+		border-color: transparent #abaeb0 transparent transparent
+		margin-left: -2px
+
 
 //@import './includes'
 //
