@@ -7,6 +7,7 @@ const VH = require('../../view_helpers')
 const SiteLogo = require('../SiteLogo/SiteLogo')
 
 module.exports = {
+	oninit: () => { console.log(State) },
 	view: () => m(VH.fadeInOutComponent,
 		{
 			oninit: () => {

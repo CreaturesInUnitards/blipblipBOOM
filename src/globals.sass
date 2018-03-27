@@ -1,3 +1,333 @@
+html, body
+	margin: 0
+	padding: 0
+
+.dashboard
+	font-family: Optima, Helvetica, sans-serif
+	font-weight: 100
+	font-size: 16px
+
+
+.fullscreen
+	width: 100vw
+	height: 100vh
+	
+.full-main
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+
+
+.blip-logo
+	width: 60px
+	height: 40px
+
+
+.admin-menu
+	width: 20%
+	min-width: 240px
+
+button
+	background: none
+	border: 0
+	color: inherit
+	cursor: pointer
+
+	&:disabled
+		opacity: 0.25
+		cursor: default
+
+
+*
+	box-sizing: border-box
+
+
+/* background colors */
+.bg-dark
+	background: #222629
+
+.bg-brick
+	background: #cf2f20
+
+.bg-grey
+	background: #6b6e70
+
+.bg-light
+	background: #eeeeee
+
+.bg-white
+	background: white
+
+
+/* text colors */
+.c-dark
+	color: #222
+
+.c-light
+	color: #999999
+
+.c-white
+	color: white
+
+
+/* margins */
+.m0
+	margin: 0
+
+.mra
+	margin-right: auto
+
+.mla
+	margin-left: auto
+
+.ml10
+	margin-left: 0.625em
+
+.mr10
+	margin-right: 0.625em
+
+.mt20
+	margin-top: 1.25em
+
+.mb20
+	margin-bottom: 1.25em
+
+.ml20
+	margin-left: 1.25em
+
+.mr20
+	margin-right: 1.25em
+
+.mb6
+	margin-bottom: 0.375em
+
+.mb20
+	margin-bottom: 1.25em
+
+
+
+/* padding */
+.p0
+	padding: 0
+
+.p6
+	padding: 0.375em
+
+.p10
+	padding: 0.625em
+
+.p40
+	padding: 2.5em
+
+.p20
+	padding: 1.25em
+
+.pt10
+	padding-top: 0.625em
+
+.pb10
+	padding-bottom: 0.625em
+
+.pl10
+	padding-left: 0.625em
+
+.pr10
+	padding-right: 0.625em
+
+.pv10
+	padding-top: 0.625em
+	padding-bottom: 0.625em
+
+.ph10
+	padding-left: 0.625em
+	padding-right: 0.625em
+
+.pv16
+	padding-top: 1em
+	padding-bottom: 1em
+
+.pt20
+	padding-top: 1.25em
+
+.pb20
+	padding-bottom: 1.25em
+
+.pl20
+	padding-left: 1.25em
+
+.pr20
+	padding-right: 1.25em
+
+.pv20
+	padding-top: 1.25em
+	padding-bottom: 1.25em
+
+.ph20
+	padding-left: 1.25em
+	padding-right: 1.25em
+	
+.pt40
+	padding-top: 2.5em
+
+
+
+/* flex rules */
+.flex
+	display: flex
+
+.col
+	flex-direction: column
+
+.jc
+	justify-content: center
+
+.ac
+	align-items: center
+
+.f1
+	flex: 1
+
+.f2
+	flex: 2
+
+
+/* font */
+.font-12
+	font-size: 0.75em
+
+.font-16
+	font-size: 1em
+
+.font-18
+	font-size: 1.125em
+
+.font-24
+	font-size: 1.5em
+
+
+/* headings */
+h1
+	font-weight: inherit
+	margin: 0
+
+h3
+	margin: 0
+
+
+/* height */
+.h40
+	height: 2.5em
+
+.h50
+	height: 3.125em
+
+.h60
+	height: 3.75em
+
+
+/* position */
+.absolute
+	position: absolute
+
+.fixed
+	position: fixed
+	
+.relative
+	position: relative
+
+	
+	
+/* width */
+.w100pct
+	width: 100%
+
+
+/* overflow */
+.oya
+	overflow-y: auto
+
+
+/* borders */
+.b0
+	border: 0
+
+.b1-black
+	border: 1px solid black
+
+.br1-black
+	border-right: 1px solid black
+
+.brad4
+	border-radius: 0.25em
+
+
+
+
+/* randoms */
+.pointer
+	cursor: pointer
+
+.nowrap
+	white-space: nowrap
+
+.edit-button
+	transform: scaleX(-1)
+
+.list-item + *
+	margin-top: 1px
+	
+.slider
+	bottom: 0
+
+	&:after
+		content: ''
+		position:
+		display: block
+		width: 1.25em
+		height: 1.25em
+		margin-top: 1em
+		border-left: 2px solid white
+		border-top: 2px solid white
+		border-right: 2px solid #222629
+		border-bottom: 2px solid #222629
+		border-radius: 2px
+		background: transparent
+		transform: rotate(45deg) scale(1)
+		transition: 0.7s
+
+#lecture
+	transition: 0.3s
+	
+// things that I can't control easily otherwise
+
+$open-menu-width: 18.75em
+$closed-menu-width: 3.75em
+
+main
+	position: fixed
+	top: 0
+	right: 0
+	height: 100vh
+	transition: width 0.3s
+
+.menu-open
+	main
+		width: calc(100vw - #{$open-menu-width}) 
+
+.menu-closed
+	main
+		width: calc(100vw - #{$closed-menu-width})
+
+.sandbox-open
+	#lecture
+		transform: translateY(calc(-100vh + 40px))
+		
+	.slider:after
+		transform: rotate(45deg) scale(-1)
+		margin-top: -0.5em
+
 //@import './includes'
 //
 //$slider-height: 40px

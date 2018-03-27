@@ -12,8 +12,8 @@ module.exports = {
 		const flem = chapter.flems[State.currentFlemIndex]
 
 		return m(VH.fadeInOutComponent
-			, m('.screen.sandbox'
-				, m('.practicum'
+			, m('.lab.full-main.flex.pt40'
+				, m('.practicum.f1'
 					, m('section.sandboxes'
 						, m(Collapsible, { items: chapter.flems, label: 'label', content: 'notes' })
 					)
@@ -25,7 +25,7 @@ module.exports = {
 						)
 					)
 				)
-				, m('.flems'
+				, m('.flems.f1'
 					, flem && m(VH.fadeInOutComponent, { fadein: true, onupdate: true },
 						m('iframe', { src: 'http://tinyurl.com/' + flem.url }),
 					)

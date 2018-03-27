@@ -8,14 +8,6 @@ const Lecture = require('../Lecture/Lecture')
 const Lab = require('../Lab/Lab')
 require("../../globals.sass")
 
-const toggleUrl = () => {
-	const cidx = State.currentChapterIndex
-	const view = State.sandboxOpen ? 'content' : 'lab'
-	const fidx = State.currentFlemIndex
-
-	return `/${cidx}/${view}/${view === 'lab' && fidx > 0 ? fidx : ''}`
-}
-
 module.exports = () => {
 	const bodyClass = () => {
 		document.body.className = `menu-${State.menuOpen ? 'open' : 'closed'} sandbox-${State.sandboxOpen ? 'open' : 'closed'}`
@@ -31,14 +23,9 @@ module.exports = () => {
 		onupdate: bodyClass,
 		view(){
 			return [
-				m('main.animator',
-					m(Lab),
-					m(Lecture),
-					m('a.slider.animator', { 
-						href: toggleUrl(),
-						oncreate: m.route.link,
-						onupdate: m.route.link
-					})
+				m('main',
+					State.sandboxOpen && m(Lab),
+					m(Lecture)
 				),
 				m(Menu),
 			]

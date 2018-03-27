@@ -96,10 +96,10 @@ module.exports = {
 		const courses = (user && user.data && user.data.children) ? user.data.children : []
 		const chapters = AdminData.courseCopy && AdminData.courseCopy.data.children ? AdminData.courseCopy.data.children : []
 		return user
-			?   m('.dashboard.flex.col.fullscreen',
+			?   m('.dashboard.flex.col.fullscreen.fixed',
 				[
 					m('header.flex.ac.bg-dark.c-white.pv10.ph20',
-						m('img.logo[src=../../../images/blipLogo.svg].mr20'),
+						m('img.blip-logo[src=../../../images/blipLogo.svg].mr20'),
 						m('h1.mra', `Dashboard: ${username(user)}`),
 						m('button.b0.brad4.f-12.bg-white.c-dark', { onclick: signOut }, 'log out')
 					),
