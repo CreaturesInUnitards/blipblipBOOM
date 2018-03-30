@@ -27,7 +27,8 @@ module.exports = () => {
 					m(Lab),
 					m(Lecture)
 				),
-				m(Menu),
+				m(Menu), 
+				m('img#logo[src=../../images/blipLogo.svg][title=blipblipBOOM.com]')
 			]
 		}
 	}
