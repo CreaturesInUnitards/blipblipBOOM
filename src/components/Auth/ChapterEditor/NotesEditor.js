@@ -20,7 +20,7 @@ module.exports = ({attrs}) => {
 		},
 		view({attrs}) {
 			return m('.notes-editor',
-				{ onclick: getHtml },
+				{ onclick: getHtml, style: { zIndex: 1 } },
 				m('.wrapper-wrapper',
 					m('.notes-headline', `Notes: "${attrs.flem.label}"`),
 					m('.quill-wrapper',

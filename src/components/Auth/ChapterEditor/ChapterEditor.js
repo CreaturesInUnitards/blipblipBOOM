@@ -39,7 +39,10 @@ const windowClick = e => {
 			all.push(el.tagName)
 		}
 		if (all.indexOf('MENU') > -1) {
-			if (confirm('This chapter has unsaved changes. Discard them?')) AdminData.chapterCopy = null
+			if (confirm('This chapter has unsaved changes. Discard them?')) {
+				AdminData.chapterCopy = null
+				m.redraw()
+			}
 			else e.stopPropagation()
 		}
 	}
@@ -126,7 +129,7 @@ module.exports = v => {
 							type: 'text',
 							placeholder: 'Vimeo ID',
 							label: 'Vimeo ID',
-							value: obj.url,
+							value: obj.url || '',
 							oninput: v => obj.url = v
 						})
 					),
@@ -177,11 +180,11 @@ module.exports = v => {
 														inputClass: 'p6 font-16 w100pct',
 														type: 'text',
 														placeholder: '...if any',
-														label: 'Cue Stop',
-														value: flem.cuestop,
+														label: 'Cue Point',
+														value: flem.cuepoint,
 														oninput: v => {
 															const n = parseInt(v)
-															flem.cuestop = (typeof n == 'number' && n == n) ? n : ''
+															flem.cuepoint = (typeof n == 'number' && n == n) ? n : ''
 														}
 													})
 												),
