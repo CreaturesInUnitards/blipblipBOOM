@@ -2,7 +2,8 @@ const Player = require('@vimeo/player')
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
 const State = {
-	chapters: require('./Data'),
+	chapters: null,
+	// chapters: require('./Data'),
 	canPlay: false,
 	currentChapterIndex: 0,
 	currentFlemIndex: 0,
@@ -54,20 +55,27 @@ const State = {
 		localStorage.setItem('menuOpen', State.menuOpen)
 	},
 	loadChapter: (ch, fl) => {
+		const chapter = State.chapters[ch]
+		
+		if ( !chapter.flems || !chapter.flems.length ) {
+			console.error('Chapter is invalid! At least 1 flem needs to be present.')
+			m.route.set('/0/content')
+		}
+
 		const chapterIsChanging = State.currentChapterIndex !== ch
 		State.currentChapterIndex = ch
-		const id = State.chapters[ch].id
+		const url = chapter.url
 
 		State.setFlem(fl || 0)
 		if (fl !== undefined) State.sandboxOpen = true
 		
-		if (id && chapterIsChanging) {
+		if (url && chapterIsChanging) {
 			State.canPlay = false
 
 			setTimeout(() => {
 				State.canPlay = true
 				m.redraw()
-				setTimeout(State.setupPlayer.bind(null, id), 100)
+				setTimeout(State.setupPlayer.bind(null, url), 100)
 			}, 100)
 		}
 	}
