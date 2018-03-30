@@ -12,20 +12,21 @@ module.exports = {
 		const flem = chapter.flems[State.currentFlemIndex]
 
 		return m('.lab.full-main.flex.pt40'
-			, m('.practicum.f1.br1-dark'
+			, m('.practicum.f1.br1-dark.oya'
 				, m('section.sandboxes'
 					, m(Collapsible, { items: chapter.flems, label: 'label', content: 'notes' })
 				)
 				, m('section.resources'
-					, m('ul.links'
+					, m('h3.p10', 'Resources')
+					, m('ul.m0.c-grey'
 						, chapter.links.map(link =>
-							m('li', m('a[target=_blank]', { href: link.url }, link.text))
+							m('li.p6', m('a[target=_blank].c-grey.p6', { href: link.url }, link.label))
 						)
 					)
 				)
 			)
 			, m('.flems.f3.flex'
-				, flem && m(VH.fadeInOutComponent, { fadein: true, onupdate: true },
+				, flem && flem.url && m(VH.fadeInOutComponent, { fadein: true, onupdate: true },
 					m('iframe.f1.b0', { src: 'http://tinyurl.com/' + flem.url }),
 				)
 			)

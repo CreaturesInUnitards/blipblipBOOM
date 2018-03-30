@@ -39,7 +39,7 @@ const Collapsible = _vnode => ({
 				m('.item',
 					{class: idx === State.currentFlemIndex ? 'current' : ''},
 					m('label',
-						m('a', idx === State.currentFlemIndex
+						m('a.c-light', idx === State.currentFlemIndex
 							? {}
 							: {
 								href: `/${State.currentChapterIndex}/lab/${idx}`,
@@ -50,11 +50,11 @@ const Collapsible = _vnode => ({
 						)
 					),
 					State.currentFlemIndex === idx && m('.notes-wrapper',
-					{
-						oncreate: grow,
-						onbeforeremove: shrink
-					},
-					m('.notes', item[content])
+						{
+							oncreate: grow,
+							onbeforeremove: shrink
+						},
+						m('.notes', m.trust(item[content]))
 					)
 				)
 			)
