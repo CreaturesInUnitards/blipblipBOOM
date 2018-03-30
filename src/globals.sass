@@ -1,5 +1,5 @@
 html, body
-	font-family: Optima, Helvetica, sans-serif
+	font-family: Optima, "Helvetica Neue", Helvetica, sans-serif
 	margin: 0
 	padding: 0
 
@@ -42,10 +42,11 @@ button
 
 *
 	box-sizing: border-box
+	
 $dark: #222629
 $brick: #cf2f20
 $green: #00c979
-$grey: #6b6e70
+$gunmetal: #263238
 $light-grey: #abaeb0
 
 /* background colors */
@@ -59,7 +60,7 @@ $light-grey: #abaeb0
 	background: $green
 
 .bg-grey
-	background: $grey
+	background: $gunmetal
 
 .bg-light
 	background: $light-grey
@@ -79,7 +80,7 @@ $light-grey: #abaeb0
 	color: $green
 
 .c-grey
-	color: $grey
+	color: $gunmetal
 
 .c-light
 	color: $light-grey
@@ -94,13 +95,13 @@ $light-grey: #abaeb0
 	border: 0
 
 .b1-grey
-	border: 1px solid $grey
+	border: 1px solid $gunmetal
 
 .br1-grey
-	border-right: 1px solid $grey
+	border-right: 1px solid $gunmetal
 
 .bb1-grey
-	border-bottom: 1px solid $grey
+	border-bottom: 1px solid $gunmetal
 
 .b1-dark
 	border: 1px solid $dark
@@ -337,7 +338,6 @@ h3
 .w60
 	width: 3.75em
 
-
 /* overflow */
 .oya
 	overflow-y: auto
@@ -346,6 +346,14 @@ h3
 	overflow: hidden
 
 
+/* opacity */
+.o08
+	opacity: 0.8
+
+.o1
+	opacity: 1
+	
+	
 
 /* randoms */
 .pointer
@@ -366,13 +374,6 @@ h3
 .slider
 	bottom: 0
 
-	img
-		position: absolute
-		top: 50%
-		right: 10px
-		transform: translateY(-50%)
-		height: 20px
-
 	//&:before
 	//	//content: 'blipblipBOOM.com'
 	//	position: absolute
@@ -380,7 +381,7 @@ h3
 	//	right: 10px
 	//	transform: translateY(-50%)
 	//	height: 30px
-		//color: $grey
+		//color: $gunmetal
 		//font-family: Optima, Helvetica, sans-serif
 		//font-style: italic
 		//font-size: 12px
@@ -403,6 +404,18 @@ h3
 
 #lecture
 	transition: 0.3s
+
+#logo
+	position: fixed
+	top: 20px
+	right: 10px
+	transform: translateY(-50%)
+	height: 20px
+
+	
+.practicum
+	min-width: 200px
+	max-width: 300px
 	
 // things that I can't control easily otherwise
 
@@ -412,9 +425,10 @@ $closed-menu-width: 3.75em
 main
 	position: fixed
 	top: 0
+	left: 0
 	right: 0
 	height: 100vh
-	transition: width 0.3s
+	transition: transform 0.3s
 
 menu
 	height: 100vh
@@ -432,7 +446,9 @@ menu
 		opacity: 1
 
 	main
-		width: calc(100vw - #{$open-menu-width}) 
+		right: $open-menu-width
+		//width: calc(100vw - #{$open-menu-width})
+		transform: translateX($open-menu-width)
 
 .menu-closed
 	menu
@@ -461,7 +477,10 @@ menu
 			bottom: 15px
 
 	main
-		width: calc(100vw - #{$closed-menu-width})
+		right: $closed-menu-width
+		//width: calc(100vw - #{$closed-menu-width})
+		transform: translateX($closed-menu-width)
+
 
 .sandbox-open
 	#lecture
@@ -508,7 +527,7 @@ menu
 	right: 10px
 	width: 40px
 	height: 40px
-	//box-shadow: inset 0 0 5px 0 $grey
+	//box-shadow: inset 0 0 5px 0 $gunmetal
 	border-radius: 50%
 	transition: 0.3s
 
@@ -559,6 +578,41 @@ menu
 		border-style: solid
 		border-width: 5px 10px 5px 0
 		border-color: transparent white transparent transparent
+
+.enter
+	animation: fade-in 1s forwards
+
+.exit
+	animation: fade-out 1s forwards
+
+
+@keyframes fade-in
+	from
+		opacity: 0
+
+	to
+		opacity: 1
+
+@keyframes fade-out
+	from
+		opacity: 1
+
+	to
+		opacity: 0
+
+#videoContainer
+	position: relative
+	width: 100%
+	max-width: 100%
+	height: calc(100% - 20px)
+	opacity: 0
+
+	iframe, object, embed
+		position: absolute
+		top: 3vw
+		left: 3vw
+		width: calc(100% - 6vw)
+		height: calc(100% - 6vw)
 
 
 //@import './includes'
@@ -1304,48 +1358,15 @@ menu
 ////	text-align: center
 ////
 //
-//.enter 
-//	animation: fade-in 1s forwards
+////
+////
+////
 //
 //.selector-enter
 //	animation: fade-in 300ms forwards
 //
 //.selector-exit
 //	animation: fade-out 300ms forwards
-//
-//
-//@keyframes fade-in
-//	from 
-//		opacity: 0
-//
-//	to
-//		opacity: 1
-//
-//.exit 
-//	animation: fade-out 1s forwards
-//
-//@keyframes fade-out 
-//	from
-//		opacity: 1
-//
-//	to
-//		opacity: 0
-////
-////
-////
-//#videoContainer
-//	position: relative
-//	width: 100%
-//	max-width: 100%
-//	height: calc(100% - 20px)
-//	opacity: 0
-//
-//	iframe, object, embed
-//		position: absolute
-//		top: 3vw
-//		left: 3vw
-//		width: calc(100% - 6vw)
-//		height: calc(100% - 6vw)
 ////
 ////#mobile
 ////	position: fixed

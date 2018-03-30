@@ -23,7 +23,7 @@ const showToolTip = chapter => e => {
 	}
 	
 	tooltip.style.top = (rect.top + rect.height / 2) + 'px'
-	tooltip.textContent = chapter.label
+	tooltip.textContent = chapter.title
 	document.body.appendChild(tooltip)
 }
 
@@ -50,11 +50,10 @@ module.exports = {
 							onclick: e => {
 								if (e.target.tagName !== 'A') m.route.set(`/${idx}/content`)
 							},
-							// class: isCurrent ? 'current' : '',
 						},
-						m('.menu-item-title.animator.mra.p10.b1-grey.brad6-l.br0.f1.fw.flex.ac',
+						m('.menu-item-title.animator.mra.p10.b1-grey.brad6-l.br0.f1.fw.flex.ac.pointer',
 							{ class: isCurrent ? 'bg-dark c-green' : 'bg-white c-dark' },
-							chapter.label
+							chapter.title
 						),
 						m('.menu-item-buttons-wrapper.flex.col.b1-grey.oh.bg-white',
 							!State.menuOpen
