@@ -51,8 +51,8 @@ module.exports = {
 								if (e.target.tagName !== 'A') m.route.set(`/${idx}/content`)
 							},
 						},
-						m('.menu-item-title.animator.mra.p10.b1-grey.brad6-l.br0.f1.fw.flex.ac.pointer',
-							{ class: isCurrent ? 'bg-dark c-green' : 'bg-white c-dark' },
+						m('.menu-item-title.mra.p10.b1-grey.brad6-l.br0.f1.fw.flex.ac.pointer',
+							{ class: isCurrent ? 'bg-green c-white' : 'bg-white c-dark' },
 							chapter.title
 						),
 						m('.menu-item-buttons-wrapper.flex.col.b1-grey.oh.bg-white',
@@ -64,13 +64,13 @@ module.exports = {
 								}
 								: { class: 'brad6-r w60' },
 							m('a.video-button.animator.h40.flex.jc.ac.bb1-grey', {
-								class: isCurrent && !State.sandboxOpen ? 'bg-dark on' : '',
+								class: isCurrent && !State.sandboxOpen ? 'bg-green on' : '',
 								href: `/${idx}/content`,
 								oncreate: m.route.link,
 								onupdate: m.route.link,
 							}),
 							m('a.code-button.animator.h40.flex.jc.ac.tx-deco-none', {
-								class: isCurrent && State.sandboxOpen ? 'bg-dark c-green' : 'c-dark',
+								class: isCurrent && State.sandboxOpen ? 'bg-green c-white' : 'c-dark',
 								href: `/${idx}/lab`,
 								oncreate: m.route.link,
 								onupdate: m.route.link,

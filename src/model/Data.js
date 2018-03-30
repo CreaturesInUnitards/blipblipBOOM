@@ -27,6 +27,9 @@
   ********************************************************************************** 
 */
 
+
+/*
+
 const TEXT = "Progressively engineer end-to-end manufactured products through market-driven products. Professionally orchestrate business infomediaries for pandemic e-markets. Professionally drive 24/365 benefits for diverse content. Uniquely revolutionize customized e-services via superior quality vectors. Authoritatively incentivize future-proof internal or \"organic\" sources whereas economically sound ideas.\n"
 
 module.exports = [
@@ -132,3 +135,9 @@ module.exports = [
 		]
 	}
 ]
+
+
+
+
+
+*/
