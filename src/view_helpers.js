@@ -6,7 +6,6 @@ module.exports = {
 				this.onupdate = this.oncreate
 			}
 		},
-		onremove: ({dom}) => { console.log('removed', dom) },
 		onbeforeremove: ({ dom, attrs }) => {
 			dom.classList.add(attrs.exitClass || 'exit')
 			return new Promise((resolve) => {
