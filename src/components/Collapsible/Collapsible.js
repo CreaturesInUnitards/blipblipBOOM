@@ -34,31 +34,31 @@ const shrink = ({dom}) => {
 const Collapsible = _vnode => ({
 	view: ({attrs}) => {
 		let {items, label, content} = attrs
-		return m('.collapsible',
-			items.map((item, idx) =>
-				m('.item',
-					{class: idx === State.currentFlemIndex ? 'current' : ''},
-					m('label',
-						m('a.c-light', idx === State.currentFlemIndex
-							? {}
-							: {
-								href: `/${State.currentChapterIndex}/lab/${idx}`,
-								oncreate: m.route.link,
-								onupdate: m.route.link
-							},
-							`${idx + 1}: ${item[label]}`
-						)
-					),
-					State.currentFlemIndex === idx && m('.notes-wrapper',
-						{
-							oncreate: grow,
-							onbeforeremove: shrink
+		const { courseID, chapter, flem } = State.path
+		return m('.collapsible',items.map((item, idx) => {
+			const isCurrentFlem = idx === flem
+			return m('.item',
+				{class: isCurrentFlem ? 'current' : ''},
+				m('label',
+					m('a.c-light', isCurrentFlem
+						? {}
+						: {
+							href: `/${courseID}/${chapter}/sandbox/${idx}`,
+							oncreate: m.route.link,
+							onupdate: m.route.link
 						},
-						m('.notes', m.trust(item[content]))
+						`${idx + 1}: ${item[label]}`
 					)
+				),
+				isCurrentFlem && m('.notes-wrapper',
+					{
+						oncreate: grow,
+						onbeforeremove: shrink
+					},
+					m('.notes', m.trust(item[content]))
 				)
 			)
-		)
+		}))
 	}
 })
 

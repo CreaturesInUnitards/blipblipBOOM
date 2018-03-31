@@ -8,16 +8,15 @@ const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
 const VH = require('../../view_helpers')
 
 const toggleUrl = () => {
-	const cidx = State.currentChapterIndex
-	const view = State.sandboxOpen ? 'content' : 'lab'
-	const fidx = State.currentFlemIndex
+	const { courseID, chapter, flem } = State.path
+	const screen = State.path.screen == 'video' ? 'sandbox' : 'video'
 
-	return `/${cidx}/${view}/${view === 'lab' && fidx > 0 ? fidx : ''}`
+	return `/${courseID}/${chapter}/${screen}/${flem}`
 }
 
 module.exports = {
 	view: function () {
-		const isWelcomeScreen = State.currentChapterIndex === 0
+		const isWelcomeScreen = m.route.param('chapter') === 0
 		const canPlay = State.canPlay
 		
 		return m('#lecture.full-main.flex.jc.ac.bg-dark'

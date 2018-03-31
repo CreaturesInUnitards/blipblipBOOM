@@ -2,18 +2,16 @@ const Player = require('@vimeo/player')
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
 const State = {
+	courses: null,
 	chapters: null,
-	// chapters: require('./Data'),
+	path: {},
 	canPlay: false,
-	currentChapterIndex: 0,
-	currentFlemIndex: 0,
 	menuOpen: localStorage.getItem('menuOpen') === 'true',
 	sandboxOpen: false,
 	player: null,
-	setFlem: (n) =>  State.currentFlemIndex = n ,
 	setupPlayer: (id) => {
 		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[1].id})
-
+		
 		player.on('play', (data) => {
 			if (data.seconds === 0) {
 				State.menuOpen = false
@@ -34,7 +32,7 @@ const State = {
 		})
 		
 		player.on('loaded', () => {
-			const chapter = State.chapters[State.currentChapterIndex]
+			const chapter = State.chapters[State.path.chapter]
 			let cuepointCount = 0
 			chapter.flems.forEach(function(flem){
 				if (flem.cuepoint) player.addCuePoint(flem.cuepoint, { idx: cuepointCount++ })
@@ -54,30 +52,43 @@ const State = {
 		State.menuOpen = !State.menuOpen
 		localStorage.setItem('menuOpen', State.menuOpen)
 	},
-	loadChapter: (ch, fl) => {
-		const chapter = State.chapters[ch]
-		
-		if ( !chapter.flems || !chapter.flems.length ) {
-			console.error('Chapter is invalid! At least 1 flem needs to be present.')
-			m.route.set('/0/content')
+	loadChapter: () => {
+		const chapter = State.chapters[State.path.chapter]
+
+		if ( !chapter || !chapter.flems || !chapter.flems.length ) {
+			console.error('Chapter is invalid! At least 1 flem needs to be present.', chapter)
+			m.route.set('/')
 		}
-
-		const chapterIsChanging = State.currentChapterIndex !== ch
-		State.currentChapterIndex = ch
-		const url = chapter.url
-
-		State.setFlem(fl || 0)
-		if (fl !== undefined) State.sandboxOpen = true
 		
-		if (url && chapterIsChanging) {
+		if (!State.player) go()
+		else State.player.getVideoId()
+			.then(id => { 
+				if (chapter.url != id) go()
+			})
+		
+		function go() {
+			if (!chapter.url) return
+			
 			State.canPlay = false
 
 			setTimeout(() => {
 				State.canPlay = true
 				m.redraw()
-				setTimeout(State.setupPlayer.bind(null, url), 100)
+				setTimeout(State.setupPlayer.bind(null, chapter.url), 100)
 			}, 100)
 		}
+		//
+		// const chapterIsChanging = !State.player || State.player.element.src.indexOf(chapter.url) === -1
+		//
+		// if (chapter.url && chapterIsChanging) {
+		// 	State.canPlay = false
+		//
+		// 	setTimeout(() => {
+		// 		State.canPlay = true
+		// 		m.redraw()
+		// 		setTimeout(State.setupPlayer.bind(null, chapter.url), 100)
+		// 	}, 100)
+		// }
 	}
 }
 
