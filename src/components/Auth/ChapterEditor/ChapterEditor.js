@@ -263,4 +263,4 @@ module.exports = v => {
 	}
 }
 
-// TODO: Vimeo player/set cue stop button
+// TODO: Vimeo player/set cue stop button, or maybe just scrub a mini of the vid? Hmm...

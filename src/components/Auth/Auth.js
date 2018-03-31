@@ -12,8 +12,8 @@ module.exports = _v => {
 	
 	const signIn = () => {
 		firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
-			.then(data => { trying = false; m.route.set('/dashboard') })
-			.catch(e => {
+			.then(_data => { trying = false; m.route.set('/dashboard') })
+			.catch(_e => {
 				Object.assign(creds, { email: '', password: '' })
 				document.querySelector('[type=email]').focus()
 				trying = false
@@ -55,3 +55,5 @@ module.exports = _v => {
 			)
 	}
 }
+
+// TODO: strip out the auto-logins :D

@@ -18,7 +18,6 @@ module.exports = _v => {
 		return classes.join(' ')
 	}
 
-
 	const dragAttrs = (o, array) => ({
 		key: o.id,
 		class: dndClass(dnd, o),
@@ -29,6 +28,7 @@ module.exports = _v => {
 	})
 
 	const dragover = e => { e.preventDefault() }
+	
 	const drop = (array, saveChanges) => e => {
 		e.stopPropagation()
 		if (!(dnd.drag && dnd.drop)) return
@@ -39,7 +39,6 @@ module.exports = _v => {
 		const deletionIdx = draggedIdx > droppedIdx ? draggedIdx + 1 : draggedIdx
 
 		if (insertionIdx !== deletionIdx) {
-			// your custom  code for updating the list goes here.
 			array.splice(insertionIdx, 0, dnd.drag)
 			array.splice(deletionIdx, 1)
 
@@ -79,17 +78,3 @@ module.exports = _v => {
 			)
 	}
 } 
-
-
-/* 
-
-header: string in header
-addFn: function for adding a thing
-array: items array
-saveFn: save after drop
-object: object that has the roadmap
-clickFn: click to select the list item
-titleSaveFn: method for saving the title
-removeFn: method for removing the item
- 
-*/

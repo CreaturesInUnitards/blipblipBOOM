@@ -6,6 +6,7 @@
 const VH = require('../../view_helpers')
 const Collapsible = require('../Collapsible/Collapsible')
 
+// big shoutout to @porsager for enabling this disabling :) 
 const sendMessage = _e => {
 	setTimeout(()=>{
 		document.getElementById('flemFrame').contentWindow.postMessage({

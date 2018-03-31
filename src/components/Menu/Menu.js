@@ -28,18 +28,19 @@ const showToolTip = chapter => e => {
 }
 
 module.exports = _v => {
-	const courseID = m.route.param('courseID')
+	const courseID = State.path.courseID
 	
 	return {
 		view: () => {
 			const chapterIdx = +m.route.param('chapter') || undefined
-			const isSandbox = m.route.param('screen') && m.route.param('screen') == 'sandbox'
+			const isSandbox = State.path.screen === 'sandbox'
 			
 			return [
 				m(VH.fadeInOutComponent, { fadein: true }, [
 					m('menu.animator.fixed.m0.p0.flex.col.oya',
 						{ class: State.menuOpen ? 'bg-grey' : '' },
 						m('.flex',
+							// TODO: put masthead here, e.g. "Mithril 0-60 /n by Scotty Simpson"
 							m('button.menu-button',
 								{ onclick: State.toggleMenu },
 								m('.inner')

@@ -7,8 +7,24 @@ const State = {
 	path: {},
 	canPlay: false,
 	menuOpen: localStorage.getItem('menuOpen') === 'true',
-	sandboxOpen: false,
 	player: null,
+	getChapters: courseID => {
+		const course = State.courses[courseID]
+		return firebase.firestore().collection('chapters').where('parent', '==', courseID).get().then(snap => {
+			State.chapters = course.data.children.map(child => {
+				const doc = snap.docs.find(doc => doc.id === child.id)
+				return doc.data()
+			})
+		})
+	},
+	getCourses: () => {
+		return firebase.firestore().collection('courses').get().then(snap => {
+			State.courses = {}
+			snap.docs.forEach(doc => {
+				State.courses[doc.id] = { id: doc.id, data: doc.data() }
+			})
+		})
+	},
 	setupPlayer: (id) => {
 		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[1].id})
 		
@@ -24,9 +40,7 @@ const State = {
 			m.redraw()
 			
 			setTimeout( () => {
-				State.sandboxOpen = true
-				m.redraw()
-
+				State.toggleUrl(true)
 				setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
 			}, 500)
 		})
@@ -52,43 +66,39 @@ const State = {
 		State.menuOpen = !State.menuOpen
 		localStorage.setItem('menuOpen', State.menuOpen)
 	},
+	toggleUrl: auto => {
+		const { courseID, chapter, flem } = State.path
+		const screen = State.path.screen === 'video' ? 'sandbox' : 'video'
+		const url = `/${courseID}/${chapter}/${screen}/${flem}`
+		if (!auto) return url // player.onended sets auto: true
+		m.route.set(url)
+	},
 	loadChapter: () => {
 		const chapter = State.chapters[State.path.chapter]
 
 		if ( !chapter || !chapter.flems || !chapter.flems.length ) {
-			console.error('Chapter is invalid! At least 1 flem needs to be present.', chapter)
+			console.error('Chapter is invalid! At least 1 flem needs to be present. Or the thing needs to exist. Or you shutUP.', chapter)
 			m.route.set('/')
 		}
 		
-		if (!State.player) go()
+		if (!State.player) go() // firstrun
 		else State.player.getVideoId()
-			.then(id => { 
-				if (chapter.url != id) go()
+			.then(id => {
+				if (chapter.url != id) go() // don't re-build the player for sameness
 			})
+		
+		if (State.path.chapter === 0) delete State.player // Welcome screen fucks us up, so kill it
 		
 		function go() {
 			if (!chapter.url) return
 			
-			State.canPlay = false
-
+			State.canPlay = false // canPlay: false will force main view to fade loader in/out across new vid, ish. 
 			setTimeout(() => {
 				State.canPlay = true
 				m.redraw()
 				setTimeout(State.setupPlayer.bind(null, chapter.url), 100)
 			}, 100)
 		}
-		//
-		// const chapterIsChanging = !State.player || State.player.element.src.indexOf(chapter.url) === -1
-		//
-		// if (chapter.url && chapterIsChanging) {
-		// 	State.canPlay = false
-		//
-		// 	setTimeout(() => {
-		// 		State.canPlay = true
-		// 		m.redraw()
-		// 		setTimeout(State.setupPlayer.bind(null, chapter.url), 100)
-		// 	}, 100)
-		// }
 	}
 }
 

@@ -1,8 +1,8 @@
 require('./Collapsible.sass')
 
-let firstRun = true
+let firstRun = true // wait a second on deeplink/firstrun
 
-const inout = (dom) => {
+const inout = dom => {
 	const notes = dom.querySelector('.notes')
 	const h = notes.offsetHeight
 	return { notes, h }

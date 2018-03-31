@@ -3,7 +3,6 @@
 * ListItem
 *
 ***********************************/
-require("./ListItem.sass")
 const UpdateObject = require('../Operations').UpdateObject
 
 module.exports = ({attrs}) => {
