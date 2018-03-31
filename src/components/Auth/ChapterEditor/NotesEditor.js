@@ -25,7 +25,7 @@ module.exports = ({attrs}) => {
 					m('.notes-headline', `Notes: "${attrs.flem.label}"`),
 					m('.quill-wrapper',
 						{ onclick: e => { e.stopPropagation() } },
-						m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i')),
+						m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i'), m('button.ql-code', 'code')),
 						m('#quill', m.trust(attrs.flem.notes)),
 					),
 					m('.fake-closer', '✖')

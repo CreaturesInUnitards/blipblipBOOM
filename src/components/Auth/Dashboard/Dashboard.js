@@ -22,7 +22,7 @@ window.AdminData = resetAdminData()
 const signOut = _e => {
 	AdminData = resetAdminData()
 	firebase.auth().signOut()
-	m.route.set('/admin')
+	m.route.set('/dashboard')
 }
 
 const setObserver = (collectionName, uid, targetObject, parent, parentCollectionName, AdminDataPropName) => {
