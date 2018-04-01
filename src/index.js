@@ -17,7 +17,7 @@ const CourseSelector = require('./components/CourseSelector/CourseSelector')
 const LoadingAnimation = require('./components/LoadingAnimation/LoadingAnimation')
 
 const getCourses = () => {
-	const pathArray = location.hash.split('/')
+	const pathArray = location.pathname.split('/')
 	State.getCourses().then(() => {
 		// I want to find a better identifying datapoint but my brain isn't very good
 		if (pathArray.length > 1 && pathArray[1].length && State.courses[pathArray[1]]) {
@@ -39,6 +39,7 @@ const mainResolver = { onmatch: params => {
 }}
 
 const startRouter = () => {
+	m.route.prefix('')
 	m.route(document.body, '/' , {
 		'/': CourseSelector,
 		'/dashboard': { onmatch: _params => firebase.auth().currentUser ? Dashboard : Auth },
@@ -49,13 +50,7 @@ const startRouter = () => {
 	})
 }
 
-// server passes url down as ?/courseID/chapter/screen/flem
-const deeplink = window.location.search.split('/')
-if (deeplink.length > 1) location.href = deeplink.slice(1).reduce((a, c) => a + c + '/', '/')
 
 // show loader until we have data, then enable routes
 m.mount(document.body, LoadingAnimation)
 getCourses()
-
-// m.route.prefix('/mithril0-60')
-// m.route.prefix('')
