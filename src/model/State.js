@@ -81,14 +81,14 @@ const State = {
 			m.route.set('/')
 		}
 		
-		if (!State.player) go() // firstrun
-		else State.player.getVideoId()
-			.then(id => {
-				if (chapter.url != id) go() // don't re-build the player for sameness
-			})
-		
-		if (State.path.chapter === 0) delete State.player // Welcome screen fucks us up, so kill it
-		
+		if (State.path.chapter === 0) delete State.player
+
+		/* brought to you by Firefox being bad at its job */  
+		/* ---------------------------------------------- */
+		if (State.videoID !== chapter.url) go()
+		State.videoID = chapter.url
+		/* ---------------------------------------------- */
+
 		function go() {
 			if (!chapter.url) return
 			
