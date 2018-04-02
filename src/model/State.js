@@ -1,4 +1,4 @@
-const Player = require('@vimeo/player')
+const Player = require('@vimeo/player/dist/player.min')
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
 const State = {
@@ -57,9 +57,11 @@ const State = {
 		})
 		
 		player.on('cuepoint', (notification) => {
-			State.setFlem(notification.data.idx)
+			player.pause()
 			State.toggleMenu()
-			m.redraw()
+			const { courseID, chapter } = State.path
+			const url = `/${courseID}/${chapter}/sandbox/${notification.data.idx}`
+			m.route.set(url)
 		})
 	},
 	toggleMenu: () => { 
