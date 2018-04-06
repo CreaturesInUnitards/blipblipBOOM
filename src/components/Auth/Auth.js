@@ -54,5 +54,3 @@ module.exports = _v => {
 			)
 	}
 }
-
-// TODO: strip out the auto-logins :D

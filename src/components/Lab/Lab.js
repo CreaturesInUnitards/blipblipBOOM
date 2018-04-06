@@ -39,7 +39,7 @@ module.exports = {
 			)
 			, m('.flems.f3.flex'
 				, flem && flem.url && m(VH.fadeInOutComponent, { fadein: true, onupdate: true },
-					m('iframe#flemFrame.f1.b0', { onload: sendMessage, src: 'http://tinyurl.com/' + flem.url }),
+					m('iframe#flemFrame.f1.b0', { onload: sendMessage, src: 'https://tinyurl.com/' + flem.url }),
 				)
 			)
 		)
