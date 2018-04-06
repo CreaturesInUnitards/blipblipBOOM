@@ -36,7 +36,6 @@ const State = {
 		})
 		
 		player.on('ended', () => {
-			State.menuOpen = true
 			m.redraw()
 			
 			setTimeout( () => {
