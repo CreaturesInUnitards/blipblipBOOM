@@ -57,7 +57,6 @@ const State = {
 		
 		player.on('cuepoint', (notification) => {
 			player.pause()
-			State.toggleMenu()
 			const { courseID, chapter } = State.path
 			const url = `/${courseID}/${chapter}/sandbox/${notification.data.idx}`
 			m.route.set(url)
@@ -104,3 +103,6 @@ const State = {
 }
 
 module.exports = State
+
+// TODO: Course should allow authors to select a vimeo Collection as its Chapters; pre-populate with Titles and IDs
+
