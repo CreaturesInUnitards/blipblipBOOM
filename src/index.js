@@ -2,7 +2,7 @@ window.m = require('mithril')
 window.State = require('./model/State')
 window.firebase = require('firebase')
 require('firebase/firestore')
-require('./globals.sass')
+require('./index.css')
 
 firebase.initializeApp({
 	apiKey: "AIzaSyDlu_TEe5aN8OaQhuBCkqDbjH9-UqBjmRs",
@@ -10,11 +10,11 @@ firebase.initializeApp({
 	projectId: "mithril-0-60"
 })
 
-const App = require('./components/App/App')
+const App = require('./components/App')
 const Auth = require('./components/Auth/Auth')
 const Dashboard = require('./components/Auth/Dashboard/Dashboard')
 const CourseSelector = require('./components/CourseSelector/CourseSelector')
-const LoadingAnimation = require('./components/LoadingAnimation/LoadingAnimation')
+const LoadingAnimation = require('./components/LoadingAnimation')
 
 const getCourses = () => {
 	const pathArray = location.pathname.split('/')
@@ -28,13 +28,22 @@ const getCourses = () => {
 }
 
 const mainResolver = { onmatch: params => {
+	const { chapter, screen, flem } = State.path  
 	Object.assign(State.path, {
 		courseID:   params['courseID'] || '',
 		chapter:    +params['chapter'] || 0,
 		screen:     params['screen'] || 'video',
 		flem:       +params['flem'] || 0
 	})
-	State.loadChapter()
+	if (State.path.chapter !== chapter) {
+		State.loadChapter()
+	}
+	// if (State.path.chapter !== chapter || State.path.flem !== flem || params['flem'] === undefined || (screen === 'video' && State.path.screen === 'sandbox')) {
+	// 	requestAnimationFrame(() => {
+	// 		const e = new Event('ShowFlemNotes')
+	// 		window.dispatchEvent(e)
+	// 	})
+	// }
 	return App
 }}
 

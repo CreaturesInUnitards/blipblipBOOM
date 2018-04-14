@@ -3,7 +3,7 @@
 * LoadingAnimation
 *
 ***********************************/
-require("./LoadingAnimation.sass")
+// require("./LoadingAnimation.sass")
 
 module.exports = {
 	view: () => m('.spinner'

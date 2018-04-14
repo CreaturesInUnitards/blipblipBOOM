@@ -1,56 +1,44 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = {
-	entry: path.resolve(__dirname, './src/index.js'),
+const config = {
+	devtool: 'source-map',
 	module: {
-		loaders: [
-			{ test: /\.js$/, loader: 'babel-loader' }
-		],
 		rules: [
 			{
-				test: /\.sass$/,
+				test: /\.js$/,
+				exclude: /node_modules/,
+			},
+			{
+				test: /\.html$/,
 				use: [
 					{
-						loader: 'style-loader' 
-					},
-					{
-						loader: 'css-loader',
-						options: { sourceMap: true }
-					},
-					{
-						loader: 'postcss-loader'
-					},
-					{
-						loader: 'sass-loader',
-						options: { sourceMap: true }
+						loader: "html-loader",
+						options: { minimize: true }
 					}
 				]
-			},
+		},
+		{
+		test: /\.(png|jpg|gif|svg)$/,
+		loader: 'url-loader'
+		},
 			{
-				test: /\.(html|svg)$/,
-				use: [
-					'raw-loader'
-				]
-			},
-			{
-				test: /\.(png|jpg|gif)$/,
-				use: [
-					'raw-loader',
-					'img-loader'
-				]
+				test: /\.css$/,
+		use: [MiniCssExtractPlugin.loader, "css-loader"]
 			}
 		]
 	},
-	output: {
-		filename: 'bundle.js',
-		path: path.resolve(__dirname, './build')
-	},
-	devtool: 'source-map',
-	watch: true,
 	plugins: [
-		new HtmlWebpackPlugin({template: './template.ejs'}),
-		new CopyWebpackPlugin([{from: 'src/images', to: 'images/'}]),
+		new HtmlWebPackPlugin({
+			template: "./src/index.html",
+			filename: "./index.html"
+		}),
+		new MiniCssExtractPlugin({
+			filename: "[name].css"
+		}),
+		new CopyWebpackPlugin([ { from: './src/img/*', to: './img/[name].[ext]' } ])
 	]
 }
+
+module.exports = config

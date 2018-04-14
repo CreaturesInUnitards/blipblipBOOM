@@ -1,4 +1,4 @@
-require('./Collapsible.sass')
+// require('./Collapsible.sass')
 
 let firstRun = true // wait a second on deeplink/firstrun
 

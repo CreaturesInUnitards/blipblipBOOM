@@ -1,5 +1,5 @@
 const Quill = require('quill')
-require('./quill.snow.sass')
+// require('./quill.snow.sass')
 
 module.exports = ({attrs}) => {
 	let editor

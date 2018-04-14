@@ -3,7 +3,7 @@
 * CourseSelector
 *
 ***********************************/
-const LoadingAnimation = require('../LoadingAnimation/LoadingAnimation')
+const LoadingAnimation = require('../LoadingAnimation')
 
 module.exports = _v => {
 	let loading = false

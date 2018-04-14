@@ -5,8 +5,8 @@ const State = {
 	courses: null,
 	chapters: null,
 	path: {},
+	animators: { in: null, out: null },
 	canPlay: false,
-	menuOpen: localStorage.getItem('menuOpen') === 'true',
 	player: null,
 	getChapters: courseID => {
 		const course = State.courses[courseID]
@@ -61,10 +61,6 @@ const State = {
 			const url = `/${courseID}/${chapter}/sandbox/${notification.data.idx}`
 			m.route.set(url)
 		})
-	},
-	toggleMenu: () => { 
-		State.menuOpen = !State.menuOpen
-		localStorage.setItem('menuOpen', State.menuOpen)
 	},
 	toggleUrl: auto => {
 		const { courseID, chapter, flem } = State.path

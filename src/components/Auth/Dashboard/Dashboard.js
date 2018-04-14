@@ -6,7 +6,7 @@
 window.alf = require('../alf')
 const FBObserve = require('../FBObserve')
 const { AddObject, UpdateObject, RemoveObject } = require('../Operations')
-const LoadingAnimation = require('../../LoadingAnimation/LoadingAnimation')
+const LoadingAnimation = require('../../LoadingAnimation')
 const ChapterEditor = require('../ChapterEditor/ChapterEditor')
 const DNDList = require('../DNDList/DNDList')
 require("./Dashboard.sass")
@@ -99,7 +99,8 @@ module.exports = {
 			?   m('.dashboard.flex.col.fullscreen.fixed',
 				[
 					m('header.flex.ac.bg-dark.c-white.pv10.ph20',
-						m('img.blip-logo[src=../../../images/blipLogo.svg].mr20'),
+						// TODO: Insert Logo
+						// m('img.blip-logo[src=../../../images/blipLogo.svg].mr20'),
 						m('h1.mra', `Dashboard: ${username(user)}`),
 						m('button.b0.brad4.f-12.bg-white.c-dark', { onclick: signOut }, 'log out')
 					),
