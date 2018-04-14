@@ -193,7 +193,7 @@
 /*********** vid/sand switch ***********/
 .switch {
 	position: fixed;
-	top: 3.75em;
+	top: 5em;
 	left: 0.625em;
 	width: 40px;
 	height: 64px;
@@ -350,4 +350,14 @@
 	position: relative;
 	opacity: 1;
 	transition: height 0.3s
+}
+
+.fader { transition: opacity 0.8s }
+
+.enter {
+	opacity: 1;
+}
+
+.exit {
+	opacity: 0
 }

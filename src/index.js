@@ -28,16 +28,14 @@ const getCourses = () => {
 }
 
 const mainResolver = { onmatch: params => {
-	const { chapter, screen, flem } = State.path  
 	Object.assign(State.path, {
 		courseID:   params['courseID'] || '',
 		chapter:    +params['chapter'] || 0,
 		screen:     params['screen'] || 'video',
 		flem:       +params['flem'] || 0
 	})
-	if (State.path.chapter !== chapter) {
-		State.loadChapter()
-	}
+	console.log(State.path.chapter)
+	State.loadChapter()
 	// if (State.path.chapter !== chapter || State.path.flem !== flem || params['flem'] === undefined || (screen === 'video' && State.path.screen === 'sandbox')) {
 	// 	requestAnimationFrame(() => {
 	// 		const e = new Event('ShowFlemNotes')

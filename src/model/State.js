@@ -5,9 +5,9 @@ const State = {
 	courses: null,
 	chapters: null,
 	path: {},
-	animators: { in: null, out: null },
 	canPlay: false,
 	player: null,
+	flemReady: false,
 	getChapters: courseID => {
 		const course = State.courses[courseID]
 		return firebase.firestore().collection('chapters').where('parent', '==', courseID).get().then(snap => {
@@ -26,7 +26,7 @@ const State = {
 		})
 	},
 	setupPlayer: (id) => {
-		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[1].id})
+		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[0].id})
 		
 		player.on('play', (data) => {
 			if (data.seconds === 0) {
@@ -93,7 +93,7 @@ const State = {
 				State.canPlay = true
 				m.redraw()
 				setTimeout(State.setupPlayer.bind(null, chapter.url), 100)
-			}, 100)
+			}, 300)
 		}
 	}
 }
