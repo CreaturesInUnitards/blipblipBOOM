@@ -65,6 +65,9 @@ const animateOut = idx => _e => {
 				height: 'auto',
 				transition: '0s'
 			})
+			history.pushState('', '', idx)
+			State.path.flem = idx
+			animateIn()
 		}, 300)
 	})
 }
@@ -150,8 +153,8 @@ module.exports = _v => {
 												// display: 'none',
 												// position: 'absolute',
 												// opacity: 0, 
-												height: 'auto',
-												transition: '0s'
+												// height: 'auto',
+												// transition: '0s'
 											} : { display: 'none' } },
 											m('.p20', m.trust(aFlem.notes))
 										)
