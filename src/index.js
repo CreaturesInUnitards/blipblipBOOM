@@ -1,6 +1,7 @@
 window.m = require('mithril')
-window.State = require('./model/State')
 window.firebase = require('firebase')
+const State = require('./model/State')
+const Actions = require('./model/Actions')
 require('firebase/firestore')
 require('./index.css')
 
@@ -18,32 +19,24 @@ const LoadingAnimation = require('./components/LoadingAnimation')
 
 const getCourses = () => {
 	const pathArray = location.pathname.split('/')
-	State.getCourses().then(() => {
+	Actions.getCourses().then(() => {
+
+		// if we're deeplinking into a course, make sure the course exists
 		// I want to find a better identifying datapoint but my brain isn't very good
 		if (pathArray.length > 1 && pathArray[1].length && State.courses[pathArray[1]]) {
-			State.getChapters(pathArray[1]).then(startRouter)
+			Actions.getChapters(pathArray[1]).then(startRouter)
 		}
 		else startRouter()
 	})
 }
 
-const mainResolver = { onmatch: params => {
-	Object.assign(State.path, {
-		courseID:   params['courseID'] || '',
-		chapter:    +params['chapter'] || 0,
-		screen:     params['screen'] || 'video',
-		flem:       +params['flem'] || 0
-	})
-	console.log(State.path.chapter)
-	State.loadChapter()
-	// if (State.path.chapter !== chapter || State.path.flem !== flem || params['flem'] === undefined || (screen === 'video' && State.path.screen === 'sandbox')) {
-	// 	requestAnimationFrame(() => {
-	// 		const e = new Event('ShowFlemNotes')
-	// 		window.dispatchEvent(e)
-	// 	})
-	// }
-	return App
-}}
+const mainResolver = { 
+	onmatch: _params => App,
+	render: vnode => {
+		Actions.loadChapter()
+		return vnode
+	}
+}
 
 const startRouter = () => {
 	m.route.prefix('')

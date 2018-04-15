@@ -3,6 +3,8 @@
 * CourseSelector
 *
 ***********************************/
+const State = require('../../model/State')
+const Actions = require('../../model/Actions')
 const LoadingAnimation = require('../LoadingAnimation')
 
 module.exports = _v => {
@@ -10,13 +12,10 @@ module.exports = _v => {
 	
 	const selectCourse = courseID => _e => {
 		loading = true
-		State.getChapters(courseID).then(() => { m.route.set(`/${courseID}`) })
+		Actions.getChapters(courseID).then(() => { m.route.set(`/${courseID}`) })
 	}
 	
 	return {
-		oninit(_v){
-			Object.assign(State.path, { courseID: null, chapter: null, screen: null, flem: null})
-		},
 		view: ({attrs}) => m('.fullscreen.flex.jc.ac.col',
 			m('h1', "ShutUP! Obviously this isn't designed yet."),
 			m('.course-selector.flex',
