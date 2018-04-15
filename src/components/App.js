@@ -3,9 +3,11 @@
 * App
 *
 ***********************************/
+const State = require('../model/State')
+const Actions = require('../model/Actions')
 const Logo = require('./Logo')
 const LoadingAnimation = require('./LoadingAnimation')
-const VH = require('../view_helpers')
+const FadeComponent = require('./FadeComponent')
 
 // big shoutout to @porsager for enabling this disabling :) 
 const sendMessage = _e => {
@@ -19,10 +21,17 @@ const sendMessage = _e => {
 	}, 10)
 }
 
+// helpers
 const setDomStyle = (dom, newStyle) => {
 	Object.assign(dom.style, newStyle)
 }
 
+const routedLink = (selector, attrs, children) => {
+	Object.assign(attrs, { oncreate: m.route.link, onupdate: m.route.link })
+	return m(selector, attrs, children)
+}
+
+// programmatic animations
 const flemNotesOut = idx => _e => {
 	State.flemReady = false
 	const dom = document.querySelector('.flem .notes')
@@ -38,7 +47,7 @@ const flemNotesOut = idx => _e => {
 				height: 'auto',
 				transition: '0s'
 			})
-			const { courseID, chapter } = State.path
+			const { courseID, chapter } = Actions.urlComponents()
 			m.route.set(`/${courseID}/${chapter}/sandbox/${idx}`)
 		}, 300)
 	})
@@ -68,19 +77,15 @@ const menuExitAnimation = (exitClass, transitionSpeed) => vnode => {
 	})
 }
 
-const routedLink = (selector, attrs, children) => {
-	Object.assign(attrs, { oncreate: m.route.link, onupdate: m.route.link })
-	return m(selector, attrs, children)
-}
-
 
 module.exports = _v => {
+	// transient state
 	const toggleMenu = _e => { menuOpen = !menuOpen }
 	let menuOpen = false
 	
 	return 	{
 		view: _v => {
-			const { courseID, chapter: chapterIdx, screen, flem: flemIdx } = State.path
+			const { courseID, chapter: chapterIdx, screen, flem: flemIdx } = Actions.urlComponents()
 			const chapter = State.chapters[chapterIdx]
 			const flem = chapter.flems[flemIdx]
 			const isSandbox = screen === 'sandbox'
@@ -89,8 +94,14 @@ module.exports = _v => {
 			return State.courses && State.chapters && State.chapters.length
 				? [
 					m('main.fix.f1.flex.jc.bg-dark.vw100.vh100',
+						
+						// sandbox 
 						m('#sandbox.fix.w100p.vh100.pl60.t0.l0.flex',
+							
+							// exercises/resources panel
 							m('.w240.oa.bg-black',
+								
+								// exercises
 								m('.flex.jc.ac.c-green.bg-black.h38', m('span.fw7.fs125', 'EXERCISES')),
 								m('.flex.col',
 									chapter.flems.map((aFlem, idx) => m('.rel.flem.bg-green.bs-5-dark',
@@ -109,81 +120,96 @@ module.exports = _v => {
 										)
 									))
 								),
+								
+								// resources
 								m('.flex.jc.ac.c-green.bg-black.h38', m('span.fw7.fs125', 'RESOURCES')),
 								m('.bg-black',
 									chapter.links.map(link => m('.p10-20',
-										m('a.c-white[target=_blank]',
+										m('a.c-white.underline[target=_blank]',
 											{ href: link.url },
 											link.label
 										))
 									)
 								)
 							),
-							m('.flems.f2.bg-white',
+							
+							// flemsesezz
+							m('.flems.f2.rel',
 								State.flemReady
-									? m('iframe#flemFrame.w100p.h100p', {
-										onload: sendMessage,
-										src: `https://tinyurl.com/${flem.url}`
-									})
+									? m(FadeComponent, { fadein: true }, m('iframe#flemFrame.w100p.h100p.bg-white', {
+										onload: sendMessage, // disable fullscreen flemses
+										src: `https://tinyurl.com/${flem.url }`
+										// TODO: ditch tinyurl once @porsager ships persistence
+									})) 
 									: m(LoadingAnimation)
 							),
 						),
-						State.canPlay 
-							? m('#video.fix.w100p.vh100.t0.l0.pl60.trVid.oh',
-								{ class: isSandbox ? 'transY-100' : ''},
-								m('#videoContainer.fix.t0.w100p.vh100.bg-dark.flex.jc.ac.fader'),
-							)
-							: m(LoadingAnimation)
+						
+						// video player
+						m('#video.fix.w100p.vh100.t0.l0.pl60.trVid.oh.bg-dark',
+							{ class: isSandbox ? 'transY-100' : ''},
+							State.canPlay
+								? m('#videoContainer.fix.t0.w100p.vh100.bg-dark.flex.jc.ac.o0')
+								: m(LoadingAnimation)
+						)
 					),
+					
+					// sandbox/video toggler
 					m('.switch', {
 						class: isSandbox ? 'S' : 'V',
-						onclick: State.toggleUrl
+						onclick: Actions.toggleUrl
 					}),
-					[
-						menuOpen && m('.fix.t0.l0.bg-black.o8.vw100.vh100.fade-in',
-							{
-								onclick: _e => { menuOpen = false },
-								onbeforeremove: menuExitAnimation('fade-out', 300)
-							}
-						),
-						menuOpen && m('menu.fix.bg-dark.t0.l0.w240.vh100.oa.p2x.pt60.flex.col.ae.slide-in',
-							{
-								onclick: _e => { menuOpen = false },
-								onbeforeremove: menuExitAnimation('slide-out', 300)
-							},
-							// TODO: Masthead here
-							State.chapters.map((chapter, idx) => {
-								const isCurrent = chapterIdx === idx
-								return m('.list-item.flex.jb.ac.w100p.bs-2-black',
-									{
-										class: chapterIdx === idx ? 'c-green' : 'c-white',
-										style: { zIndex: State.chapters.length - idx }
-									},
-									routedLink('a.f2.p10.fs125', { href: `/${courseID}/${idx}` }, chapter.title),
-									m('.mla.w40.h64.flex.col.pointer',
-										routedLink('.w40.h32.bgs-cover.bgp-top'
-											, {
-												href: `/${courseID}/${idx}/video`,
-												class: !isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
-											}
-										),
-										routedLink('.w40.h32.bgs-cover.bgp-bot'
-											, {
-												href: `/${courseID}/${idx}/sandbox`,
-												class: isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
-											}
-										)
+					
+					// menu overlay
+					menuOpen && m('.fix.t0.l0.bg-black.o8.vw100.vh100.fade-in',
+						{
+							onclick: _e => { menuOpen = false },
+							onbeforeremove: menuExitAnimation('fade-out', 300)
+						}
+					),
+					
+					// menu
+					menuOpen && m('menu.fix.bg-dark.t0.l0.w240.vh100.oa.p2x.pt60.flex.col.ae.slide-in',
+						{
+							onclick: _e => { menuOpen = false },
+							onbeforeremove: menuExitAnimation('slide-out', 300)
+						},
+						// TODO: Masthead here
+						State.chapters.map((chapter, idx) => {
+							const isCurrent = chapterIdx === idx
+							return m('.list-item.flex.jb.ac.w100p.bs-2-black',
+								{
+									class: isCurrent ? 'c-green' : 'c-white',
+									style: { zIndex: State.chapters.length - idx }
+								},
+								
+								// chapter title text
+								routedLink('a.f2.p10.fs125', { href: `/${courseID}/${idx}` }, chapter.title),
+								
+								// chapter video/sandbox buttons
+								m('.mla.w40.h64.flex.col.pointer',
+									routedLink('.w40.h32.bgs-cover.bgp-top'
+										, {
+											href: `/${courseID}/${idx}/video`,
+											class: !isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
+										}
 									),
-								)
-							}),
-						),
-						m('.menuButton.fix.t0.w40.h40.pointer.tr3',
-							{
-								class: menuOpen ? 'O l240' : 'C l0',
-								onclick: toggleMenu
-							}
-						)
-					],
+									routedLink('.w40.h32.bgs-cover.bgp-bot'
+										, {
+											href: `/${courseID}/${idx}/sandbox`,
+											class: isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
+										}
+									)
+								),
+							)
+						}),
+					),
+					m('.menuButton.fix.t0.w40.h40.pointer.tr3',
+						{
+							class: menuOpen ? 'O l240' : 'C l0',
+							onclick: toggleMenu
+						}
+					),
 					m(Logo)
 				]
 				: m(LoadingAnimation)

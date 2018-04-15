@@ -3,8 +3,6 @@
 * LoadingAnimation
 *
 ***********************************/
-// require("./LoadingAnimation.sass")
-
 module.exports = {
 	view: () => m('.spinner'
 		, m('.bounce1')
