@@ -16,20 +16,22 @@ module.exports = _v => {
 	}
 	
 	return {
-		view: ({attrs}) => m('.fullscreen.flex.jc.ac.col',
-			m('h1', "ShutUP! Obviously this isn't designed yet."),
-			m('.course-selector.flex',
-				State.courses
-					? Object.keys(State.courses).map(key => {
-						const course = State.courses[key]
-						return m('.course.p20.m20.bg-brick.c-white.pointer',
-							{ onclick: selectCourse(course.id) },
-							course.data.title
-						)
-					})
-					: m(LoadingAnimation)
-			),
-			loading && m('i', 'just a sec...')
-		)
+		oncreate: selectCourse('af6lPs1IGL3Bid2MwicE'),
+		view: () => m(LoadingAnimation)
+		// view: ({attrs}) => m('.fullscreen.flex.jc.ac.col',
+		// 	m('h1', "ShutUP! Obviously this isn't designed yet."),
+		// 	m('.course-selector.flex',
+		// 		State.courses
+		// 			? Object.keys(State.courses).map(key => {
+		// 				const course = State.courses[key]
+		// 				return m('.course.p20.m20.bg-brick.c-white.pointer',
+		// 					{ onclick: selectCourse(course.id) },
+		// 					course.data.title
+		// 				)
+		// 			})
+		// 			: m(LoadingAnimation)
+		// 	),
+		// 	loading && m('i', 'just a sec...')
+		// )
 	}
 }

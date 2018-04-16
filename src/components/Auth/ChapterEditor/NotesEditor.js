@@ -1,4 +1,4 @@
-const Quill = require('quill')
+// const Quill = require('quill')
 // require('./quill.snow.sass')
 
 module.exports = ({attrs}) => {

@@ -1,8 +1,5 @@
-window.m = require('mithril')
-window.firebase = require('firebase')
 const State = require('./model/State')
 const Actions = require('./model/Actions')
-require('firebase/firestore')
 require('./index.css')
 
 firebase.initializeApp({
