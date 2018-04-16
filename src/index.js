@@ -49,5 +49,5 @@ const startRouter = () => {
 
 
 // show loader until we have data, then enable routes
-m.mount(document.body, LoadingAnimation)
+m.mount(document.body, { view: () => m(LoadingAnimation, 'loading course data...') })
 getCourses()

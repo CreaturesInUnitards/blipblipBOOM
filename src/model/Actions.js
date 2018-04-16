@@ -46,7 +46,6 @@ const Actions = {
 		// maybe?
 		if (chapter.url) {
 			if (State.videoUrl === chapter.url) return
-			
 			State.videoUrl = chapter.url
 			setTimeout(() => {
 				Actions.setupPlayer(chapter.url)
@@ -64,9 +63,29 @@ const Actions = {
 		m.redraw()
 		
 		setTimeout(() => {
-			if (State.player) State.player.destroy()
+			if (!State.player) State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[0].id})
+			else State.player.loadVideo(id)
 
-			const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[0].id})
+			const player = State.player
+
+			player.on('loaded', () => {
+				let cuepointCount = 0
+				State.chapter.flems.forEach(function(flem){
+					if (flem.cuepoint) player.addCuePoint(flem.cuepoint, { idx: cuepointCount++ })
+				})
+
+				setTimeout(() => {
+					videoContainer.classList.add('enter')
+					State.canPlay = true
+					m.redraw()
+				}, 100)
+			})
+
+			player.on('cuepoint', (notification) => {
+				player.pause()
+				const { courseID, chapter } = Actions.urlComponents()
+				m.route.set(`/${courseID}/${chapter}/sandbox/${notification.data.idx}`)
+			})
 
 			player.on('ended', () => {
 				setTimeout( () => {
@@ -74,26 +93,7 @@ const Actions = {
 					setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
 				}, 500)
 			})
-
-			player.on('loaded', () => {
-				const chapter = State.chapters[normalizeParam('chapter')]
-				let cuepointCount = 0
-				chapter.flems.forEach(function(flem){
-					if (flem.cuepoint) player.addCuePoint(flem.cuepoint, { idx: cuepointCount++ })
-				})
-
-				setTimeout(() => {videoContainer.classList.add('enter')
-					State.canPlay = true
-					m.redraw()
-				}, 100)
-			}, 1000)
-
-			player.on('cuepoint', (notification) => {
-				player.pause()
-				const { courseID, chapter } = Actions.urlComponents()
-				m.route.set(`/${courseID}/${chapter}/sandbox/${notification.data.idx}`)
-			})
-		})
+		}, 800)
 	},
 	toggleUrl: () => {
 		const { courseID, chapter, flem } = Actions.urlComponents()

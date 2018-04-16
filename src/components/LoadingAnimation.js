@@ -8,7 +8,7 @@ module.exports = {
 		, m('.blip.bounce1')
 		, m('.blip.bounce2')
 		, m('.blip.bounce3')
-		, m('i.c-green', children)
+		, m('.c-grey.p20.center.nowrap.fs08', m('i', children))
 	)
 } 
 	

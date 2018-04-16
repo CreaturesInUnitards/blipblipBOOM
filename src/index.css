@@ -39,6 +39,7 @@
 .bs-2-black { box-shadow: 0 1px 2px 0 black }
 
 /* color */
+.c-grey { color: #666666 }
 .c-green { color: #88c13e }
 .c-white { color: white }
 .c-dark { color: #232628 }
@@ -143,6 +144,9 @@
 /* transitions */
 .tr3 { transition: 0.35s }
 .trVid { transition: transform 0.3s cubic-bezier(0.01, 0.26, 0.15, 0.97) }
+
+/* white-space */
+.nowrap { white-space: nowrap }
 
 /* width */
 .w40 { width: 2.5em }
@@ -269,7 +273,7 @@
 	background-color: #555555;
 	border-radius: 50%;
 	display: inline-block;
-	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+	animation: sk-bouncedelay 1.6s infinite ease-in-out both;
 }
 
 .spinner .blip:nth-child(3) {
@@ -278,11 +282,11 @@
 }
 
 .spinner .bounce1 {
-	animation-delay: -0.32s;
+	animation-delay: -0.36s;
 }
 
 .spinner .bounce2 {
-	animation-delay: -0.16s;
+	animation-delay: -0.18s;
 }
 
 @keyframes sk-bouncedelay {

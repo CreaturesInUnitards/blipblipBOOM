@@ -100,7 +100,7 @@ module.exports = _v => {
 						m('#sandbox.fix.w100p.vh100.pl60.t0.l0.flex',
 							
 							// exercises/resources panel
-							m('.w240.bg-panel.flex.col.jb.h100',
+							m('.w240.bg-panel.flex.col.jb.h100p',
 								
 								// exercises
 								m('.oa',
@@ -139,12 +139,12 @@ module.exports = _v => {
 							// flemsesezz
 							m('.flems.f2.rel.h100p',
 								State.flemReady
-									? m(FadeComponent, { fadein: true }, m('iframe#flemFrame.w100p.h100p.bg-white', {
+									? m(FadeComponent, { key: 'flem' }, m('iframe#flemFrame.w100p.h100p.bg-white', {
 										onload: sendMessage, // disable fullscreen flemses
 										src: `https://tinyurl.com/${flem.url }`
 										// TODO: ditch tinyurl once @porsager ships persistence
 									})) 
-									: m(LoadingAnimation, m('', 'loading flemses'))
+									: m(FadeComponent, { key: 'fade' }, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading exercise...')))
 							),
 						),
 						
@@ -152,7 +152,6 @@ module.exports = _v => {
 						m('#video.fix.w100p.vh100.t0.l0.pl60.trVid.oh.bg-dark',
 							{ class: isSandbox ? 'transY-100' : ''},
 							m('#videoContainer.rel.t0.w100p.vh100.bg-dark.flex.jc.ac.o0'),
-							State.canPlay || m(FadeComponent, { fadein: true }, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, m('.c-green', 'loading wideo'))))
 						)
 					),
 					
@@ -212,9 +211,10 @@ module.exports = _v => {
 							onclick: toggleMenu
 						}
 					),
-					m(Logo)
+					m(Logo),
+					State.canPlay || m(FadeComponent, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...')))
 				]
-				: m(LoadingAnimation)
+				: m(LoadingAnimation, 'loading course data...')
 		}
 	}
 }
