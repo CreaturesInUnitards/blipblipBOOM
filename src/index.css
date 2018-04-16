@@ -16,6 +16,7 @@
 .bg-white { background: white }
 .bg-brick { background: #cf2f20 }
 .bg-flem { background: #263238 }
+.bg-panel { background: #2f2f33}
 
 /* background-image */
 .bg-off { background-image: url(/img/toggleSprite-off.png) }
@@ -73,6 +74,7 @@
 .ae { align-items: flex-end }
 
 /* font */
+.fs08 { font-size: 0.8em }
 .fs125 { font-size: 1.25em }
 .fw7 { font-weight: 700 }
 
@@ -86,6 +88,9 @@
 .h64 { height: 4em }
 .h100p { height: 100% }
 .vh100 { height: 100vh }
+
+/* line-height */
+.lh15 { line-height: 1.5em }
 
 /* margin */
 .mla { margin-left: auto }
@@ -104,9 +109,11 @@
 
 /* padding */
 .p2x { padding: 2px }
+.p5-20 { padding: 0.3125em 1.25em }
 .p10-20 { padding: 0.625em 1.25em }
 .p10 { padding: 0.625em }
 .p20 { padding: 1.25em }
+.pb20 { padding-bottom: 1.25em }
 .pb40 { padding-bottom: 2.5em }
 .pl60 { padding-left: 3.75em }
 .pr30 { padding-right: 1.875em }
@@ -200,7 +207,7 @@
 	background-color: rgba(34,34,34,0.9);
 	border: 2px solid #555;
 	border-radius: 20px;
-	background-image: url(./img/toggleSprite-off.png);
+	background-image: url(/img/toggleSprite-off.png);
 	background-size: cover;
 	background-position: center;
 	transition: border-color 0.3s;
@@ -216,7 +223,7 @@
 	left: 2px;
 	width: 32px;
 	height: 32px;
-	background-image: url(./img/toggleSprite-on.png);
+	background-image: url(/img/toggleSprite-on.png);
 	background-size: 40px 60px;
 	background-position: center -2px;
 	border: 0;
@@ -256,26 +263,26 @@
 	text-align: center;
 }
 
-.spinner > div {
+.spinner .blip {
 	width: 1.5vw;
 	height: 1.5vw;
 	background-color: #555555;
 	border-radius: 50%;
 	display: inline-block;
-	animation: sk-bouncedelay 0.8s infinite ease-in-out both;
+	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.spinner > div:nth-child(3) {
+.spinner .blip:nth-child(3) {
 	width: 4.5vw;
 	height: 4.5vw;
 }
 
 .spinner .bounce1 {
-	animation-delay: -0.20s;
+	animation-delay: -0.32s;
 }
 
 .spinner .bounce2 {
-	animation-delay: -0.10s;
+	animation-delay: -0.16s;
 }
 
 @keyframes sk-bouncedelay {
@@ -333,3 +340,5 @@
 	to { opacity: 0 }
 }
 
+
+code { display: inline-block; padding: 0 3px; background: #dddddd }
