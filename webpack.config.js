@@ -20,12 +20,12 @@ const config = {
 				]
 		},
 		{
-		test: /\.(png|jpg|gif|svg)$/,
-		loader: 'url-loader'
+			test: /\.(png|jpg|gif|svg)$/,
+			loader: 'url-loader'
 		},
 			{
 				test: /\.css$/,
-		use: [MiniCssExtractPlugin.loader, "css-loader"]
+				use: [MiniCssExtractPlugin.loader, "css-loader"]
 			}
 		]
 	},
