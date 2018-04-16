@@ -18,7 +18,7 @@ const sendMessage = _e => {
 				fullscreenButton: false
 			}
 		}, 'https://flems.io')
-	}, 10)
+	}, 250)
 }
 
 // helpers
@@ -84,6 +84,7 @@ module.exports = _v => {
 	let menuOpen = false
 	
 	return 	{
+		oninit: _v => { document.title = `bbB! - ${State.courses[m.route.param('courseID')].data.title}` },
 		view: _v => {
 			const { courseID, chapter: chapterIdx, screen, flem: flemIdx } = Actions.urlComponents()
 			const chapter = State.chapters[chapterIdx]
@@ -99,33 +100,35 @@ module.exports = _v => {
 						m('#sandbox.fix.w100p.vh100.pl60.t0.l0.flex',
 							
 							// exercises/resources panel
-							m('.w240.oa.bg-black',
+							m('.w240.bg-panel.flex.col.jb.h100',
 								
 								// exercises
-								m('.flex.jc.ac.c-green.bg-black.h38', m('span.fw7.fs125', 'EXERCISES')),
-								m('.flex.col',
-									chapter.flems.map((aFlem, idx) => m('.rel.flem.bg-green.bs-5-dark',
-										{
-											key: flem.id,
-											class: aFlem === flem ? 'bg-flem' : 'bg-green',
-											style: { zIndex: chapter.flems.length - idx },
-										},
-										m('.flem-label.p10-20.fw7.c-white.pointer.flex.ac',
-											{ onclick: flemNotesOut(idx) },
-											aFlem.label
-										),
-										aFlem === flem && m('.notes.bg-white.bt-1-dark.w100.oh.none',
-										{ oncreate: flemNotesIn },
-										m('.p20', m.trust(aFlem.notes))
-										)
-									))
+								m('.oa',
+									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs125', 'EXERCISES')),
+									m('',
+										chapter.flems.map((aFlem, idx) => m('.rel.flem.bs-5-dark',
+											{
+												key: flem.id,
+												class: aFlem === flem ? 'bg-flem' : 'bg-green',
+												style: { zIndex: chapter.flems.length - idx },
+											},
+											m('.flem-label.p10-20.fw7.c-white.pointer.flex.ac.tr3',
+												{ onclick: flemNotesOut(idx) },
+												`${idx + 1}. ${aFlem.label}`
+											),
+											aFlem === flem && m('.notes.bg-white.bt-1-dark.w100.oh.none',
+												{ oncreate: flemNotesIn },
+												m('.p20.lh15', m.trust(aFlem.notes))
+											)
+										))
+									)
 								),
 								
 								// resources
-								m('.flex.jc.ac.c-green.bg-black.h38', m('span.fw7.fs125', 'RESOURCES')),
-								m('.bg-black',
-									chapter.links.map(link => m('.p10-20',
-										m('a.c-white.underline[target=_blank]',
+								m('.pb20',
+									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs125', 'RESOURCES')),
+									chapter.links.map(link => m('.p5-20',
+										m('a.c-white.underline.fs08[target=_blank]',
 											{ href: link.url },
 											link.label
 										))
@@ -134,30 +137,29 @@ module.exports = _v => {
 							),
 							
 							// flemsesezz
-							m('.flems.f2.rel',
+							m('.flems.f2.rel.h100p',
 								State.flemReady
 									? m(FadeComponent, { fadein: true }, m('iframe#flemFrame.w100p.h100p.bg-white', {
 										onload: sendMessage, // disable fullscreen flemses
 										src: `https://tinyurl.com/${flem.url }`
 										// TODO: ditch tinyurl once @porsager ships persistence
 									})) 
-									: m(LoadingAnimation)
+									: m(LoadingAnimation, m('', 'loading flemses'))
 							),
 						),
 						
 						// video player
 						m('#video.fix.w100p.vh100.t0.l0.pl60.trVid.oh.bg-dark',
 							{ class: isSandbox ? 'transY-100' : ''},
-							State.canPlay
-								? m('#videoContainer.fix.t0.w100p.vh100.bg-dark.flex.jc.ac.o0')
-								: m(LoadingAnimation)
+							m('#videoContainer.rel.t0.w100p.vh100.bg-dark.flex.jc.ac.o0'),
+							State.canPlay || m(FadeComponent, { fadein: true }, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, m('.c-green', 'loading wideo'))))
 						)
 					),
 					
 					// sandbox/video toggler
-					m('.switch', {
+					routedLink('a.switch', {
 						class: isSandbox ? 'S' : 'V',
-						onclick: Actions.toggleUrl
+						href: Actions.toggleUrl(),
 					}),
 					
 					// menu overlay
