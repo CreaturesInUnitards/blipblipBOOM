@@ -4,10 +4,11 @@
 *
 ***********************************/
 module.exports = {
-	view: () => m('.spinner'
-		, m('.bounce1')
-		, m('.bounce2')
-		, m('.bounce3')
+	view: ({children}) => m('.spinner'
+		, m('.blip.bounce1')
+		, m('.blip.bounce2')
+		, m('.blip.bounce3')
+		, m('i.c-green', children)
 	)
 } 
 	
