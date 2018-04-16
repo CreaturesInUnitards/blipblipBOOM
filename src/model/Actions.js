@@ -6,11 +6,11 @@ const VIDEO_CONTAINER_ID = 'videoContainer'
 // helpers
 const normalizeParam = param => {
 	let newParam = m.route.param(param)
-	return param == 'courseID' 
+	return param === 'courseID' 
 		? newParam || ''
-		: param == 'chapter'
+		: param === 'chapter'
 			? +newParam || 0
-			: param == 'screen'
+			: param === 'screen'
 				? newParam || 'video'
 				: +newParam || 0
 }
@@ -35,61 +35,70 @@ const Actions = {
 	},
 	loadChapter: () => {
 		const chapter = State.chapters[normalizeParam('chapter')]
+		if (chapter === State.chapter) return
+		State.chapter = chapter
 
 		if ( !chapter || !chapter.flems || !chapter.flems.length ) {
 			console.error('Chapter is invalid! At least 1 flem needs to be present. Or the thing needs to exist. Or you shutUP.', chapter)
 			m.route.set('/')
 		}
 		
-		/* brought to you by Firefox being bad at its job */
-		/* ---------------------------------------------- */
-		if (State.videoID !== chapter.url) go()
-		State.videoID = chapter.url
-		/* ---------------------------------------------- */
-
-		function go() {
-			if (!chapter.url) return
-
-			State.canPlay = false // canPlay: false will force main view to fade loader in/out across new vid, ish. 
+		// maybe?
+		if (chapter.url) {
+			if (State.videoUrl === chapter.url) return
+			
+			State.videoUrl = chapter.url
 			setTimeout(() => {
-				State.canPlay = true
-				m.redraw()
-				setTimeout(Actions.setupPlayer.bind(null, chapter.url), 100)
-			}, 300)
+				Actions.setupPlayer(chapter.url)
+			}, 100)
+		}
+		else {
+			console.error('Chapter is invalid! You need a video id (chapter.url)', chapter)
+			m.route.set('/')
 		}
 	},
 	setupPlayer: (id) => {
-		const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[0].id})
+		console.log("setting up video player")
+		const videoContainer = document.getElementById(VIDEO_CONTAINER_ID) 
+		State.canPlay = false
+		m.redraw()
 		
-		player.on('ended', () => {
-			setTimeout( () => {
-				Actions.toggleUrl(true)
-				setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
-			}, 500)
-		})
+		setTimeout(() => {
+			if (State.player) State.player.destroy()
 
-		player.on('loaded', () => {
-			const chapter = State.chapters[normalizeParam('chapter')]
-			let cuepointCount = 0
-			chapter.flems.forEach(function(flem){
-				if (flem.cuepoint) player.addCuePoint(flem.cuepoint, { idx: cuepointCount++ })
+			const player = State.player = new Player(VIDEO_CONTAINER_ID, {id: id || State.chapters[0].id})
+
+			player.on('ended', () => {
+				setTimeout( () => {
+					Actions.toggleUrl()
+					setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
+				}, 500)
 			})
 
-			setTimeout(() => { document.getElementById(VIDEO_CONTAINER_ID).classList.add('enter') }, 100)
-		})
+			player.on('loaded', () => {
+				const chapter = State.chapters[normalizeParam('chapter')]
+				let cuepointCount = 0
+				chapter.flems.forEach(function(flem){
+					if (flem.cuepoint) player.addCuePoint(flem.cuepoint, { idx: cuepointCount++ })
+				})
 
-		player.on('cuepoint', (notification) => {
-			player.pause()
-			const { courseID, chapter } = Actions.urlComponents()
-			m.route.set(`/${courseID}/${chapter}/sandbox/${notification.data.idx}`)
+				setTimeout(() => {videoContainer.classList.add('enter')
+					State.canPlay = true
+					m.redraw()
+				}, 100)
+			}, 1000)
+
+			player.on('cuepoint', (notification) => {
+				player.pause()
+				const { courseID, chapter } = Actions.urlComponents()
+				m.route.set(`/${courseID}/${chapter}/sandbox/${notification.data.idx}`)
+			})
 		})
 	},
-	toggleUrl: auto => {
+	toggleUrl: () => {
 		const { courseID, chapter, flem } = Actions.urlComponents()
 		const screen = normalizeParam('screen') === 'video' ? 'sandbox' : 'video'
-		const url = `/${courseID}/${chapter}/${screen}/${flem}`
-		if (!auto) return url // player.onended sets auto: true
-		m.route.set(url)
+		return `/${courseID}/${chapter}/${screen}/${flem}`
 	},
 	urlComponents: () => ({
 		courseID: normalizeParam('courseID'),
