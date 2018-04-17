@@ -77,6 +77,7 @@
 /* font */
 .fs08 { font-size: 0.8em }
 .fs125 { font-size: 1.25em }
+.fsvw5 { font-size: 5vw }
 .fw7 { font-weight: 700 }
 
 /* height */
@@ -88,6 +89,8 @@
 .h50p { height: 50% }
 .h64 { height: 4em }
 .h100p { height: 100% }
+
+.vh40 { height: 40vh }
 .vh100 { height: 100vh }
 
 /* line-height */
@@ -99,6 +102,7 @@
 .mr10 { margin-right: 0.625em }
 .mt4 { margin-top: 0.25em }
 .mt10 { margin-top: 0.625em }
+.mt5vw { margin-top: 5vw }
 
 /* opacity */
 .o0 { opacity: 0 }
@@ -157,6 +161,7 @@
 .w50p { width: 50% }
 .w100p { width: 100% }
 
+.vw60 { width: 60vw }
 .vw100 { width: 100vw }
 
 /***************************************** 

@@ -82,9 +82,24 @@ module.exports = _v => {
 	// transient state
 	const toggleMenu = _e => { menuOpen = !menuOpen }
 	let menuOpen = false
+	let wSize = { w: window.innerWidth, h: window.innerHeight }
+	
+	const checkForResize = () => {
+		const w = window.innerWidth, h = window.innerHeight  
+
+		if ( w !== wSize.w || h !== wSize.h) {
+			Object.assign(wSize, { w: w, h: h })
+			m.redraw()
+		}
+		
+		requestAnimationFrame(checkForResize)
+	}
 	
 	return 	{
-		oninit: _v => { document.title = `bbB! - ${State.courses[m.route.param('courseID')].data.title}` },
+		oninit: _v => { 
+			document.title = `bbB! - ${State.courses[m.route.param('courseID')].data.title}`
+			requestAnimationFrame(checkForResize)
+		},
 		view: _v => {
 			const { courseID, chapter: chapterIdx, screen, flem: flemIdx } = Actions.urlComponents()
 			const chapter = State.chapters[chapterIdx]
@@ -158,7 +173,7 @@ module.exports = _v => {
 					// sandbox/video toggler
 					routedLink('a.switch', {
 						class: isSandbox ? 'S' : 'V',
-						href: Actions.toggleUrl(),
+						href: Actions.toggledUrl(),
 					}),
 					
 					// menu overlay
@@ -211,8 +226,15 @@ module.exports = _v => {
 							onclick: toggleMenu
 						}
 					),
-					m(Logo),
-					State.canPlay || m(FadeComponent, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...')))
+					m(Logo, { class: 'fix w40 h40 bot0 l10' }),
+					!State.canPlay && m(FadeComponent, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...'))),
+					(wSize.w < wSize.h) && m(FadeComponent, m('#portrait.fix.vw100.vh100.bg-brick.c-white.flex.jc.ac',
+						m('.vw60',
+							m(Logo, { blipColor: 'white', style: { width: '30vw', height: '30vw' }}),
+							m('p.fsvw5', 'This site exists to enable two activities: watching coding demonstration videos, and writing code.'),
+							m('p.fsvw5.mt5vw', 'Neither of these activities is good enough in portrait mode. That\'s just a fact. Please widen your view :)')
+						)
+					))
 				]
 				: m(LoadingAnimation, 'loading course data...')
 		}

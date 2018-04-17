@@ -89,13 +89,13 @@ const Actions = {
 
 			player.on('ended', () => {
 				setTimeout( () => {
-					Actions.toggleUrl()
-					setTimeout(State.player.setCurrentTime.bind(this, 0), 1000)
+					m.route.set(Actions.toggledUrl())
+					setTimeout(() => { State.player.setCurrentTime(0) }, 1000)
 				}, 500)
 			})
 		}, 800)
 	},
-	toggleUrl: () => {
+	toggledUrl: () => {
 		const { courseID, chapter, flem } = Actions.urlComponents()
 		const screen = normalizeParam('screen') === 'video' ? 'sandbox' : 'video'
 		return `/${courseID}/${chapter}/${screen}/${flem}`
