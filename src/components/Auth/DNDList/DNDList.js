@@ -3,7 +3,7 @@
 * DNDList
 *
 ***********************************/
-require("./DNDList.sass")
+// require("./DNDList.sass")
 const ListItem = require('../ListItem/ListItem')
 
 module.exports = _v => {

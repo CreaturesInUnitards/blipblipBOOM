@@ -3,7 +3,7 @@
 * Auth
 *
 ***********************************/
-require("./Auth.sass")
+// require("./Auth.sass")
 
 module.exports = _v => {
 	const creds = { email: '', password: '' }
