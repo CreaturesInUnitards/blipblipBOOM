@@ -8,6 +8,7 @@ const Actions = require('../model/Actions')
 const Logo = require('./Logo')
 const LoadingAnimation = require('./LoadingAnimation')
 const FadeComponent = require('./FadeComponent')
+const HowToUseThisSite = require('./HowToUseThisSite')
 
 // big shoutout to @porsager for enabling this disabling :) 
 const sendMessage = _e => {
@@ -33,6 +34,9 @@ const routedLink = (selector, attrs, children) => {
 
 // programmatic animations
 const flemNotesOut = idx => _e => {
+	const { courseID, chapter, flem } = Actions.urlComponents()
+	if (idx === +flem) return
+	
 	State.flemReady = false
 	const dom = document.querySelector('.flem .notes')
 	const newHeight = dom.offsetHeight
@@ -47,7 +51,6 @@ const flemNotesOut = idx => _e => {
 				height: 'auto',
 				transition: '0s'
 			})
-			const { courseID, chapter } = Actions.urlComponents()
 			m.route.set(`/${courseID}/${chapter}/sandbox/${idx}`)
 		}, 300)
 	})
@@ -83,6 +86,7 @@ module.exports = _v => {
 	const toggleMenu = _e => { menuOpen = !menuOpen }
 	let menuOpen = false
 	let wSize = { w: window.innerWidth, h: window.innerHeight }
+	let sizeCheckInterval
 	
 	const checkForResize = () => {
 		const w = window.innerWidth, h = window.innerHeight  
@@ -91,14 +95,15 @@ module.exports = _v => {
 			Object.assign(wSize, { w: w, h: h })
 			m.redraw()
 		}
-		
-		requestAnimationFrame(checkForResize)
 	}
 	
 	return 	{
 		oninit: _v => { 
 			document.title = `bbB! - ${State.courses[m.route.param('courseID')].data.title}`
-			requestAnimationFrame(checkForResize)
+			sizeCheckInterval = setInterval(checkForResize, 500)
+		},
+		onremove: _v => {
+			clearInterval(sizeCheckInterval)
 		},
 		view: _v => {
 			const { courseID, chapter: chapterIdx, screen, flem: flemIdx } = Actions.urlComponents()
@@ -124,14 +129,14 @@ module.exports = _v => {
 										chapter.flems.map((aFlem, idx) => m('.rel.flem.bs-5-dark',
 											{
 												key: flem.id,
-												class: aFlem === flem ? 'bg-flem' : 'bg-green',
+												class: aFlem === flem ? 'bg-green c-white' : 'bg-flem c-dark',
 												style: { zIndex: chapter.flems.length - idx },
 											},
-											m('.flem-label.p10-20.fw7.c-white.pointer.flex.ac.tr3',
+											m('.flem-label.p10-20.fw7.pointer.flex.ac.tr3',
 												{ onclick: flemNotesOut(idx) },
 												`${idx + 1}. ${aFlem.label}`
 											),
-											aFlem === flem && m('.notes.bg-white.bt-1-dark.w100.oh.none',
+											aFlem === flem && m('.notes.bg-white.c-dark.bt-1-dark.w100.oh.none',
 												{ oncreate: flemNotesIn },
 												m('.p20.lh15', m.trust(aFlem.notes))
 											)
@@ -171,7 +176,7 @@ module.exports = _v => {
 					),
 					
 					// sandbox/video toggler
-					routedLink('a.switch', {
+					routedLink('a.switch.fix.l10.t80.w40.h64.rad20x', {
 						class: isSandbox ? 'S' : 'V',
 						href: Actions.toggledUrl(),
 					}),
@@ -191,6 +196,7 @@ module.exports = _v => {
 							onbeforeremove: menuExitAnimation('slide-out', 300)
 						},
 						// TODO: Masthead here
+						// m('.abs.c-white', State.courses[courseID].data.title),
 						State.chapters.map((chapter, idx) => {
 							const isCurrent = chapterIdx === idx
 							return m('.list-item.flex.jb.ac.w100p.bs-2-black',
@@ -204,14 +210,14 @@ module.exports = _v => {
 								
 								// chapter video/sandbox buttons
 								m('.mla.w40.h64.flex.col.pointer',
-									routedLink('.w40.h32.bgs-cover.bgp-top'
-										, {
+									routedLink('.w40.h32.bgs-cover.bgp-top',
+										{
 											href: `/${courseID}/${idx}/video`,
 											class: !isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
 										}
 									),
-									routedLink('.w40.h32.bgs-cover.bgp-bot'
-										, {
+									routedLink('.w40.h32.bgs-cover.bgp-bot',
+										{
 											href: `/${courseID}/${idx}/sandbox`,
 											class: isSandbox && isCurrent ? 'bg-yah' : 'bg-off'
 										}
@@ -220,21 +226,15 @@ module.exports = _v => {
 							)
 						}),
 					),
-					m('.menuButton.fix.t0.w40.h40.pointer.tr3',
+					m('.menuButton.fix.t10.l10.w40.h40.pointer.tr3',
 						{
 							class: menuOpen ? 'O l240' : 'C l0',
 							onclick: toggleMenu
 						}
 					),
-					m(Logo, { class: 'fix w40 h40 bot0 l10' }),
+					m(Logo, { class: 'fix w40 h20 bot10 l10' }),
 					!State.canPlay && m(FadeComponent, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...'))),
-					(wSize.w < wSize.h) && m(FadeComponent, m('#portrait.fix.vw100.vh100.bg-brick.c-white.flex.jc.ac',
-						m('.vw60',
-							m(Logo, { blipColor: 'white', style: { width: '30vw', height: '30vw' }}),
-							m('p.fsvw5', 'This site exists to enable two activities: watching coding demonstration videos, and writing code.'),
-							m('p.fsvw5.mt5vw', 'Neither of these activities is good enough in portrait mode. That\'s just a fact. Please widen your view :)')
-						)
-					))
+					(wSize.w < wSize.h) && m(HowToUseThisSite)
 				]
 				: m(LoadingAnimation, 'loading course data...')
 		}
