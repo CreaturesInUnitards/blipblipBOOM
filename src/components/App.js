@@ -232,7 +232,7 @@ module.exports = _v => {
 							onclick: toggleMenu
 						}
 					),
-					m(Logo, { class: 'fix w40 h20 bot10 l10' }),
+					m('a[href=/dashboard]', { oncreate: m.route.link }, m(Logo, { class: 'fix w40 h20 bot10 l10' })),
 					!State.canPlay && m(FadeComponent, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...'))),
 					(wSize.w < wSize.h) && m(HowToUseThisSite)
 				]

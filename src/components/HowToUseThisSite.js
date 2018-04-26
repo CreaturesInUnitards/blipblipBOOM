@@ -36,7 +36,7 @@ const flemNotesIn = ({dom}) => {
 	})
 }
 
-module.exports = ({state}) => {
+module.exports = _vnode => {
 	let menuOpen = false
 	let isSandbox = false
 	let currentFlem = 0

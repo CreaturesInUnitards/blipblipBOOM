@@ -1,6 +1,7 @@
 const State = require('./State')
 
-const Player = require('@vimeo/player/dist/player.min')
+// const Player = require('@vimeo/player/dist/player.min')
+const Player = Vimeo.Player
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
 // helpers
