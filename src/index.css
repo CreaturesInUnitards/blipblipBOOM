@@ -10,13 +10,14 @@
 }
 
 /* background */
+.bg-none { background: none }
 .bg-black { background: black }
 .bg-dark { background: #232628 }
 .bg-green { background: #88c13e }
 .bg-white { background: white }
 .bg-brick { background: #cf2f20 }
-/* .bg-flem { background: #263238 } */
-.bg-flem { background: #dddddd }
+/* .bg-light { background: #263238 } */
+.bg-light { background: #dddddd }
 .bg-panel { background: #222D32}
 /*.bg-panel { background: #2f2f33}*/
 
@@ -33,6 +34,7 @@
 
 
 /* border */
+.rad4x { border-radius: 4px }
 .rad6x { border-radius: 6px }
 .rad20x { border-radius: 20px }
 .rad50p { border-radius: 50% }
@@ -85,7 +87,10 @@
 
 /* font */
 .fs08 { font-size: 0.8em }
-.fs125 { font-size: 1.25em }
+.fs12 { font-size: 0.75em }
+.fs20 { font-size: 1.25em }
+.fs24 { font-size: 1.5em }
+.fs32 { font-size: 2em }
 .fsvw35 { font-size: 3.5vw }
 .fsvw5 { font-size: 5vw }
 .fsvw8 { font-size: 8vw }
@@ -110,7 +115,9 @@
 
 /* margin */
 .mla { margin-left: auto }
+.mra { margin-right: auto }
 .ml0 { margin-left: 0 }
+.ml5 { margin-left: 0.3125em }
 .mlvw3 { margin-left: 3vw }
 .mr10 { margin-right: 0.625em }
 .mt4 { margin-top: 0.25em }
@@ -228,7 +235,7 @@
 .menuButton.HO:after { transform: rotateZ(45deg) translateX(-0.2em) }
 
 
-/*********** vid/sand switch ***********/
+/*********** video/sandbox switch ***********/
 .switch {
 	background-color: rgba(34,34,34,0.9);
 	border: 2px solid #555;
@@ -367,3 +374,40 @@
 
 
 code { display: inline-block; padding: 0 3px; background: #dddddd }
+
+
+
+/***************************************** 
+*
+* Dashboard
+*
+*****************************************/
+
+.drag-item {
+	position: relative;
+	background: white;
+	user-select: none;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+
+.drag-item .current:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 6px;
+    height: 100%;
+	background: #cf2f20;
+}
+
+.drag-item + .drag-item	{ margin-top: 1px }
+
+.dragging {
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+}
+
+.dragging button { opacity: 0 }
+
+.dropping { box-shadow: inset 0 0 5px #cf2f20 }

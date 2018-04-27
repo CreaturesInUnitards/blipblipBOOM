@@ -46,7 +46,7 @@ module.exports = ({attrs}) => {
 	
 	return {
 		view: ({attrs: { obj, onclick, remove, collectionName, idx }}) => {
-			return m('.list-item.flex.ac.p10',
+			return m('.list-item.flex.ac.p20',
 				{
 					class: itemClass(obj),
 					onclick: onclick(obj) 
@@ -63,10 +63,10 @@ module.exports = ({attrs}) => {
 						m('', m('i.flex.jc.font-12', '[ret] = save, [esc] = cancel'))
 					)
 					: [
-						m('.title-label.mra.font-18', obj ? obj.title : m('i', 'loading...')),
+						m('.title-label.mra.fs20', obj ? obj.title : m('i', 'loading...')),
 						m('.flex.ac', { onclick: e => { e.stopPropagation() } },
-							isCourses && m('button.edit-button.c-light.font-24', { onclick: edit(obj) }, '✎'),
-							m('button.delete-button.c-light.font-24', { onclick: remove(obj, collectionName, idx) }, '⊗')
+							isCourses && m('button.edit-button.c-grey.bg-none.fs24.lh15.pointer', { onclick: edit(obj) }, '✎'),
+							m('button.delete-button.c-grey.bg-none.fs24.lh15.ml5.pointer', { onclick: remove(obj, collectionName, idx) }, '⊗')
 						)
 					]
 			)

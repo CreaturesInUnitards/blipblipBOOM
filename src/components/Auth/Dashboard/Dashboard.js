@@ -9,7 +9,6 @@ const { AddObject, UpdateObject, RemoveObject } = require('../Operations')
 const LoadingAnimation = require('../../LoadingAnimation')
 const ChapterEditor = require('../ChapterEditor/ChapterEditor')
 const DNDList = require('../DNDList/DNDList')
-require("./Dashboard.sass")
 
 const resetAdminData = () => ({
 	user: null,
@@ -96,13 +95,13 @@ module.exports = {
 		const courses = (user && user.data && user.data.children) ? user.data.children : []
 		const chapters = AdminData.courseCopy && AdminData.courseCopy.data.children ? AdminData.courseCopy.data.children : []
 		return user
-			?   m('.dashboard.flex.col.fullscreen.fixed',
+			?   m('.fix.t0.l0.vw100.vh100.flex.col.fullscreen.fixed',
 				[
-					m('header.flex.ac.bg-dark.c-white.pv10.ph20',
+					m('header.flex.ac.bg-dark.c-white.p10-20',
 						// TODO: Insert Logo
 						// m('img.blip-logo[src=../../../images/blipLogo.svg].mr20'),
-						m('h1.mra', `Dashboard: ${username(user)}`),
-						m('button.b0.brad4.f-12.bg-white.c-dark', { onclick: signOut }, 'log out')
+						m('.fs32.mra', `Dashboard: ${username(user)}`),
+						m('button.b0.rad4x.fs12.p5-20.bg-white.c-dark', { onclick: signOut }, 'log out')
 					),
 					m('.main.flex.f1',
 						m(DNDList, {
@@ -122,9 +121,9 @@ module.exports = {
 								clickFn: chooseChapter,
 								removeFn: removeItem
 							})
-							: m('.no-content.flex.jc.ac.f1', 'Select a course'),
+							: m('.no-content.flex.jc.ac.f1.fs32', 'Select a course'),
 						(AdminData.courseCopy && !AdminData.chapterCopy)
-							? m('.no-content.flex.jc.ac.f1', 'Select a chapter')
+							? m('.no-content.flex.jc.ac.f1.fs32', 'Select a chapter')
 							: AdminData.chapterCopy && m(ChapterEditor)
 					)
 				]

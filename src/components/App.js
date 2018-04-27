@@ -124,12 +124,12 @@ module.exports = _v => {
 								
 								// exercises
 								m('.oa',
-									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs125', 'EXERCISES')),
+									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs20', 'EXERCISES')),
 									m('',
 										chapter.flems.map((aFlem, idx) => m('.rel.flem.bs-5-dark',
 											{
 												key: flem.id,
-												class: aFlem === flem ? 'bg-green c-white' : 'bg-flem c-dark',
+												class: aFlem === flem ? 'bg-green c-white' : 'bg-light c-dark',
 												style: { zIndex: chapter.flems.length - idx },
 											},
 											m('.flem-label.p10-20.fw7.pointer.flex.ac.tr3',
@@ -146,7 +146,7 @@ module.exports = _v => {
 								
 								// resources
 								m('.pb20',
-									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs125', 'RESOURCES')),
+									m('.flex.jc.ac.c-white.h38', m('span.fw7.fs20', 'RESOURCES')),
 									chapter.links.map(link => m('.p5-20',
 										m('a.c-white.underline.fs08[target=_blank]',
 											{ href: link.url },
@@ -206,7 +206,7 @@ module.exports = _v => {
 								},
 								
 								// chapter title text
-								routedLink('a.f2.p10.fs125', { href: `/${courseID}/${idx}` }, chapter.title),
+								routedLink('a.f2.p10.fs20', { href: `/${courseID}/${idx}` }, chapter.title),
 								
 								// chapter video/sandbox buttons
 								m('.mla.w40.h64.flex.col.pointer',

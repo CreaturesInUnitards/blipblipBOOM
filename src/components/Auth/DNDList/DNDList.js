@@ -3,7 +3,6 @@
 * DNDList
 *
 ***********************************/
-// require("./DNDList.sass")
 const ListItem = require('../ListItem/ListItem')
 
 module.exports = _v => {
@@ -48,13 +47,13 @@ module.exports = _v => {
 	
 	return {
 		view: ({attrs : { header, addFn, array, saveFn, clickFn, titleSaveFn, removeFn }}) =>
-			m('menu.admin-menu.flex.col.m0.p0.br1-dark',
-				m('.menu-header.flex.ac.bg-dark.c-white.h50.ph10',
-					m('h3.mra', header),
-					m('button.add-button.font-24', { onclick: addFn }, '⊕')
+			m('menu.admin-menu.flex.col.w240.m0.p0.br1-dark',
+				m('.menu-header.flex.ac.bg-dark.c-white.p10',
+					m('.fs20.mra', header),
+					m('button.fs24.bg-none', { onclick: addFn }, '⊕')
 				),
 				//
-				m('.list.f1.bg-light.oya',
+				m('.list.f1.bg-light.oa',
 					{
 						ondragover: dragover,
 						ondrop: drop(array, saveFn)

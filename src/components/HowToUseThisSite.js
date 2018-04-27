@@ -86,7 +86,7 @@ module.exports = _vnode => {
 							testFlems.map((aFlem, idx) => m('.rel.fake-flem.bs-5-dark',
 								{
 									key: idx,
-									class: currentFlem === idx ? 'bg-green c-white' : 'bg-flem c-dark',
+									class: currentFlem === idx ? 'bg-green c-white' : 'bg-light c-dark',
 									style: { zIndex: testFlems.length - idx },
 								},
 								m('.flem-label.p10-20.fw7.pointer.flex.ac.tr3',
