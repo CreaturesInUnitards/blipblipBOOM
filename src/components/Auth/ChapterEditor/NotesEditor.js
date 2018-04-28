@@ -1,6 +1,3 @@
-// const Quill = require('quill')
-// require('./quill.snow.sass')
-
 module.exports = ({attrs}) => {
 	let editor
 	
@@ -19,16 +16,16 @@ module.exports = ({attrs}) => {
 			editor = null
 		},
 		view({attrs}) {
-			return m('.notes-editor',
-				{ onclick: getHtml, style: { zIndex: 1 } },
-				m('.wrapper-wrapper',
-					m('.notes-headline', `Notes: "${attrs.flem.label}"`),
-					m('.quill-wrapper',
+			return m('.notes-editor.fix.flex.jc.ac.t0.l0.vw100.vh100.bg-dark',
+				{ style: { zIndex: 1 } },
+				m('.rel.p20.bg-white.rad6x',
+					m('.notes-headline.fs24.mb20', 'Notes: ', m('i.fs-inherit', attrs.flem.label)),
+					m('.quill-wrapper.rad6x',
 						{ onclick: e => { e.stopPropagation() } },
 						m('#toolbar', m('button.ql-bold', 'Bold'), m('button.ql-italic', 'i'), m('button.ql-code', 'code')),
-						m('#quill', m.trust(attrs.flem.notes)),
+						m('#quill.p40', m.trust(attrs.flem.notes)),
 					),
-					m('.fake-closer', '✖')
+					m('.abs.t10.r10.pointer', { onclick: getHtml }, '✖')
 				)
 			)
 		}

@@ -3,7 +3,6 @@
 * ChapterEditor
 *
 ***********************************/
-// require("./ChapterEditor.sass")
 const alf = require('../alf')
 const FormField = require('../FormField/FormField')
 const NotesEditor = require('./NotesEditor')
@@ -19,7 +18,7 @@ const addChild = prop => _e => {
 		.concat({ id: Date.now(), label: `New ${prop.slice(0, prop.length - 1)}`, url: '' }) 
 }
 
-const cancel = _e => { chapter = null }
+const cancel = _e => { AdminData.chapterCopy = null }
 
 const revert = _e => {
 	if (confirm('Revert to saved? Changes will be lost.')) {
@@ -29,7 +28,10 @@ const revert = _e => {
 
 const save = _e => { UpdateObject('chapters', chapter.id, chapter.data) }
 
-const deleteChild = (array, idx) => _e => { chapter.data[array].splice(idx, 1) }
+const deleteChild = (array, idx) => e => { 
+	e.stopPropagation()
+	chapter.data[array].splice(idx, 1) 
+}
 
 const windowClick = e => {
 	if (dirty) {
@@ -104,18 +106,18 @@ module.exports = v => {
 			} catch (e) {} // swallow phantom firstrun redraw
 			
 			return m('.editor.f1.flex.col',
-				m('.editor-header.flex.ac.h50.ph20',
+				m('.editor-header.flex.ac.h50.p0-20',
 					{ class: dirty ? 'bg-brick' : 'bg-grey' },
 					dirty && m('h4', 'There are unsaved changes.'),
-					m('button.b0.brad4.f-12.bg-white.c-dark.mla', { disabled: dirty, onclick: cancel }, 'cancel'),
-					m('button.b0.brad4.f-12.bg-white.c-dark', { disabled: !dirty, onclick: revert }, 'revert'),
-					m('button.b0.brad4.f-12.bg-white.c-dark', { disabled: !dirty, onclick: save }, 'save')
+					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.mla', { disabled: dirty, style: { opacity: dirty ? 0.25 : 1 }, onclick: cancel }, 'cancel'),
+					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.ml5', { disabled: !dirty, style: { opacity: dirty ? 1 : 0.25 }, onclick: revert }, 'revert'),
+					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.ml5', { disabled: !dirty, style: { opacity: dirty ? 1 : 0.25 }, onclick: save }, 'save')
 				),
-				m('.editor-content.f1.oya.p40',
+				m('.editor-content.f1.oa.p40',
 					m('.top-fields.flex.ac.mb20',
 						m(FormField, {
-							labelClass: 'font-18 mb6',
-							inputClass: 'font-18 p6 w100pct',
+							labelClass: 'fs20 mb6',
+							inputClass: 'fs20 p6 w100p b-1-grey',
 							type: 'text',
 							placeholder: 'Chapter Title',
 							label: 'Chapter Title',
@@ -124,8 +126,8 @@ module.exports = v => {
 						}),
 						m(FormField, {
 							class: 'ml20',
-							labelClass: 'font-18 mb6',
-							inputClass: 'font-18 p6 w100pct',
+							labelClass: 'fs20 mb6',
+							inputClass: 'fs20 p6 w100p b-1-grey',
 							type: 'text',
 							placeholder: 'Vimeo ID',
 							label: 'Vimeo ID',
@@ -134,9 +136,9 @@ module.exports = v => {
 						})
 					),
 					m('.flem-box.bg-light.p10.b1-dark.mb20',
-						m('.flem-header.bg-dark.c-white.flex.ac.h50.ph10',
-							m('h3.mra', 'Exercises'),
-							m('button.add-button.font-24', { onclick: addChild('flems') }, '⊕')
+						m('.flex.ac.bg-grey.c-white.p10',
+							m('.fs20.mra', 'Exercises'),
+							m('button.fs24.bg-none.pointer', { onclick: addChild('flems') }, '⊕')
 						),
 						m('',
 							{
@@ -151,12 +153,17 @@ module.exports = v => {
 									dragAttrs(flem, obj.flems, currentFlem),
 									m('.flem',
 										isCurrent
-											? m('.current-box.p10.mt20.c-white.bg-dark',
-												m('.font-12.mb20', n),
+											? m('.p10.mt20.c-white.bg-dark',
+												// key is needed to keep the "close" button from propagating its bullshit
+												{ key: 'open' },
+												m('.fs16.mb20.flex.jb'
+													, n
+													, m('button.bg-none.fs-inherit.pointer', { onclick: _e => { currentFlem = null } }, '✖')
+												),
 												m('.top-fields.flex.ac',
 													m(FormField, {
 														labelClass: 'mb6',
-														inputClass: 'p6 font-16 w100pct',
+														inputClass: 'p6 fs16 w100p c-dark',
 														type: 'text',
 														placeholder: 'Flem Title',
 														label: 'Flem Title',
@@ -167,7 +174,7 @@ module.exports = v => {
 													m(FormField, {
 														class: 'ml20',
 														labelClass: 'mb6',
-														inputClass: 'p6 font-16 w100pct',
+														inputClass: 'p6 fs16 w100p c-dark',
 														type: 'text',
 														placeholder: 'not including https://tinyurl.com/',
 														label: 'Tinyurl',
@@ -177,32 +184,34 @@ module.exports = v => {
 													m(FormField, {
 														class: 'ml20',
 														labelClass: 'mb6',
-														inputClass: 'p6 font-16 w100pct',
+														inputClass: 'p6 fs16 w100p c-dark',
 														type: 'text',
 														placeholder: '...if any',
 														label: 'Cue Point',
 														value: flem.cuepoint,
 														oninput: v => {
 															const n = parseInt(v)
-															flem.cuepoint = (typeof n == 'number' && n == n) ? n : ''
+															flem.cuepoint = (typeof n === 'number' && n === n) ? n : ''
 														}
 													})
 												),
 												m('.notes-box.mt20.bg-light.c-dark.p10',
 													m('h3.mb6', 'Notes'),
 													m('.p20.bg-grey.c-white', m.trust(flem.notes)),
-													m('.pt10.flex.ac',
-														m('button.bg-dark.c-white.brad4.mla',
+													// TODO: move the notes editor inline right fucking here
+													m('.mt10.flex.ac',
+														m('button.bg-dark.c-white.rad4x.mla.fs12.p5-20.pointer',
 															{ onclick: _e => { editing = flem } },
 															'Edit Notes'
 														)
 													)
 												)
 											)
-											: m('.box.mt20.p10.b1-dark.flex.ac',
-												m('.font-18.mra', flem.label),
-												m('button.edit-button.c-light.font-24', { onclick: _e => ( currentFlem = flem ) }, '✎'),
-												m('button.delete-button.c-light.font-24', { onclick: deleteChild('flems', idx) }, '⊗')
+											: m('.box.mt20.p10.b-1-grey.flex.ac',
+												// key is needed to keep the "close" button from propagating its bullshit
+												{ key: 'closed', onclick: _e => ( currentFlem = flem ) },
+												m('.fs20.mra', flem.label),
+												m('button.fs24.bg-none.c-grey.pointer.ml5', { onclick: deleteChild('flems', idx) }, '⊗')
 											)
 
 								))
@@ -214,9 +223,9 @@ module.exports = v => {
 						} })
 					),
 					m('.link-box.bg-light.p10.b1-dark.mb20',
-						m('.link-header.bg-dark.c-white.flex.ac.h50.ph10',
-							m('h3.mra', 'Links'),
-							m('button.add-button.font-24', { onclick: addChild('links') }, '⊕')
+						m('.flex.ac.bg-grey.c-white.p10',
+							m('.fs20.mra', 'Links'),
+							m('button.fs24.bg-none.pointer', { onclick: addChild('links') }, '⊕')
 						),
 						m('',
 							{
@@ -227,14 +236,14 @@ module.exports = v => {
 								return m('.drag-item[draggable]',
 									dragAttrs(link, obj.links, null),
 									m('.link.p6.mt20',
-										m('.flex',
-											m('.font-12.mb20', idx + 1),
-											m('button.delete-button.c-light.font-24.mla', { onclick: deleteChild('links', idx) }, '⊗')
+										m('.fs16.mb20.flex.jb',
+											idx + 1,
+											m('.fs24.bg-none.c-grey.pointer.mla', { onclick: deleteChild('links', idx) }, '⊗')
 										),
 										m('.top-fields.flex.ac',
 											m(FormField, {
-												labelClass: 'mb6',
-												inputClass: 'p6 font-16 w100pct',
+												labelClass: 'fs20 mb6',
+												inputClass: 'fs20 p6 w100p b-1-grey',
 												type: 'text',
 												placeholder: 'Link Text',
 												label: 'Link Text',
@@ -243,8 +252,8 @@ module.exports = v => {
 											}),
 											m(FormField, {
 												class: 'ml20',
-												labelClass: 'mb6',
-												inputClass: 'p6 font-16 w100pct',
+												labelClass: 'fs20 mb6',
+												inputClass: 'fs20 p6 w100p b-1-grey',
 												type: 'text',
 												placeholder: 'Link URL',
 												label: 'Link URL',
@@ -262,5 +271,50 @@ module.exports = v => {
 		}
 	}
 }
+
+// TODO: add Course Editor
+// TODO: add "Course Title" and "Publish" fields
+// TODO: move Chapters DND list into "Course Editor"
+
+
+
+
+
+
+/*
+*       -------------------------------------------------------------
+*       -     course title                    publish               -
+*       -------------------------------------------------------------
+*       -                                                           -
+*       - --------------------------------------------------------- - 
+*       - ------------                                              -
+*       - - chapters -                                              -
+*       - -          -                                              -
+*       - -          -                                              -
+*       - -          -                   etc.                       -
+*       - -          -                                              -
+*       - -          -                                              -
+*       - -          -                                              -
+*       - ------------                                              -
+*       -------------------------------------------------------------
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+* */
+
+
+
+
+
+
+
+
+
+
 
 // TODO: Vimeo player/set cue stop button, or maybe just scrub a mini of the vid? Hmm...

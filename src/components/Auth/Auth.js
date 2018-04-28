@@ -31,17 +31,17 @@ module.exports = _v => {
 	
 	return {
 		view: () =>
-			m('.auth',
-				m('.login',
+			m('.auth.fix.vw100.vh100.flex.jc.ac.bg-dark',
+				m('.login.flex.col',
 					{ onkeydown: handleKeyDown },
-					m('input[type=email][placeholder=email][autofocus]',
+					m('input.p10-20.rad4x[type=email][placeholder=email][autofocus]',
 						{ 
 							class: (creds.email === '' && tries > 0) ? 'error' : '',
 							value: creds.email, 
 							oninput: m.withAttr('value', v => creds.email = v) 
 						}
 					),
-					m('input[type=password][placeholder=password]',
+					m('input.p10-20.mt10.rad4x[type=password][placeholder=password]',
 						{ 
 							class: (creds.password === '' && tries > 0) ? 'error' : '',
 							value: creds.password, 
@@ -49,7 +49,7 @@ module.exports = _v => {
 						}
 					),
 					// ************ AUTO LOGIN HERE *************
-					trying && m('i', 'logging in...')
+					trying && m('i.mt10.c-white.center', 'logging in...')
 				)
 			)
 	}

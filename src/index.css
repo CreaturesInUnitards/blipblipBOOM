@@ -1,7 +1,17 @@
+:root {
+	--brick: #cf2f20;
+	--dark: #232628;
+	--green: #88c13e;
+	--grey: #666666;
+	--light: #dddddd;
+	--panel: #222D32
+}
+
+html { font-size: 16px; }
+
 * {
 	box-sizing: border-box;
 	font-family: 'Optima', 'Helvetica Neue', Helvetica, sans-serif;
-	font-size: 16px;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -10,16 +20,15 @@
 }
 
 /* background */
-.bg-none { background: none }
 .bg-black { background: black }
-.bg-dark { background: #232628 }
-.bg-green { background: #88c13e }
+.bg-brick { background: var(--brick) }
+.bg-dark { background: var(--dark) }
+.bg-green { background: var(--green) }
+.bg-grey { background: var(--grey) }
+.bg-light { background: var(--light) }
+.bg-none { background: none }
+.bg-panel { background: var(--panel)}
 .bg-white { background: white }
-.bg-brick { background: #cf2f20 }
-/* .bg-light { background: #263238 } */
-.bg-light { background: #dddddd }
-.bg-panel { background: #222D32}
-/*.bg-panel { background: #2f2f33}*/
 
 /* background-image */
 .bg-off { background-image: url(/img/toggleSprite-off.png) }
@@ -38,17 +47,19 @@
 .rad6x { border-radius: 6px }
 .rad20x { border-radius: 20px }
 .rad50p { border-radius: 50% }
-.bt-1-dark { border-top: 1px solid #232628 }
+.b-1-grey { border: 1px solid var(--grey) }
+.br-1-dark { border-right: 1px solid var(--dark) }
+.bt-1-dark { border-top: 1px solid var(--dark) }
 
 /* box-shadow */
-.bs-5-dark { box-shadow: 0 2px 3px 0 #232628 }
+.bs-5-dark { box-shadow: 0 2px 3px 0 var(--dark) }
 .bs-2-black { box-shadow: 0 1px 2px 0 black }
 
 /* color */
-.c-grey { color: #666666 }
-.c-green { color: #88c13e }
+.c-grey { color: var(--grey) }
+.c-green { color: var(--green) }
 .c-white { color: white }
-.c-dark { color: #232628 }
+.c-dark { color: var(--dark) }
 
 /* cursor */
 .default { cursor: default }
@@ -88,6 +99,7 @@
 /* font */
 .fs08 { font-size: 0.8em }
 .fs12 { font-size: 0.75em }
+.fs16 { font-size: 1em }
 .fs20 { font-size: 1.25em }
 .fs24 { font-size: 1.5em }
 .fs32 { font-size: 2em }
@@ -95,6 +107,7 @@
 .fsvw5 { font-size: 5vw }
 .fsvw8 { font-size: 8vw }
 .fw7 { font-weight: 700 }
+.fs-inherit { font-size: inherit }
 
 /* height */
 .h0 { height: 0 }
@@ -102,6 +115,7 @@
 .h32 { height: 2em }
 .h38 { height: 2.375em }
 .h40 { height: 2.5em }
+.h50 { height: 3.125em }
 .h40p { height: 40% }
 .h50p { height: 50% }
 .h64 { height: 4em }
@@ -114,14 +128,18 @@
 .lh15 { line-height: 1.5em }
 
 /* margin */
+.mb6 { margin-bottom: 0.375em }
+.mb20 { margin-bottom: 1.25em }
 .mla { margin-left: auto }
 .mra { margin-right: auto }
 .ml0 { margin-left: 0 }
 .ml5 { margin-left: 0.3125em }
+.ml20 { margin-left: 1.25em }
 .mlvw3 { margin-left: 3vw }
 .mr10 { margin-right: 0.625em }
 .mt4 { margin-top: 0.25em }
 .mt10 { margin-top: 0.625em }
+.mt20 { margin-top: 1.25em }
 .mt5vw { margin-top: 5vw }
 
 /* opacity */
@@ -136,10 +154,13 @@
 .p2x { padding: 2px }
 .p5p { padding: 5% }
 .p10p { padding: 10% }
+.p0-20 { padding: 0 1.25em }
 .p5-20 { padding: 0.3125em 1.25em }
 .p10-20 { padding: 0.625em 1.25em }
+.p6 { padding: 0.375em }
 .p10 { padding: 0.625em }
 .p20 { padding: 1.25em }
+.p40 { padding: 2.5em }
 .pb20 { padding-bottom: 1.25em }
 .pb40 { padding-bottom: 2.5em }
 .pl60 { padding-left: 3.75em }
@@ -157,6 +178,7 @@
 .l0 { left: 0 }
 .r0 { right: 0 }
 .l10 { left: 0.625em }
+.r10 { right: 0.625em }
 .t10 { top: 0.625em }
 .t80 { top: 5em }
 
@@ -209,7 +231,7 @@
 	/*cursor: pointer;*/
 }
 
-.menuButton:hover { border-color: #88c13e }
+.menuButton:hover { border-color: var(--green) }
 
 .menuButton:before, .menuButton:after {
 	content: '';
@@ -217,7 +239,7 @@
 	left: 33%;
 	width: 36%;
 	height: 5%;
-	background: #88c13e;
+	background: var(--green);
 	transition: transform 0.5s
 }
 
@@ -246,7 +268,7 @@
 	cursor: pointer;
 }
 
-.switch:hover { border-color: #88c13e }
+.switch:hover { border-color: var(--green) }
 
 .switch:after {
 	content: '';
@@ -373,7 +395,7 @@
 }
 
 
-code { display: inline-block; padding: 0 3px; background: #dddddd }
+code { display: inline-block; padding: 0 3px; background: var(--light) }
 
 
 
@@ -398,7 +420,7 @@ code { display: inline-block; padding: 0 3px; background: #dddddd }
 	right: 0;
 	width: 6px;
     height: 100%;
-	background: #cf2f20;
+	background: var(--brick);
 }
 
 .drag-item + .drag-item	{ margin-top: 1px }
@@ -410,4 +432,4 @@ code { display: inline-block; padding: 0 3px; background: #dddddd }
 
 .dragging button { opacity: 0 }
 
-.dropping { box-shadow: inset 0 0 5px #cf2f20 }
+.dropping { box-shadow: inset 0 0 5px var(--brick) }

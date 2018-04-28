@@ -47,10 +47,10 @@ module.exports = _v => {
 	
 	return {
 		view: ({attrs : { header, addFn, array, saveFn, clickFn, titleSaveFn, removeFn }}) =>
-			m('menu.admin-menu.flex.col.w240.m0.p0.br1-dark',
-				m('.menu-header.flex.ac.bg-dark.c-white.p10',
+			m('menu.admin-menu.flex.col.w240.m0.p0.br-1-dark',
+				m('.menu-header.flex.ac.bg-grey.c-white.p10',
 					m('.fs20.mra', header),
-					m('button.fs24.bg-none', { onclick: addFn }, '⊕')
+					m('button.fs24.bg-none.pointer', { onclick: addFn }, '⊕')
 				),
 				//
 				m('.list.f1.bg-light.oa',
