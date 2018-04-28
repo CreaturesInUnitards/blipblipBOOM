@@ -10,7 +10,7 @@ const UpdateObject = require('../Operations').UpdateObject
 
 /*********************** GLOBAL AdminData ***********************/
 
-let editing, currentFlem, chapter = null, dirty = false
+let currentFlem, chapter = null, dirty = false
 let dnd = { drag: null, drop: null }
 
 const addChild = prop => _e => { 
@@ -61,6 +61,7 @@ const dndClass = (item, current) => {
 
 const dragAttrs = (o, array, current) => ({
 	key: o.id,
+	draggable: true,
 	class: dndClass(o, current),
 	ondragstart: _e => { dnd.drag = o },
 	ondragover: _e => { if (dnd.drag && array.indexOf(o) > -1) dnd.drop = o },
@@ -149,8 +150,8 @@ module.exports = v => {
 								const isCurrent = flem === currentFlem
 								const n = idx + 1
 
-								return m('.drag-item[draggable]',
-									dragAttrs(flem, obj.flems, currentFlem),
+								return m('.drag-item',
+									currentFlem ? {} : dragAttrs(flem, obj.flems, currentFlem),
 									m('.flem',
 										isCurrent
 											? m('.p10.mt20.c-white.bg-dark',
@@ -197,14 +198,25 @@ module.exports = v => {
 												),
 												m('.notes-box.mt20.bg-light.c-dark.p10',
 													m('h3.mb6', 'Notes'),
-													m('.p20.bg-grey.c-white', m.trust(flem.notes)),
-													// TODO: move the notes editor inline right fucking here
-													m('.mt10.flex.ac',
-														m('button.bg-dark.c-white.rad4x.mla.fs12.p5-20.pointer',
-															{ onclick: _e => { editing = flem } },
-															'Edit Notes'
-														)
-													)
+
+
+
+													m(NotesEditor, { flem: flem, done: v => { flem.notes = v } }),
+
+
+													// m('.p20.bg-grey.c-white', m.trust(flem.notes)),
+													// // TODO: move the notes editor inline right fucking here
+
+
+
+													//
+													//
+													// m('.mt10.flex.ac',
+													// 	m('button.bg-dark.c-white.rad4x.mla.fs12.p5-20.pointer',
+													// 		{ onclick: _e => { editing = flem } },
+													// 		'Edit Notes'
+													// 	)
+													// )
 												)
 											)
 											: m('.box.mt20.p10.b-1-grey.flex.ac',
@@ -217,10 +229,10 @@ module.exports = v => {
 								))
 							})
 						),
-						editing && m(NotesEditor, { flem: editing, done: v => {
-							editing.notes = v
-							editing = null
-						} })
+						// editing && m(NotesEditor, { flem: editing, done: v => {
+						// 	editing.notes = v
+						// 	editing = null
+						// } })
 					),
 					m('.link-box.bg-light.p10.b1-dark.mb20',
 						m('.flex.ac.bg-grey.c-white.p10',

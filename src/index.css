@@ -433,3 +433,6 @@ code { display: inline-block; padding: 0 3px; background: var(--light) }
 .dragging button { opacity: 0 }
 
 .dropping { box-shadow: inset 0 0 5px var(--brick) }
+
+/* hack for weird behavior */
+#quill > p { display: none }
