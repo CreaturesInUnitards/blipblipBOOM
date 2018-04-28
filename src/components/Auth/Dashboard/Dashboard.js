@@ -53,12 +53,16 @@ const setObserver = (collectionName, uid, targetObject, parent, parentCollection
 }
 
 const getUser = () => {
-	const uid = firebase.auth().currentUser.uid
-	firebase.firestore().collection('users').doc(uid).get().then(doc => {
-		AdminData.user = { id: doc.id, data: doc.data() }
-		m.redraw()
-		setObserver('courses', uid, AdminData.courses, AdminData.user, 'users', 'courseCopy')
-	})
+	const user = firebase.auth().currentUser
+	if (user) {
+		const uid = user.uid
+		firebase.firestore().collection('users').doc(uid).get().then(doc => {
+			AdminData.user = { id: doc.id, data: doc.data() }
+			m.redraw()
+			setObserver('courses', uid, AdminData.courses, AdminData.user, 'users', 'courseCopy')
+		})
+	}
+	else m.route.set('/auth')
 }
 
 const chooseCourse = courseObj => _e => {
