@@ -6,7 +6,6 @@
 const alf = require('../alf')
 const FormField = require('../FormField/FormField')
 const NotesEditor = require('./NotesEditor')
-const UpdateObject = require('../Operations').UpdateObject
 
 /*********************** GLOBAL AdminData ***********************/
 
@@ -18,16 +17,6 @@ const addChild = prop => _e => {
 		.concat({ id: Date.now(), label: `New ${prop.slice(0, prop.length - 1)}`, url: '' }) 
 }
 
-const cancel = _e => { AdminData.chapterCopy = null }
-
-const revert = _e => {
-	if (confirm('Revert to saved? Changes will be lost.')) {
-		AdminData.chapterCopy = alf.deepClone(AdminData.chapters[chapter.id])
-	}
-}
-
-const save = _e => { UpdateObject('chapters', chapter.id, chapter.data) }
-
 const deleteChild = (array, idx) => e => { 
 	e.stopPropagation()
 	chapter.data[array].splice(idx, 1) 
@@ -36,7 +25,7 @@ const deleteChild = (array, idx) => e => {
 const windowClick = e => {
 	if (dirty) {
 		let el = e.target, all = [el.tagName]
-		while (el.tagName != 'MENU' && el.tagName != 'BODY' ) {
+		while (el.tagName !== 'MENU' && el.tagName !== 'BODY' ) {
 			el = el.parentNode
 			all.push(el.tagName)
 		}
@@ -80,7 +69,6 @@ const drop = (array, saveChanges) => e => {
 	const deletionIdx = draggedIdx > droppedIdx ? draggedIdx + 1 : draggedIdx
 
 	if (insertionIdx !== deletionIdx) {
-		// your custom  code for updating the list goes here.
 		array.splice(insertionIdx, 0, dnd.drag)
 		array.splice(deletionIdx, 1)
 
@@ -89,15 +77,11 @@ const drop = (array, saveChanges) => e => {
 }
 
 
-module.exports = v => {
+module.exports = _v => {
 	return {
-		oncreate: _v => {
-			window.addEventListener('click', windowClick, true)
-		},
-		onremove: _v => {
-			window.removeEventListener('click', windowClick, true)
-		},
-		view: _v => {
+		oncreate: _v => { window.addEventListener('click', windowClick, true) },
+		onremove: _v => { window.removeEventListener('click', windowClick, true) },
+		view: ({ attrs: { removeItem } }) => {
 			chapter = AdminData.chapterCopy
 
 			const obj = chapter.data
@@ -106,14 +90,7 @@ module.exports = v => {
 				dirty = chapter && !alf.objectsAreEquivalent(obj, AdminData.chapters[chapter.id].data)
 			} catch (e) {} // swallow phantom firstrun redraw
 			
-			return m('.editor.f1.flex.col',
-				m('.editor-header.flex.ac.h50.p0-20',
-					{ class: dirty ? 'bg-brick' : 'bg-grey' },
-					dirty && m('h4', 'There are unsaved changes.'),
-					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.mla', { disabled: dirty, style: { opacity: dirty ? 0.25 : 1 }, onclick: cancel }, 'cancel'),
-					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.ml5', { disabled: !dirty, style: { opacity: dirty ? 1 : 0.25 }, onclick: revert }, 'revert'),
-					m('button.b0.p5-20.rad4x.fs12.bg-white.c-dark.pointer.ml5', { disabled: !dirty, style: { opacity: dirty ? 1 : 0.25 }, onclick: save }, 'save')
-				),
+			return 	m('.editor.f1.flex.col',
 				m('.editor-content.f1.oa.p40',
 					m('.top-fields.flex.ac.mb20',
 						m(FormField, {
@@ -198,25 +175,10 @@ module.exports = v => {
 												),
 												m('.notes-box.mt20.bg-light.c-dark.p10',
 													m('h3.mb6', 'Notes'),
-
-
-
-													m(NotesEditor, { flem: flem, done: v => { flem.notes = v } }),
-
-
-													// m('.p20.bg-grey.c-white', m.trust(flem.notes)),
-													// // TODO: move the notes editor inline right fucking here
-
-
-
-													//
-													//
-													// m('.mt10.flex.ac',
-													// 	m('button.bg-dark.c-white.rad4x.mla.fs12.p5-20.pointer',
-													// 		{ onclick: _e => { editing = flem } },
-													// 		'Edit Notes'
-													// 	)
-													// )
+	
+													m(NotesEditor, { flem: flem, done: v => {
+														Object.assign(flem, { notes: v })
+													} }),
 												)
 											)
 											: m('.box.mt20.p10.b-1-grey.flex.ac',
@@ -226,13 +188,9 @@ module.exports = v => {
 												m('button.fs24.bg-none.c-grey.pointer.ml5', { onclick: deleteChild('flems', idx) }, '⊗')
 											)
 
-								))
+									))
 							})
 						),
-						// editing && m(NotesEditor, { flem: editing, done: v => {
-						// 	editing.notes = v
-						// 	editing = null
-						// } })
 					),
 					m('.link-box.bg-light.p10.b1-dark.mb20',
 						m('.flex.ac.bg-grey.c-white.p10',
@@ -277,55 +235,15 @@ module.exports = v => {
 								)
 							})
 						)
+					),
+					m('.flex.j-end',
+						m('button.c-white.bg-brick.fs20.p5-20.rad4x.pointer', { onclick: removeItem(chapter, 'chapters')}, 'Delete Chapter'),
 					)
 				)
 			)
 		}
 	}
 }
-
-// TODO: add Course Editor
-// TODO: add "Course Title" and "Publish" fields
-// TODO: move Chapters DND list into "Course Editor"
-
-
-
-
-
-
-/*
-*       -------------------------------------------------------------
-*       -     course title                    publish               -
-*       -------------------------------------------------------------
-*       -                                                           -
-*       - --------------------------------------------------------- - 
-*       - ------------                                              -
-*       - - chapters -                                              -
-*       - -          -                                              -
-*       - -          -                                              -
-*       - -          -                   etc.                       -
-*       - -          -                                              -
-*       - -          -                                              -
-*       - -          -                                              -
-*       - ------------                                              -
-*       -------------------------------------------------------------
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* 
-* */
-
-
-
-
-
-
-
-
 
 
 
