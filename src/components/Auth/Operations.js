@@ -7,7 +7,7 @@ const saveNewTitle = (collectionName, childID, update) => {
 }
 
 const cleanup = (collectionName, objectID) => {
-	if (collectionName == 'courses') {
+	if (collectionName === 'courses') {
 		if (AdminData.courseCopy && AdminData.courseCopy.id === objectID) {
 			AdminData.courseCopy = null
 			AdminData.chapterCopy = null
@@ -17,7 +17,8 @@ const cleanup = (collectionName, objectID) => {
 		chapters.forEach(obj => {
 			RemoveObject('chapters', obj.id)
 		})
-	} else if (collectionName == 'chapters') {
+	} 
+	else if (collectionName === 'chapters') {
 		if (AdminData.chapterCopy && AdminData.chapterCopy.id === objectID) AdminData.chapterCopy = null
 	}
 }
