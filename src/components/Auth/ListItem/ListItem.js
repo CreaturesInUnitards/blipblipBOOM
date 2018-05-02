@@ -3,72 +3,23 @@
 * ListItem
 *
 ***********************************/
-const UpdateObject = require('../Operations').UpdateObject
-
-module.exports = ({attrs}) => {
-	let editing = false
-	let tempTitle = ''
-	const isCourses = attrs.collectionName === 'courses'
-	
-	const edit = o => e => {
-		tempTitle = o.title
-		editing = true
-	}
-	
-	const doneEditing = _e => ( editing = false ) 
-	
-	const handleStuff = o => e => {
-		switch (e.which) {
-			case 27: {
-				doneEditing()
-				break
-			}
-			case 13: {
-				UpdateObject(attrs.collectionName, o.id, { title: e.target.value })
-				doneEditing()
-				break
-			}
-			default: {
-				tempTitle = e.target.value
-			}
-		}
-	}
-	
+module.exports = _v => {
 	const itemClass = obj => {
-		const classes = []
-		if (editing) classes.push('editing')
-		if (obj && (
-			(isCourses && AdminData.courseCopy && obj.id === AdminData.courseCopy.id) || 
-			(!isCourses && AdminData.chapterCopy && obj.id === AdminData.chapterCopy.id)
-		)) classes.push('current')
-		return classes.join(' ')
+		return (obj && AdminData.chapterCopy && obj.id === AdminData.chapterCopy.id) ? 'current' : ''
 	}
 	
 	return {
-		view: ({attrs: { obj, onclick, remove, collectionName, idx }}) => {
+		view: ({attrs: { obj, onclick, idx }}) => {
 			return m('.list-item.flex.ac.p20',
 				{
 					class: itemClass(obj),
 					onclick: onclick(obj) 
 				},
-				editing
-					? m('.w100pct',
-						m('input[autofocus].w100pct.mb6.font-16', {
-							oncreate: _v => { tempTitle = obj.title; m.redraw() },
-							onremove: _v => { tempTitle = '' },
-							onblur: doneEditing,
-							value: tempTitle,
-							onkeydown: handleStuff(obj)
-						}),
-						m('', m('i.flex.jc.font-12', '[ret] = save, [esc] = cancel'))
-					)
-					: [
-						m('.title-label.mra.fs20', obj ? obj.title : m('i', 'loading...')),
-						m('.flex.ac', { onclick: e => { e.stopPropagation() } },
-							isCourses && m('button.edit-button.c-grey.bg-none.fs24.lh15.pointer', { onclick: edit(obj) }, '✎'),
-							m('button.delete-button.c-grey.bg-none.fs24.lh15.ml5.pointer', { onclick: remove(obj, collectionName, idx) }, '⊗')
-						)
-					]
+				m('.title-label.mra.fs18', obj ? obj.title : m('i', 'loading...')),
+				m('.abs.fs12.c-grey', { style: { top: '2px', left: '2px' } }, idx + 1)
+				// m('.flex.ac', { onclick: e => { e.stopPropagation() } },
+				// 	m('button.delete-button.c-grey.bg-none.fs24.lh15.ml5.pointer', { onclick: remove(obj, collectionName, idx) }, '⊗')
+				// )
 			)
 		}
 	}

@@ -52,7 +52,6 @@ module.exports = _v => {
 					m('.fs20.mra', header),
 					m('button.fs24.bg-none.pointer', { onclick: addFn }, '⊕')
 				),
-				//
 				m('.list.f1.bg-light.oa',
 					{
 						ondragover: dragover,
