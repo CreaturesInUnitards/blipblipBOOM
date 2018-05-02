@@ -1,6 +1,4 @@
 const State = require('./State')
-
-// const Player = require('@vimeo/player/dist/player.min')
 const Player = Vimeo.Player
 const VIDEO_CONTAINER_ID = 'videoContainer'
 
@@ -19,15 +17,18 @@ const normalizeParam = param => {
 const Actions = {
 	getChapters: courseID => {
 		const course = State.courses[courseID]
-		return firebase.firestore().collection('chapters').where('parent', '==', courseID).get().then(snap => {
-			State.chapters = course.data.children.map(child => {
-				const doc = snap.docs.find(doc => doc.id === child.id)
-				return doc.data()
+		if (course.data && course.data.children && course.data.children.length) {
+			return firebase.firestore().collection('chapters').where('parent', '==', courseID).get().then(snap => {
+				State.chapters = course.data.children.map(child => {
+					const doc = snap.docs.find(doc => doc.id === child.id)
+					return doc.data()
+				})
 			})
-		})
+		}
+		else alert('That course has no thingies.')
 	},
 	getCourses: () => {
-		return firebase.firestore().collection('courses').get().then(snap => {
+		return firebase.firestore().collection('courses').where('published', '==', true).get().then(snap => {
 			State.courses = {}
 			snap.docs.forEach(doc => {
 				State.courses[doc.id] = { id: doc.id, data: doc.data() }
@@ -58,7 +59,6 @@ const Actions = {
 		}
 	},
 	setupPlayer: (id) => {
-		console.log("setting up video player")
 		const videoContainer = document.getElementById(VIDEO_CONTAINER_ID) 
 		State.canPlay = false
 		m.redraw()
