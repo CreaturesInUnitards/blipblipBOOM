@@ -38,9 +38,10 @@ const mainResolver = {
 const startRouter = () => {
 	m.route.prefix('')
 	m.route(document.body, '/' , {
-		'/': Dashboard,
-		// '/': CourseSelector,
-		'/dashboard': { onmatch: _params => firebase.auth().currentUser ? Dashboard : Auth },
+		// '/': Dashboard,
+		'/': CourseSelector,
+		'/auth': Auth,
+		'/dashboard': Dashboard ,
 		'/:courseID': mainResolver,
 		'/:courseID/:chapter': mainResolver,
 		'/:courseID/:chapter/:screen': mainResolver,
