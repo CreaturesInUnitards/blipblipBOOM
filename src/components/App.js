@@ -202,7 +202,7 @@ module.exports = _v => {
 					)
 					
 					// menu
-					, menuOpen && m('menu.fix.bg-dark.t0.l0.w240.vh100.oa.p2x.pt60.flex.col.ae.slide-in'
+					, menuOpen && m('menu.fix.bg-dark.t0.l0.w240.vh100.oa.p2x.pt60.pb60.flex.col.ae.slide-in'
 						, {
 							onclick: _e => { menuOpen = false },
 							onbeforeremove: menuExitAnimation('slide-out', 300)
@@ -210,7 +210,7 @@ module.exports = _v => {
 						// TODO: Masthead here
 						, State.chapters.map((chapter, idx) => {
 							const isCurrent = chapterIdx === idx
-							return m('.list-item.flex.jb.ac.w100p.bs-2-black'
+							return m('.list-item.flex.jb.ac.w100p.bs-2-black.mh64'
 								, {
 									class: isCurrent ? 'c-green' : 'c-white',
 									style: { zIndex: State.chapters.length - idx }
@@ -250,7 +250,10 @@ module.exports = _v => {
 					, !State.canPlay && m(FadeComponent
 						, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...'))
 					)
-					, (wSize.w < wSize.h) && m(HowToUseThisSite)
+					, (wSize.w < wSize.h) && [
+						m('.fix.vw100.vh100.t0.l0.bg-dark'),
+						m(HowToUseThisSite)
+					]
 				]
 				: m(LoadingAnimation, 'loading course data...')
 		}

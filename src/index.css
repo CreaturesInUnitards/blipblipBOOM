@@ -56,6 +56,7 @@ html { font-size: 16px; }
 .bs-2-black { box-shadow: 0 1px 2px 0 black }
 
 /* color */
+.c-brick { color: var(--brick) }
 .c-grey { color: var(--grey) }
 .c-green { color: var(--green) }
 .c-white { color: white }
@@ -121,6 +122,7 @@ html { font-size: 16px; }
 .h38 { height: 2.375em }
 .h40 { height: 2.5em }
 .h50 { height: 3.125em }
+.h60 { height: 3.75em }
 .h40p { height: 40% }
 .h50p { height: 50% }
 .h64 { height: 4em }
@@ -128,6 +130,8 @@ html { font-size: 16px; }
 
 .vh40 { height: 40vh }
 .vh100 { height: 100vh }
+
+.mh64 { min-height: 4em }
 
 /* line-height */
 .lh15 { line-height: 1.5 }
@@ -175,6 +179,7 @@ html { font-size: 16px; }
 .p40 { padding: 2.5em }
 .pb20 { padding-bottom: 1.25em }
 .pb40 { padding-bottom: 2.5em }
+.pb60 { padding-bottom: 3.75em }
 .pl60 { padding-left: 3.75em }
 .plvw2 { padding-left: 2vw }
 .prvw2 { padding-right: 2vw }
@@ -221,6 +226,7 @@ html { font-size: 16px; }
 .w20p { width: 20% }
 .w50p { width: 50% }
 .w75p { width: 75% }
+.w90p { width: 90% }
 .w100p { width: 100% }
 
 .vw35 { width: 35vw }
@@ -322,7 +328,7 @@ html { font-size: 16px; }
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 10vw;
+	width: 50vw;
 	text-align: center;
 }
 
