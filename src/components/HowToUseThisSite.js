@@ -72,13 +72,13 @@ module.exports = _vnode => {
 					class: 'abs t10 l10 w40 h20'
 				})
 				, m('.lh125.c-grey'
-					, m('h1.fsvw4.flex.jc.ac.mt10vw.i'
+					, m('.flex.jc.ac.mt10vw.source-code'
 						, 'How to Use This Site'
 					)
 					, m('.flex.col.ac.mt10vw'
 						, m('.rel.w90p.oh'
-							, m('.fsvw5.p5p.fw7.center', 'Show the list of chapters')
-							, m('.fsvw5.fw7.abs.t0.tr3.w100p.p5p.center.bg-dark'
+							, m('.fsvw3.source-code.p5p.center', 'Show the list of chapters')
+							, m('.fsvw3.source-code.abs.t0.tr3.w100p.p5p.center.bg-dark'
 								, { style: { left: menuOpen ? 0 : '-110%' }}
 								, '( Hide the list of chapters )'
 							)
@@ -93,12 +93,12 @@ module.exports = _vnode => {
 	
 					, m('.flex.col.ac.mt20vw'
 						, m('.rel.w90p.oh'
-							, m('.fsvw5.fw7.center'
+							, m('.fsvw3.source-code.center'
 								, '( Toggle between the coding'
 								, m('br')
 								, 'exercises and the video )'
 							)
-							, m('.fsvw5.fw7.abs.l0.tr3.w100p.center.bg-dark'
+							, m('.fsvw3.source-code.abs.l0.tr3.w100p.center.bg-dark'
 								, { style: { top: isSandbox ? '-110%' : 0 } }
 								, 'Toggle between the video'
 								, m('br')
@@ -117,7 +117,7 @@ module.exports = _vnode => {
 	
 						/**/
 					, m('.flex.col.ac.mt10vw'
-						, m('.fsvw5.p5p.fw7.center.w90p', 'Choose an exercise')
+						, m('.fsvw3.source-code.p5p.center.w90p', 'Choose an exercise')
 						, m('.flex.jc.as.col'
 							, { style: { width: '260px' } }
 							, fakeFlems.map((aFlem, idx) => 
@@ -139,7 +139,7 @@ module.exports = _vnode => {
 						)
 					)
 					, m('.flex.col.ac.mt10vw'
-						, m('.fsvw5.fw7.w90p.p5p.center', 'Hack away...')
+						, m('.fsvw3.source-code.w90p.p5p.center', 'Hack away...')
 						, m('iframe.bs-5-dark[height=400][background=white].bg-white'
 							, {
 								src: iframeSrc,
@@ -156,7 +156,7 @@ module.exports = _vnode => {
 						)
 					)
 					, m('.flex.col.ac.mt10vw'
-						, m('.fsvw5.fw7.w90p.p5p.center'
+						, m('.fsvw3.source-code.w90p.p5p.center'
 							, "If you're having trouble finding these features, click this help widget:"
 						)
 						, m('#help-widget.f2.rel.pointer',

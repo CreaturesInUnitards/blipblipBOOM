@@ -115,6 +115,8 @@ html { font-size: 16px; }
 .fs-inherit { font-size: inherit }
 .i { font-style: italic }
 
+.source-code { font-family: 'Source Code Pro', monospace }
+
 /* height */
 .h0 { height: 0 }
 .h20 { height: 1.25em }
@@ -410,7 +412,12 @@ html { font-size: 16px; }
 }
 
 
-code { display: inline-block; padding: 0 3px; background: var(--light) }
+code {
+	font-family: 'Source Code Pro', monospace;
+	display: inline-block; 
+	padding: 0 3px; 
+	background: var(--light) 
+}
 
 
 
