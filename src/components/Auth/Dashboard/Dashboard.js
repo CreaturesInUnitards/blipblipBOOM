@@ -35,7 +35,7 @@ const setObserver = (collectionName, uid, targetObject, parent, parentCollection
 			const docData = change.doc.data()
 			if (!parent.data.children) parent.data.children = []
 			const children = parent.data.children
-			const findFn = c => c.id == docId
+			const findFn = c => c.id === docId
 			if (change.type !== 'modified') {
 				if (change.type === 'added') {
 					if (!children.find(findFn)) {
@@ -92,7 +92,7 @@ const chooseChapter = obj => _e => {
 }
 
 const removeItem = (item, type) => _e => {
-	const message = type == 'courses'
+	const message = type === 'courses'
 		? `Are you sure? "${ item.title || item.data.title }" will be gone forever, along with all of its chapters and their data. Pretty scary.`
 		: `Are you sure? "${ item.title || item.data.title }" will be gone forever, along with all of its data.`
 	if (confirm( message )) {
@@ -116,7 +116,7 @@ const revert = _e => {
 			const chapterID = AdminData.chapterCopy.id
 			AdminData.chapterCopy = null
 			
-			// this rAF fixes a weird bug where the content gets doubled in the quill editor
+			// this rAF fixes a weird notes editor bug
 			requestAnimationFrame(() => {
 				AdminData.chapterCopy = alf.deepClone(AdminData.chapters[chapterID])
 				m.redraw()

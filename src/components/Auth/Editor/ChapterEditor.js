@@ -59,6 +59,7 @@ const dragAttrs = (o, array, current) => ({
 })
 
 const dragover = e => { e.preventDefault() }
+
 const drop = (array, saveChanges) => e => {
 	e.stopPropagation()
 	if (!(dnd.drag && dnd.drop)) return
@@ -124,19 +125,32 @@ module.exports = _v => {
 								ondrop: drop(obj.flems, () => { })
 							},
 							obj.flems && obj.flems.map((flem, idx) => {
-								const isCurrent = flem === currentFlem
+								const isCurrent = (flem && currentFlem && (flem.id === currentFlem.id))
 								const n = idx + 1
 
-								return m('.drag-item',
+								return m('.drag-item[id=' + obj.id + ']',
 									currentFlem ? {} : dragAttrs(flem, obj.flems, currentFlem),
 									m('.flem',
 										isCurrent
 											? m('.p10.mt20.c-white.bg-dark',
 												// key is needed to keep the "close" button from propagating its bullshit
-												{ key: 'open' },
+												{ key: obj.id },
 												m('.fs16.mb20.flex.jb'
 													, n
-													, m('button.bg-none.fs-inherit.pointer', { onclick: _e => { currentFlem = null } }, '✖')
+													, m('button.bg-none.fs-inherit.pointer', { onclick: _e => { 
+														currentFlem = null
+														
+														/* this next bit is to fix weird dnd after closing the notes editor */
+														/* begin dnd weirdness fix */
+														AdminData.chapterCopy = null
+														m.redraw()
+														
+														requestAnimationFrame(() => {
+															AdminData.chapterCopy = chapter
+															m.redraw()
+														})
+														/* end dnd weirdness fix */
+													} }, '✖')
 												),
 												m('.top-fields.flex.ac',
 													m(FormField, {
@@ -178,12 +192,13 @@ module.exports = _v => {
 	
 													m(NotesEditor, { flem: flem, done: v => {
 														Object.assign(flem, { notes: v })
+														m.redraw()
 													} }),
 												)
 											)
 											: m('.box.mt20.p10.b-1-grey.flex.ac',
 												// key is needed to keep the "close" button from propagating its bullshit
-												{ key: 'closed', onclick: _e => ( currentFlem = flem ) },
+												{ key: obj.id, onclick: _e => ( currentFlem = flem ) },
 												m('.fs20.mra', flem.label),
 												m('button.fs24.bg-none.c-grey.pointer.ml5', { onclick: deleteChild('flems', idx) }, '⊗')
 											)
