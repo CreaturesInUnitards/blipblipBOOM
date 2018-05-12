@@ -24,7 +24,7 @@ window.AdminData = resetAdminData()
 const signOut = _e => {
 	AdminData = resetAdminData()
 	firebase.auth().signOut()
-	m.route.set('/dashboard')
+	m.route.set('/')
 }
 
 const setObserver = (collectionName, uid, targetObject, parent, parentCollectionName, AdminDataPropName) => {
@@ -156,7 +156,7 @@ module.exports = {
 		const chapters = course ? course.data.children : null
 
 		return user
-			? m('.fix.t0.l0.vw100.vh100.flex.col.fullscreen.fixed',
+			? m('.fix.t0.l0.vw100.vh100.flex.col.bg-white',
 				[
 					m('header.flex.ac.bg-dark.c-white.p10-20',
 						m('a[href=/]', { oncreate: m.route.link }, m(Logo, { class: 'w40 h20 mr20' })),
