@@ -63,14 +63,12 @@ module.exports = _vnode => {
 		})
 	}
 
-
 	return {
+		oncreate: _v => { window.scroll(0, 0) },
 		view: _v => m(FadeComponent
 			, m('#portrait.abs.t0.l0.vw100.bg-dark.flex.jc.as.oa'
 				,{ style: { padding: '0 5% 5%' } }
-				, m(Logo, {
-					class: 'abs t10 l10 w40 h20'
-				})
+				, m('a.abs.t10.l10[href=/]', { oncreate: m.route.link }, m(Logo, { class: 'w40 h20' }))
 				, m('.lh125.c-grey'
 					, m('.flex.jc.ac.mt10vw.source-code'
 						, 'How to Use This Site'
