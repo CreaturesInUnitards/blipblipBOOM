@@ -88,6 +88,7 @@ module.exports = _v => {
 	let wSize = { w: window.innerWidth, h: window.innerHeight }
 	let sizeCheckInterval
 	
+	// show/hide HowToUseThisSite
 	const checkForResize = () => {
 		const w = window.innerWidth, h = window.innerHeight  
 
@@ -119,11 +120,11 @@ module.exports = _v => {
 						// sandbox 
 						, m('#sandbox.fix.w100p.vh100.pl60.t0.l0.flex'							
 					
-									// exercises/resources panel
+							// exercises/resources panel
 							, m('.w240.bg-panel.flex.col.jb.h100p'
-								
-								// exercises
 								, m('.oa'
+									
+									// exercises
 									, m('.flex.jc.ac.c-white.h38', m('span.fw7.fs20', 'EXERCISES'))
 									, m(''
 										, chapter.flems.map((aFlem, idx) => m('.rel.flem.bs-5-dark'
@@ -142,17 +143,18 @@ module.exports = _v => {
 											)
 										))
 									)
-								)
-								
-								// resources
-								, m('.pb20'
-									, m('.flex.jc.ac.c-white.h38', m('span.fw7.fs20', 'RESOURCES'))
-									, chapter.links.map(link => m('.p5-20'
-										, m('a.c-white.underline.fs08[target=_blank]'
-											, { href: link.url }
-											, link.label
-										))
+
+									// resources
+									, (chapter.links && chapter.links.length) && m('.mt20.pb20'
+										, m('.flex.jc.ac.c-white.h38', m('span.fw7.fs20', 'RESOURCES'))
+										, chapter.links.map(link => m('.p5-20'
+											, m('a.c-white.underline.fs08[target=_blank]'
+												, { href: link.url }
+												, link.label
+											))
+										)
 									)
+
 								)
 							)
 							
@@ -247,7 +249,7 @@ module.exports = _v => {
 						, { oncreate: m.route.link }
 						, m(Logo, { class: 'fix w40 h20 bot10 l10' })
 					)
-					, !State.canPlay && m(FadeComponent
+					, !(State.canPlay || isSandbox) && m(FadeComponent
 						, m('.abs.t0.l0.w100p.h100p.bg-dark', m(LoadingAnimation, 'loading chapter...'))
 					)
 					, (wSize.w < wSize.h) && [
