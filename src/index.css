@@ -223,6 +223,7 @@ html { font-size: 16px; }
 .w40 { width: 2.5em }
 .w60 { width: 3.75em }
 .w240 { width: 15em }
+.w300 { width: 18.75em }
 
 .w20p { width: 20% }
 .w50p { width: 50% }
@@ -264,7 +265,8 @@ html { font-size: 16px; }
 .menuButton:before { top: 31%; }
 .menuButton:after { bottom: 31% }
 .menuButton.C { transform: translateX(0) }
-.menuButton.O { transform: translateX(240px) }
+.menuButton.O { transform: translateX(300px) }
+.mobile .menuButton.O { transform: translateX(240px) }
 .menuButton.C:before { transform: rotateZ(45deg) translateX(0.2em) }
 .menuButton.C:after { transform: rotateZ(-45deg) translateX(0.2em) }
 .menuButton.O:before { transform: rotateZ(-45deg) translateX(-0.2em) }
@@ -415,12 +417,12 @@ html { font-size: 16px; }
 
 code {
 	font-family: 'Source Code Pro', monospace;
+	font-size: 0.9em;
 	display: inline-block; 
 	line-height: 1.25; 
 	padding: 0 3px; 
 	background: var(--light) 
 }
-
 
 
 /***************************************** 
