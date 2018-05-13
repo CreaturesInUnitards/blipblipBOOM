@@ -9,9 +9,9 @@ firebase.initializeApp({
 })
 
 const App = require('./components/App')
-const Auth = require('./components/Auth/Auth')
-const Dashboard = require('./components/Auth/Dashboard/Dashboard')
-const CourseSelector = require('./components/CourseSelector/CourseSelector')
+const Auth = require('./components/Admin/Auth')
+const Dashboard = require('./components/Admin/Dashboard')
+const Home = require('./components/Home')
 const LoadingAnimation = require('./components/LoadingAnimation')
 
 const getCourses = () => {
@@ -38,8 +38,7 @@ const mainResolver = {
 const startRouter = () => {
 	m.route.prefix('')
 	m.route(document.body, '/' , {
-		// '/': Dashboard,
-		'/': CourseSelector,
+		'/': Home,
 		'/auth': Auth,
 		'/dashboard': Dashboard ,
 		'/:courseID': mainResolver,

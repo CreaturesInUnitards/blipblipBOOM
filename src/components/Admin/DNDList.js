@@ -3,7 +3,7 @@
 * DNDList
 *
 ***********************************/
-const ListItem = require('../ListItem/ListItem')
+const ListItem = require('./ListItem')
 
 module.exports = _v => {
 	let current = null

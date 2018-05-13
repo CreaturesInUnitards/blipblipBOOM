@@ -17,6 +17,7 @@ module.exports = () => {
 					autoresize_min_height: 100,
 					autoresize_bottom_margin: 0,
 					toolbar: 'bold italic inline-code',
+					content_style: "code {font-family: 'Source Code Pro', monospace;font-size: 0.9em;display: inline-block;line-height: 1.25;padding: 0 3px;background: #ddd }",
 					setup: editor => {
 						editor.addButton('inline-code', {
 							text: '{...}',

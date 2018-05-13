@@ -3,10 +3,10 @@
 * CourseSelector
 *
 ***********************************/
-const State = require('../../model/State')
-const Actions = require('../../model/Actions')
-const LoadingAnimation = require('../LoadingAnimation')
-const Logo = require('../Logo')
+const State = require('../model/State')
+const Actions = require('../model/Actions')
+const LoadingAnimation = require('./LoadingAnimation')
+const Logo = require('./Logo')
 
 
 module.exports = _v => {

@@ -3,15 +3,15 @@
 * Dashboard
 *
 ***********************************/
-window.alf = require('../alf')
-const FBObserve = require('../FBObserve')
-const { AddObject, UpdateObject, RemoveObject } = require('../Operations')
-const LoadingAnimation = require('../../LoadingAnimation')
-const Logo = require('../../Logo')
-const FormField = require('../FormField/FormField')
-const ChapterEditor = require('../Editor/ChapterEditor')
-const DNDList = require('../DNDList/DNDList')
-const BooleanSwitch = require('../BooleanSwitch/BooleanSwitch')
+window.alf = require('./alf')
+const FBObserve = require('./FBObserve')
+const { AddObject, UpdateObject, RemoveObject } = require('./Operations')
+const LoadingAnimation = require('../LoadingAnimation')
+const Logo = require('../Logo')
+const FormField = require('./FormField')
+const ChapterEditor = require('./ChapterEditor')
+const DNDList = require('./DNDList')
+const BooleanSwitch = require('./BooleanSwitch')
 
 const resetAdminData = () => ({
 	user: null,

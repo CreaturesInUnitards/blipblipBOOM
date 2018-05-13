@@ -3,8 +3,8 @@
 * ChapterEditor
 *
 ***********************************/
-const alf = require('../alf')
-const FormField = require('../FormField/FormField')
+const alf = require('./alf')
+const FormField = require('./FormField')
 const NotesEditor = require('./NotesEditor')
 
 /*********************** GLOBAL AdminData ***********************/
